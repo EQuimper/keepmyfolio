@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "equimper",
+    "prettier"
+  ],
+  "globals": {
+    "__DEV__": false
+  }
+}
