@@ -8,13 +8,15 @@ import {
 } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import type { State, NavigationState } from './types';
+
 import HomeScreen from './screens/HomeScreen';
 
 const Tabs = TabNavigator(
   {
     Home: {
-      screen: HomeScreen
-    }
+      screen: HomeScreen,
+    },
   },
   {
     lazy: true,
@@ -31,21 +33,24 @@ const Tabs = TabNavigator(
         // paddingVertical: 5,
       },
     },
-  }
+  },
 );
 
-const AppMainNav = StackNavigator(
-  {
-    Home: {
-      screen: Tabs,
-      navigationOptions: {
-        headerTitle: 'KeepMyFolio'
-      }
-    }
-  }
-)
+const AppMainNav = StackNavigator({
+  Home: {
+    screen: Tabs,
+    navigationOptions: {
+      headerTitle: 'KeepMyFolio',
+    },
+  },
+});
 
-class AppNavigator extends Component {
+type Props = {
+  nav: NavigationState,
+  dispatch: Function,
+};
+
+class AppNavigator extends Component<Props> {
   render() {
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,
@@ -58,7 +63,7 @@ class AppNavigator extends Component {
   }
 }
 
-export default connect(state => ({
+export default connect((state: State) => ({
   nav: state.nav,
 }))(AppNavigator);
 

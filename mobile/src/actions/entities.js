@@ -2,24 +2,24 @@
 
 import { CoinMarket } from '../utils/api';
 
-import type { CoinMarketCapData } from '../types';
+import type { CoinMarketCapData, ThunkAction, Action } from '../types';
 
-function getAllCoinMarketSuccess(data: CoinMarketCapData) {
+function getAllCoinMarketSuccess(data: Array<CoinMarketCapData>): Action {
   return {
     type: 'GET_ALL_COIN_MARKET_SUCCESS',
     data
-  }
+  };
 }
 
-function getAllCoinMarketError(error: Error) {
+function getAllCoinMarketError(error: Error): Action {
   return {
     type: 'GET_ALL_COIN_MARKET_ERROR',
     error
-  }
+  };
 }
 
-export function getAllCoinMarket() {
-  return async (dispatch) => {
+export function getAllCoinMarket(): ThunkAction {
+  return async dispatch => {
     dispatch({ type: 'GET_ALL_COIN_MARKET' });
     try {
       const { data } = await CoinMarket.getAll(10);
@@ -27,5 +27,5 @@ export function getAllCoinMarket() {
     } catch (error) {
       return dispatch(getAllCoinMarketError(error));
     }
-  }
+  };
 }

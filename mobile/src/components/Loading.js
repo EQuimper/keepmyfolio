@@ -11,8 +11,8 @@ const Root = styled.View`
 `;
 
 type Props = {
-  color: string,
-  size: 'large' | 'small',
+  color?: string,
+  size?: 'large' | 'small',
 };
 
 export default function Loading({ color = 'red', size = 'large' }: Props = {}) {
@@ -20,5 +20,5 @@ export default function Loading({ color = 'red', size = 'large' }: Props = {}) {
     <Root>
       <ActivityIndicator color={color} size={size} />
     </Root>
-  )
+  );
 }

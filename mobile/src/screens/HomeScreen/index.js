@@ -9,7 +9,7 @@ import { getAllCoinMarket } from '../../actions/entities';
 import Loading from '../../components/Loading';
 import Coin from './Coin';
 
-import type { CoinMarketCapData } from '../../types';
+import type { CoinMarketCapData, State } from '../../types';
 
 const Root = styled.View`flex: 1;`;
 
@@ -18,9 +18,13 @@ const Separator = styled.View`
   backgroundColor: transparent;
 `;
 
-class HomeScreen extends Component {
-  state = {};
+type Props = {
+  getAllCoinMarket: typeof getAllCoinMarket,
+  // $FlowFixMe
+  coins: Array<CoinMarketCapData>,
+};
 
+class HomeScreen extends Component<Props, void> {
   componentDidMount() {
     this.props.getAllCoinMarket();
   }
@@ -45,6 +49,6 @@ class HomeScreen extends Component {
   }
 }
 
-export default connect(({ entities }) => ({ coins: entities.coins }), {
+export default connect((state: State) => ({ coins: state.entities.coins }), {
   getAllCoinMarket,
 })(HomeScreen);

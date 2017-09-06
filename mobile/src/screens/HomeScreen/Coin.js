@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 
 import { colors } from '../../utils/constants';
-import BTC from '../../../assets/crypto-svg/BTC';
 import type { CoinMarketCapData } from '../../types';
 
 const Root = styled.View`
@@ -22,29 +21,20 @@ const TitleWrapper = styled.View`
   alignItems: center;
 `;
 
-const Title = styled.Text`
+const Title = styled.Text``;
 
-`;
-
-const ContentWrapper = styled.View`
-  flex: 1;
-`;
+const ContentWrapper = styled.View`flex: 1;`;
 
 type Props = {
   data: CoinMarketCapData,
 };
 
-class Coin extends Component {
-  state = {  }
-
-  props: Props;
-
+class Coin extends Component<Props, void> {
   render() {
     return (
       <Root>
         <TitleWrapper>
           <Title>{this.props.data.name}</Title>
-          <BTC height={50} width={50} />
         </TitleWrapper>
         <ContentWrapper />
       </Root>
