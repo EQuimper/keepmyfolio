@@ -66,7 +66,7 @@ const CryptoType = new GraphQLObjectType({
 });
 
 export const cryptosField = {
-  name: 'Cryptos',
+  name: 'All Cryptos',
   type: new GraphQLList(CryptoType),
   args: {
     limit: { type: new GraphQLNonNull(GraphQLInt) },
