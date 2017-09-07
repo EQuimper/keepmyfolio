@@ -1,6 +1,6 @@
 // @flow
 
-import {graphql} from 'graphql';
+import { graphql } from 'graphql';
 
 import schema from '../schema';
 

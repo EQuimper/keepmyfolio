@@ -8,6 +8,6 @@ export default new GraphQLObjectType({
   name: 'Query',
   description: 'KeepMyFolio Api',
   fields: () => ({
-    cryptos: cryptosField
-  })
-})
+    cryptos: cryptosField,
+  }),
+});
