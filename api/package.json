@@ -1,7 +1,17 @@
 {
   "name": "keepmyfolio-api",
+  "pre-commit": "lint-staged",
+  "lint-staged": {
+    "*.js": [
+      "yarn prettier",
+      "yarn lint",
+      "git add"
+    ]
+  },
   "scripts": {
-    "build:watch": "babel -w --out-dir=dist --ignore=__tests__/* ./crypto"
+    "build:watch": "babel -w --out-dir=dist --ignore=__tests__/* ./crypto",
+    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -13,7 +23,9 @@
     "eslint-config-equimper": "^2.2.1",
     "eslint-config-prettier": "^2.4.0",
     "flow-bin": "^0.54.1",
+    "husky": "^0.14.3",
     "isomorphic-fetch": "^2.2.1",
+    "lint-staged": "^4.1.2",
     "prettier": "^1.6.1",
     "serverless-offline": "^3.15.3",
     "serverless-plugin-graphiql": "^0.3.0"
