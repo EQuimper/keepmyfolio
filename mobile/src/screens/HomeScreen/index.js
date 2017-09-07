@@ -20,7 +20,6 @@ const Separator = styled.View`
 
 type Props = {
   getAllCoinMarket: typeof getAllCoinMarket,
-  // $FlowFixMe
   coins: Array<CoinMarketCapData>,
 };
 

@@ -2,11 +2,12 @@
   "name": "keepmyfolio",
   "version": "0.0.0",
   "description": "Hello Expo!",
-  "author": null,
+  "author": "Emanuel Quimper",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
+    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
     "flow": "flow check"
   },
   "dependencies": {
