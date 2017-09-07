@@ -1,6 +1,6 @@
 // @flow
 
-import graphql from 'graphql';
+import {graphql} from 'graphql';
 
 import schema from '../schema';
 
@@ -15,7 +15,7 @@ const createResponse = (statusCode, body) => ({
 export const graphqlHandler = (e, ctx, cb) => {
   const body = JSON.parse(e.body);
 
-  graphql(schema, body.query, null, {}, body.variables)
+  return graphql(schema, body.query, null, {}, body.variables)
     .then(response => cb(null, createResponse(200, response)))
     .catch(error =>
       cb(

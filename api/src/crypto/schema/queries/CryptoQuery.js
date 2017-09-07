@@ -5,8 +5,12 @@ import {
   GraphQLID,
   GraphQLNonNull,
   GraphQLString,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } from 'graphql';
+import fetch from 'isomorphic-fetch';
+
+require('babel-polyfill')
 
 const COIN_MARKET_CAP_BASE_URL = 'https://api.coinmarketcap.com/v1';
 
@@ -61,11 +65,17 @@ const CryptoType = new GraphQLObjectType({
   }),
 });
 
-export const cryptosField = new GraphQLObjectType({
+export const cryptosField = {
   name: 'Cryptos',
-  type: CryptoType,
-  // args: {
-  //   limit: { type: new GraphQLNonNull(GraphQLInt) }
-  // },
-  resolve: () => fetch(`${COIN_MARKET_CAP_BASE_URL}/ticker/?limit=100`)
-});
+  type: new GraphQLList(CryptoType),
+  args: {
+    limit: { type: new GraphQLNonNull(GraphQLInt) }
+  },
+  resolve: async (_, { limit } = {}) => {
+    const res = await fetch(`${COIN_MARKET_CAP_BASE_URL}/ticker/?limit=${limit}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    return res.json();
+  }
+};
