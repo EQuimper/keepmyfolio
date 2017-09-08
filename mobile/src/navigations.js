@@ -50,7 +50,7 @@ type Props = {
   dispatch: Function,
 };
 
-class AppNavigator extends Component<Props> {
+class AppNavigator extends Component<void, Props, void> {
   render() {
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,

@@ -24,7 +24,7 @@ type Props = {
   children?: React.Element<*>,
 };
 
-export default class RelayProvider extends Component<Props> {
+export default class RelayProvider extends Component<void, Props, void> {
   render() {
     return (
       <QueryRenderer

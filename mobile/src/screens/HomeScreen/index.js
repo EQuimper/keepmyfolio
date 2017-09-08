@@ -23,7 +23,7 @@ type Props = {
   coins: Array<CoinMarketCapData>,
 };
 
-class HomeScreen extends Component<Props, void> {
+class HomeScreen extends Component<void, Props, void> {
   componentDidMount() {
     this.props.getAllCoinMarket();
   }

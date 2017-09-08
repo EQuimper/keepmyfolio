@@ -29,7 +29,7 @@ type Props = {
   data: CoinMarketCapData,
 };
 
-class Coin extends Component<Props, void> {
+class Coin extends Component<void, Props, void> {
   render() {
     return (
       <Root>
