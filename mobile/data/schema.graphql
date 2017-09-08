@@ -1,0 +1,44 @@
+type Crypto implements Node {
+  id: ID!
+  name: String!
+  symbol: String!
+  rank: String!
+  cryptoId: String
+  priceUsd: String
+  priceBtc: String
+  volumeUsd24h: String
+  marketCapUsd: String
+  availableSuply: String
+  totalSuply: String
+  percentChange1h: String
+  percentChange24h: String
+  percentChange7d: String
+  lastUpdated: String
+}
+
+type CryptoEdge {
+  node: Crypto
+  cursor: String!
+}
+
+type CryptoConnection {
+  pageInfo: PageInfo!
+  edges: [CryptoEdge]
+}
+
+type Query {
+  node(
+    id: ID!
+  ): Node
+
+  nodes:(
+    ids: [ID!]
+  ): [Node]
+
+  cryptos(
+    after: String
+    first: Int
+    before: String
+    last: Int
+  ): CryptoConnection
+}
