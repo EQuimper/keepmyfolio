@@ -2,6 +2,8 @@
 
 import { Network } from 'relay-runtime';
 
+import config from './config';
+
 const headers = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
@@ -13,7 +15,7 @@ function fetchQuery(
   // cacheConfig,
   // uploadables,
 ) {
-  return fetch('http://localhost:3000/graphql', {
+  return fetch(config.baseUrl, {
     method: 'POST',
     headers,
     body: JSON.stringify({

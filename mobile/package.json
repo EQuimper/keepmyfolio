@@ -8,7 +8,9 @@
   "scripts": {
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'",
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
-    "flow": "flow check"
+    "flow": "flow check",
+    "relay": "relay-compiler --schema ./data/schema.graphql --src ./src",
+    "configure": "node ./scripts/configure.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
