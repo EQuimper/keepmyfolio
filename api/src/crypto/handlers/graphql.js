@@ -12,7 +12,7 @@ const createResponse = (statusCode, body) => ({
   body: JSON.stringify(body),
 });
 
-export const graphqlHandler = (e, ctx, cb) => {
+export const graphqlHandler = (e: Object, ctx: Object, cb: Function) => {
   const body = JSON.parse(e.body);
 
   return graphql(schema, body.query, null, {}, body.variables)
