@@ -3,7 +3,7 @@
 import { GraphQLObjectType } from 'graphql';
 
 import { nodeField, nodesField } from './resolver';
-import { cryptosField } from './CryptoQuery';
+import { viewerField } from './ViewerQuery';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -11,6 +11,6 @@ export default new GraphQLObjectType({
   fields: () => ({
     node: nodeField,
     nodes: nodesField,
-    cryptos: cryptosField,
+    viewer: viewerField,
   }),
 });

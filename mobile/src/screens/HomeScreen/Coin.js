@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 
 import { colors } from '../../utils/constants';
-import { createRenderer } from '../../RelayUtils';
 import type { CoinMarketCapData } from '../../types';
 
 const Root = styled.View`
@@ -36,7 +35,7 @@ class Coin extends Component<void, Props, void> {
     return (
       <Root>
         <TitleWrapper>
-          <Title>{this.props.data.name}</Title>
+          <Title>{this.props.coin.name}</Title>
         </TitleWrapper>
         <ContentWrapper />
       </Root>

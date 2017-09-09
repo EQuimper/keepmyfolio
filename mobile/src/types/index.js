@@ -11,6 +11,8 @@ import type { Action } from './action';
 
 import type { EntitiesState } from './state';
 
+export type RelayType = any;
+
 export type Navigation = NavigationScreenProp<
   NavigationRoute,
   NavigationAction

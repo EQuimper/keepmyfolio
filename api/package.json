@@ -3,7 +3,8 @@
   "scripts": {
     "build:watch": "babel -w --out-dir=dist --ignore=__tests__/* ./src",
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "update-schema": "babel-node ./scripts/updateSchema.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 24b1052158dca708e2b14f5ca0424f5e
+ * @relayHash b2074756ac5d2bd9e795202a54e1db0d
  */
 
 /* eslint-disable */
@@ -9,14 +9,14 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type HomeScreenQueryResponse = {|
+export type HomeScreenPaginationQueryResponse = {|
   +viewer: ?{| |};
 |};
 */
 
 
 /*
-query HomeScreenQuery(
+query HomeScreenPaginationQuery(
   $count: Int!
   $cursor: String
 ) {
@@ -65,7 +65,7 @@ const batch /*: ConcreteBatch*/ = {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "HomeScreenQuery",
+    "name": "HomeScreenPaginationQuery",
     "selections": [
       {
         "kind": "LinkedField",
@@ -89,7 +89,7 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "HomeScreenQuery",
+  "name": "HomeScreenPaginationQuery",
   "query": {
     "argumentDefinitions": [
       {
@@ -106,7 +106,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ],
     "kind": "Root",
-    "name": "HomeScreenQuery",
+    "name": "HomeScreenPaginationQuery",
     "operation": "query",
     "selections": [
       {
@@ -252,7 +252,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeScreenQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n}\n"
+  "text": "query HomeScreenPaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n}\n"
 };
 
 module.exports = batch;

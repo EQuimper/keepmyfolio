@@ -18,6 +18,7 @@
     "event-emitter": "^0.3.5",
     "expo": "^20.0.0",
     "glamorous-native": "^1.1.2",
+    "idx": "^1.5.0",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
     "react-navigation": "^1.0.0-beta.11",
