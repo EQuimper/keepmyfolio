@@ -2,14 +2,15 @@
 
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
-import { connect } from 'react-redux';
 import styled from 'styled-components/native';
+import { createPaginationContainer, graphql } from 'react-relay';
 
+import { createRenderer } from '../../RelayUtils';
 import { getAllCoinMarket } from '../../actions/entities';
 import Loading from '../../components/Loading';
 import Coin from './Coin';
 
-import type { CoinMarketCapData, State } from '../../types';
+import type { CoinMarketCapData } from '../../types';
 
 const Root = styled.View`flex: 1;`;
 
@@ -41,13 +42,32 @@ class HomeScreen extends Component<void, Props, void> {
           contentContainerStyle={{ alignSelf: 'stretch' }}
           keyExtractor={item => item.id}
           renderItem={this._renderItem}
-          data={this.props.coins}
+          data={this.props.coins.edges}
         />
       </Root>
     );
   }
 }
 
-export default connect((state: State) => ({ coins: state.entities.coins }), {
-  getAllCoinMarket,
-})(HomeScreen);
+const PaginationContainer = createPaginationContainer(
+  HomeScreen,
+  graphql`
+    fragment HomeScreen_cryptos on CryptosConnection {
+      edges {
+        node {
+          ...Coin_coin
+        }
+      }
+    }
+  `
+)
+
+export default createRenderer(PaginationContainer, {
+  query: graphql`
+    query HomeScreenQuery {
+      cryptos {
+        ...HomeScreen_cryptos
+      }
+    }
+  `
+});

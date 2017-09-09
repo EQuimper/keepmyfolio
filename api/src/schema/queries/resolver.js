@@ -3,6 +3,8 @@
 import { GraphQLList, GraphQLNonNull, GraphQLID } from 'graphql';
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 
+require('babel-polyfill');
+
 const _resolvers = [];
 
 const idFetcher = async (globalId, ctx, info) => {

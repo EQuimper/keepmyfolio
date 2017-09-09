@@ -10,11 +10,14 @@
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
     "flow": "flow check",
     "relay": "relay-compiler --schema ./data/schema.graphql --src ./src",
-    "configure": "node ./scripts/configure.js"
+    "configure": "node ./scripts/configure.js",
+    "postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "event-emitter": "^0.3.5",
     "expo": "^20.0.0",
+    "glamorous-native": "^1.1.2",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
     "react-navigation": "^1.0.0-beta.11",

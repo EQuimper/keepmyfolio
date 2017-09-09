@@ -25,4 +25,4 @@ function fetchQuery(
   }).then(res => res.json());
 }
 
-export default Network(fetchQuery);
+export default Network.create(fetchQuery);

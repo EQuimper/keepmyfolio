@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
+import { createFragmentContainer, graphql } from 'react-relay';
 
 import { colors } from '../../utils/constants';
+import { createRenderer } from '../../RelayUtils';
 import type { CoinMarketCapData } from '../../types';
 
 const Root = styled.View`
@@ -42,4 +44,11 @@ class Coin extends Component<void, Props, void> {
   }
 }
 
-export default Coin;
+export default createFragmentContainer(
+  Coin,
+  graphql`
+    fragment Coin_coin on Crypto {
+      name
+    }
+  `
+)

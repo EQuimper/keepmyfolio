@@ -1,3 +1,25 @@
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
 type Crypto implements Node {
   id: ID!
   name: String!
@@ -16,14 +38,14 @@ type Crypto implements Node {
   lastUpdated: String
 }
 
-type CryptoEdge {
+type CryptosEdge {
   node: Crypto
   cursor: String!
 }
 
-type CryptoConnection {
+type CryptosConnection {
   pageInfo: PageInfo!
-  edges: [CryptoEdge]
+  edges: [CryptosEdge]
 }
 
 type Query {
@@ -31,14 +53,14 @@ type Query {
     id: ID!
   ): Node
 
-  nodes:(
+  nodes(
     ids: [ID!]
   ): [Node]
 
-  cryptos(
+  Cryptos(
     after: String
     first: Int
     before: String
     last: Int
-  ): CryptoConnection
+  ): CryptosConnection
 }

@@ -15,7 +15,7 @@ require('babel-polyfill');
 const COIN_MARKET_CAP_BASE_URL = 'https://api.coinmarketcap.com/v1';
 
 const CryptoType = new GraphQLObjectType({
-  name: 'cryptos',
+  name: 'Cryptos',
   description: 'A cryptocurencie coin',
   fields: () => ({
     id: globalIdField('Crypto'),

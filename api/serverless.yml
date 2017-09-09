@@ -9,14 +9,14 @@ region: us-east-1
 
 plugins:
   - serverless-offline
-  - serverless-plugin-graphiql
 
 custom:
   serverless-offline:
     babelOptions:
       presets: ["env"]
+
   handlersDir:
-    handlers
+    dist/handlers
 
 functions:
   graphql:
