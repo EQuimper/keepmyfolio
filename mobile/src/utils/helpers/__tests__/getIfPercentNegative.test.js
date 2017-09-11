@@ -17,5 +17,5 @@ describe('#getIfPercentNegative()', () => {
     }
 
     expect(call).toThrowError('Percent value is required');
-  })
+  });
 });

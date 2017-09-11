@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ff4099bd6109cce8ad63a3c690eaa9b6
+ * @relayHash dc838081b6efe6b7abc49cb6cfb55f3d
  */
 
 /* eslint-disable */
@@ -47,6 +47,7 @@ fragment Coin_coin on Crypto {
   cryptoId
   percentChange1h
   symbol
+  priceUsd
 }
 */
 
@@ -196,6 +197,13 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
+                        "name": "priceUsd",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
                         "name": "__typename",
                         "storageKey": null
                       }
@@ -276,7 +284,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeScreenPaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n  cryptoId\n  percentChange1h\n  symbol\n}\n"
+  "text": "query HomeScreenPaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n}\n"
 };
 
 module.exports = batch;

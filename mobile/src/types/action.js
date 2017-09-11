@@ -7,7 +7,7 @@ type LoginAction = {
 };
 
 type GetAllCoinMarketAction = {
-  type: 'GET_ALL_COIN_MARKET';
+  type: 'GET_ALL_COIN_MARKET',
 };
 
 type GetAllCoinMarketSuccessAction = {

@@ -4,17 +4,19 @@ import React, { Component } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
-import idx from 'idx';
 
 import { createRenderer } from '../../RelayUtils';
 import Coin from './Coin';
+import { colors } from '../../utils/constants';
 
-import type { RelayType } from '../../types';
+import type { RelayType, Navigation } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
 
 const PAGE_SIZE = 10;
 
-const Root = styled.View`flex: 1;`;
+const Root = styled.View`
+  flex: 1;
+`;
 
 const Separator = styled.View`
   height: 5;
@@ -24,6 +26,7 @@ const Separator = styled.View`
 type Props = {
   viewer: Viewer,
   relay: RelayType,
+  navigation: Navigation,
 };
 
 type State = {
@@ -33,21 +36,21 @@ type State = {
 class HomeScreen extends Component<void, Props, State> {
   state = {
     refreshing: false,
-  }
+  };
 
-  _renderItem = ({ item }) => <Coin coin={item} />;
+  _renderItem = ({ item }) => <Coin coin={item} navigation={this.props.navigation} />;
 
   _onEndReached = () => {
     if (this.props.relay.hasMore() && !this.props.relay.isLoading()) {
       this.props.relay.loadMore(PAGE_SIZE, () => {});
     }
-  }
+  };
 
   _onRefresh = async () => {
     this.setState({ refreshing: true });
     this.props.relay.refetchConnection(PAGE_SIZE, null);
     this.setState({ refreshing: false });
-  }
+  };
 
   render() {
     return (
@@ -64,9 +67,7 @@ class HomeScreen extends Component<void, Props, State> {
             <RefreshControl
               refreshing={this.state.refreshing}
               onRefresh={this._onRefresh}
-              title="Pull to refresh"
-              // tintColor={Colors.primary}
-              // titleColor={Colors.primary}
+              tintColor={colors.primary}
             />
           }
         />

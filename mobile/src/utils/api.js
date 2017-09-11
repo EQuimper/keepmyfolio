@@ -11,7 +11,7 @@ class CoinMarketApi {
     if (!id) {
       return '';
     }
-    return `${this.imagePath}/${size}x${size}/${id}.png`
+    return `${this.imagePath}/${size}x${size}/${id}.png`;
   }
 }
 

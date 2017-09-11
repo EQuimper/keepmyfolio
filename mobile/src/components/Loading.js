@@ -17,7 +17,9 @@ type Props = {
   size?: 'large' | 'small',
 };
 
-export default function Loading({ color = colors.primary, size = 'large' }: Props = {}) {
+export default function Loading(
+  { color = colors.primary, size = 'large' }: Props = {},
+) {
   return (
     <Root>
       <ActivityIndicator color={color} size={size} />

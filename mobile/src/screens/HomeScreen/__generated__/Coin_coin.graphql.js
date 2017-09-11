@@ -13,6 +13,7 @@ export type Coin_coin = {|
   +cryptoId: ?string;
   +percentChange1h: ?string;
   +symbol: string;
+  +priceUsd: ?string;
 |};
 */
 
@@ -49,6 +50,13 @@ const fragment /*: ConcreteFragment*/ = {
       "alias": null,
       "args": null,
       "name": "symbol",
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "args": null,
+      "name": "priceUsd",
       "storageKey": null
     }
   ],

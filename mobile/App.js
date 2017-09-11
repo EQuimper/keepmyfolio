@@ -1,9 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { UIManager } from 'react-native';
+import { UIManager, View, StatusBar, StyleSheet } from 'react-native';
+import { ThemeProvider } from 'styled-components';
 
 import AppNavigation from './src/navigations';
 import store from './src/store';
+import { themes } from './src/utils/constants';
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -13,8 +15,19 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigation />
+        <ThemeProvider theme={themes.dark}>
+          <View style={styles.root}>
+            <StatusBar barStyle="light-content" />
+            <AppNavigation />
+          </View>
+        </ThemeProvider>
       </Provider>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  }
+})

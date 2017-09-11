@@ -13,8 +13,12 @@ import styled from 'styled-components/native';
 import type { State, NavigationState } from './types';
 
 import HomeScreen from './screens/HomeScreen';
+import CoinDetailsScreen from './screens/CoinDetailsScreen';
 
-import { colors } from './utils/constants';
+import { colors, themes } from './utils/constants';
+import ButtonHeader from './components/commons/ButtonHeader';
+import BackButton from './components/commons/BackButton';
+import HighLightTab from './components/HighLightTab';
 
 const TAB_ICON_SIZE = 25;
 
@@ -33,36 +37,95 @@ const OuterAddButton = styled.View`
   height: 65;
   width: 65;
   borderRadius: ${65 / 2};
-  backgroundColor: ${colors.tabBarColor};
+  backgroundColor: ${props => props.theme.tabBarColor};
   marginTop: -30;
 `;
 
-const Tabs = TabNavigator(
+const HomeNavigator = StackNavigator(
   {
     Home: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => (
-          <SimpleLineIcons size={TAB_ICON_SIZE} color={tintColor} name="home" />
-        ),
-      }),
+        headerTitle: 'KeepMyFolio',
+        headerTitleStyle: {
+          color: '#fff'
+        },
+        headerStyle: {
+          backgroundColor: themes.dark.cardBackground,
+          borderBottomColor: themes.dark.tabBarColor,
+          borderBottomWidth: 5
+        },
+        headerRight: (
+          <ButtonHeader side="right" onPress={() => null}>
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
+          </ButtonHeader>
+        )
+      })
+    },
+    CoinDetailsScreen: {
+      screen: CoinDetailsScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerTitle: navigation.state.params.name,
+        headerBackTitle: null,
+        headerTitleStyle: {
+          color: '#fff'
+        },
+        headerStyle: {
+          backgroundColor: themes.dark.cardBackground,
+          borderBottomColor: themes.dark.tabBarColor,
+          borderBottomWidth: 5
+        },
+        headerLeft: <BackButton goBack={navigation.goBack} />,
+        headerRight: (
+          <ButtonHeader side="right" onPress={() => null}>
+            <Ionicons size={25} color="#fff" name="ios-search" />
+          </ButtonHeader>
+        )
+      })
+    }
+  },
+  {
+    headerMode: 'screen',
+    cardStyle: {
+      // backgroundColor: colors.tabBarColor,
+      backgroundColor: themes.dark.tabBarColor
+    }
+  }
+);
+
+const Tabs = TabNavigator(
+  {
+    Home: {
+      screen: HomeNavigator,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor, focused }) => (
+          <HighLightTab focused={focused}>
+            <SimpleLineIcons
+              size={TAB_ICON_SIZE}
+              color={tintColor}
+              name="home"
+            />
+          </HighLightTab>
+        )
+      })
     },
     Wallet: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => (
-          <SimpleLineIcons
-            size={TAB_ICON_SIZE}
-            color={tintColor}
-            name="wallet"
-          />
-        ),
-      }),
+        tabBarIcon: ({ tintColor, focused }) => (
+          <HighLightTab focused={focused}>
+            <SimpleLineIcons
+              size={TAB_ICON_SIZE}
+              color={tintColor}
+              name="wallet"
+            />
+          </HighLightTab>
+        )
+      })
     },
     AddCoin: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        // headerTitle: 'Home',
         tabBarIcon: () => (
           <OuterAddButton>
             <AddButon>
@@ -73,83 +136,87 @@ const Tabs = TabNavigator(
               />
             </AddButon>
           </OuterAddButton>
-        ),
-      }),
+        )
+      })
     },
     Notifications: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        // headerTitle: 'Home',
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons
-            size={TAB_ICON_SIZE}
-            color={tintColor}
-            name="md-notifications-outline"
-          />
-        ),
-      }),
+        tabBarIcon: ({ tintColor, focused }) => (
+          <HighLightTab focused={focused}>
+            <SimpleLineIcons
+              size={TAB_ICON_SIZE}
+              color={tintColor}
+              name="bell"
+            />
+          </HighLightTab>
+        )
+      })
     },
     Settings: {
       screen: HomeScreen,
       navigationOptions: () => ({
-        // headerTitle: 'Home',
-        tabBarIcon: ({ tintColor }) => (
-          <SimpleLineIcons
-            size={TAB_ICON_SIZE}
-            color={tintColor}
-            name="settings"
-          />
-        ),
-      }),
-    },
+        tabBarIcon: ({ tintColor, focused }) => (
+          <HighLightTab focused={focused}>
+            <SimpleLineIcons
+              size={TAB_ICON_SIZE}
+              color={tintColor}
+              name="settings"
+            />
+          </HighLightTab>
+        )
+      })
+    }
   },
   {
     lazy: true,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
+    animationEnabled: true,
+    navigationOptions: {
+      headerVisible: false
+    },
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
       activeTintColor: colors.primary,
       inactiveTintColor: colors.lightGrey,
+      pressColor: colors.primary,
       style: {
-        backgroundColor: colors.tabBarColor,
-        borderTopColor: colors.tabBarColor,
-        height: 50,
-      },
-    },
-  },
+        backgroundColor: themes.dark.tabBarColor,
+        borderTopColor: themes.dark.tabBarColor,
+        height: 50
+      }
+    }
+  }
 );
 
 const AppMainNav = StackNavigator(
   {
-    Home: {
-      screen: Tabs,
-      navigationOptions: {
-        headerTitle: 'KeepMyFolio',
-        headerStyle: {
-          backgroundColor: colors.white,
-        },
-      },
-    },
+    Tabs: {
+      screen: Tabs
+    }
   },
   {
+    headerMode: 'none',
+    initialRouteName: 'Tabs',
     cardStyle: {
-      backgroundColor: colors.white,
-    },
-  },
+      // backgroundColor: colors.tabBarColor,
+      backgroundColor: themes.dark.tabBarColor
+    }
+  }
 );
 
 type Props = {
   nav: NavigationState,
-  dispatch: Function,
+  dispatch: Function
 };
 
 class AppNavigator extends Component<void, Props, void> {
   render() {
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,
-      state: this.props.nav,
+      state: this.props.nav
     });
     // if (!this.props.user.isAuthenticated) {
     //   return <AuthenticationScreen />;
@@ -159,7 +226,7 @@ class AppNavigator extends Component<void, Props, void> {
 }
 
 export default connect((state: State) => ({
-  nav: state.nav,
+  nav: state.nav
 }))(AppNavigator);
 
 export const router = AppMainNav.router;

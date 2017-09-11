@@ -4,7 +4,7 @@ import type {
   NavigationState,
   NavigationAction,
   NavigationRoute,
-  NavigationScreenProp
+  NavigationScreenProp,
 } from 'react-navigation/lib-rn/TypeDefinition';
 
 import type { Action } from './action';
@@ -15,17 +15,17 @@ export type RelayType = any;
 
 export type Navigation = NavigationScreenProp<
   NavigationRoute,
-  NavigationAction
+  NavigationAction,
 >;
 
 export type State = {
   nav: NavigationState,
-  entities: EntitiesState
+  entities: EntitiesState,
 };
 
 export type ThunkAction = (
   dispatch: (action: Action | ThunkAction) => void,
-  getState: () => State
+  getState: () => State,
 ) => any;
 
 export type { NavigationState, NavigationAction, Action, EntitiesState };

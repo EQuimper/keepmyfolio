@@ -192,13 +192,10 @@ function createRendererInternal(Component: any, config: Config): any {
   return RelayRendererWrapper;
 }
 
-export function createRenderer(
-  Component: any,
-  config: Config,
-): any {
+export function createRenderer(Component: any, config: Config): any {
   return createRendererInternal(Component, {
     renderLoading: () => <Loading />,
-    renderFailure: (error) => {
+    renderFailure: error => {
       // Not sure if there's a better way to check if it's a network error...
       if (error.message.toLowerCase().includes('network request failed')) {
         return (
@@ -208,13 +205,12 @@ export function createRenderer(
           />
         );
       }
-        return (
-          <EmptyStateView
-            title="OOPS!"
-            subTitle="Something went wrong, please try again."
-          />
-        );
-
+      return (
+        <EmptyStateView
+          title="OOPS!"
+          subTitle="Something went wrong, please try again."
+        />
+      );
     },
     ...config,
   });
