@@ -1,16 +1,17 @@
 // @flow
 
-import axios from 'axios';
-
 class CoinMarketApi {
-  baseUrl: string;
+  imagePath: string;
 
   constructor() {
-    this.baseUrl = 'https://api.coinmarketcap.com/v1';
+    this.imagePath = 'https://files.coinmarketcap.com/static/img/coins';
   }
 
-  async getAll(limit: number = 100) {
-    return axios.get(`${this.baseUrl}/ticker/?limit=${limit}`)
+  getImage(id: ?string, size: number): string {
+    if (!id) {
+      return '';
+    }
+    return `${this.imagePath}/${size}x${size}/${id}.png`
   }
 }
 

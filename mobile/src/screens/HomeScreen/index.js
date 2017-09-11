@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
@@ -26,13 +26,27 @@ type Props = {
   relay: RelayType,
 };
 
-class HomeScreen extends Component<void, Props, void> {
+type State = {
+  refreshing: boolean,
+};
+
+class HomeScreen extends Component<void, Props, State> {
+  state = {
+    refreshing: false,
+  }
+
   _renderItem = ({ item }) => <Coin coin={item} />;
 
   _onEndReached = () => {
     if (this.props.relay.hasMore() && !this.props.relay.isLoading()) {
       this.props.relay.loadMore(PAGE_SIZE, () => {});
     }
+  }
+
+  _onRefresh = async () => {
+    this.setState({ refreshing: true });
+    this.props.relay.refetchConnection(PAGE_SIZE, null);
+    this.setState({ refreshing: false });
   }
 
   render() {
@@ -43,8 +57,18 @@ class HomeScreen extends Component<void, Props, void> {
           contentContainerStyle={{ alignSelf: 'stretch' }}
           keyExtractor={item => item.id}
           renderItem={this._renderItem}
-          data={idx(this.props, _ => _.viewer.cryptos.edges.map(e => e.node))}
+          data={this.props.viewer.cryptos.edges.map(e => e.node)}
           onEndReached={this._onEndReached}
+          onEndReachedThreshold={0.5}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+              title="Pull to refresh"
+              // tintColor={Colors.primary}
+              // titleColor={Colors.primary}
+            />
+          }
         />
       </Root>
     );

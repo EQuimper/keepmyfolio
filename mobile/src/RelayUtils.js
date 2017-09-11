@@ -22,9 +22,9 @@ type Config = {
   prepareVariables?: (prevVariables: Variables, route: any) => Variables,
   forceFetch?: boolean,
   onReadyStateChange?: (readyState: any) => void,
-  renderFetched?: (props: Object) => ?React.Node,
-  renderLoading?: () => ?React.Node,
-  renderFailure?: (error: Error, retry?: () => void) => ?React.Node,
+  renderFetched?: (props: Object) => ?React.Element<*>,
+  renderLoading?: () => ?React.Element<*>,
+  renderFailure?: (error: Error, retry?: () => void) => ?React.Element<*>,
 };
 
 const handlerProvider = null;
