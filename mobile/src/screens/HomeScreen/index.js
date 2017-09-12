@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
+import idx from 'idx';
 
 import { createRenderer } from '../../RelayUtils';
 import Coin from './Coin';
@@ -14,9 +15,7 @@ import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_vie
 
 const PAGE_SIZE = 10;
 
-const Root = styled.View`
-  flex: 1;
-`;
+const Root = styled.View`flex: 1;`;
 
 const Separator = styled.View`
   height: 5;
@@ -26,19 +25,21 @@ const Separator = styled.View`
 type Props = {
   viewer: Viewer,
   relay: RelayType,
-  navigation: Navigation,
+  navigation: Navigation
 };
 
 type State = {
-  refreshing: boolean,
+  refreshing: boolean
 };
 
 class HomeScreen extends Component<void, Props, State> {
   state = {
-    refreshing: false,
+    refreshing: false
   };
 
-  _renderItem = ({ item }) => <Coin coin={item} navigation={this.props.navigation} />;
+  _renderItem = ({ item }) => (
+    <Coin coin={item} navigation={this.props.navigation} />
+  );
 
   _onEndReached = () => {
     if (this.props.relay.hasMore() && !this.props.relay.isLoading()) {
@@ -53,6 +54,7 @@ class HomeScreen extends Component<void, Props, State> {
   };
 
   render() {
+    const edges = idx(this.props, _ => _.viewer.cryptos.edges) || [];
     return (
       <Root>
         <FlatList
@@ -60,7 +62,7 @@ class HomeScreen extends Component<void, Props, State> {
           contentContainerStyle={{ alignSelf: 'stretch' }}
           keyExtractor={item => item.id}
           renderItem={this._renderItem}
-          data={this.props.viewer.cryptos.edges.map(e => e.node)}
+          data={edges.map(e => idx(e, _ => _.node))}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0.5}
           refreshControl={
@@ -95,7 +97,7 @@ const PaginationContainer = createPaginationContainer(
     getVariables(props, { count, cursor }) {
       return {
         count,
-        cursor,
+        cursor
       };
     },
     query: graphql`
@@ -104,8 +106,8 @@ const PaginationContainer = createPaginationContainer(
           ...HomeScreen_viewer
         }
       }
-    `,
-  },
+    `
+  }
 );
 
 export default createRenderer(PaginationContainer, {
@@ -118,6 +120,6 @@ export default createRenderer(PaginationContainer, {
   `,
   queriesParams: () => ({
     count: PAGE_SIZE,
-    cursor: null,
-  }),
+    cursor: null
+  })
 });

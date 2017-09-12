@@ -16,6 +16,7 @@
 .*/node_modules/react-native/Libraries/EventEmitter/EventSubscription.js
 .*/node_modules/react-relay/lib/relayUnstableBatchedUpdates.js
 .*/node_modules/react-native/Libraries/Components/MaskedView/MaskedViewIOS.ios.js
+.*/node_modules/@appandflow/touchable/.*
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/

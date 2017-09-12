@@ -11,6 +11,11 @@ if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
+<App>
+</App>
+
+<Hello></Hello>
+
 export default class App extends React.Component {
   render() {
     return (
