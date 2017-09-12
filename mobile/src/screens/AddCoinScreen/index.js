@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { Keyboard } from 'react-native';
 
 import { colors } from '../../utils/constants';
-import ModalCryptocurencie from './ModalCryptocurencie';
+// import ModalCryptocurencie from './ModalCryptocurencie';
 
 const Root = styled.TouchableWithoutFeedback`
   flex: 1;
@@ -99,10 +99,6 @@ class AddCoinScreen extends Component<void, {}, State> {
               <Title>September 7 2017</Title>
             </Card>
           </ItemWrapper>
-          <ModalCryptocurencie
-            onCloseButtonPress={this._onModalCryptoPress}
-            showModalCrypto={this.state.showModalCrypto}
-          />
         </Wrapper>
       </Root>
     );
@@ -110,3 +106,8 @@ class AddCoinScreen extends Component<void, {}, State> {
 }
 
 export default AddCoinScreen;
+
+{/* <ModalCryptocurencie
+  onCloseButtonPress={this._onModalCryptoPress}
+  showModalCrypto={this.state.showModalCrypto}
+/> */}

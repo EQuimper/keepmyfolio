@@ -88,24 +88,94 @@ const MetaWrapper = styled.View`
   justifyContent: center;
 `;
 
-type Props = {
-  coin: CoinData,
-  navigation: Navigation,
+function getIfNeg(props): boolean {
+  const percentChange1h = idx(props, _ => _.coin.percentChange1h) || 'null';
+
+  return getIfPercentNegative(percentChange1h);
+}
+
+type IconProps = {
+  name?: string,
+  size: number,
+  color?: string
 };
 
-class Coin extends Component<void, Props, void> {
-  _onNavigationPress = () => {
-    this.props.navigation.navigate('CoinDetailsScreen', { name: this.props.coin.name });
+type Props = {
+  coin: CoinData,
+  navigation: Navigation
+};
+
+type State = {
+  isNeg: boolean
+};
+
+class Coin extends Component<void, Props, State> {
+  state = {
+    isNeg: getIfNeg(this.props)
+  };
+
+  get getPercentChange1h(): string {
+    if (this.props.coin.percentChange1h == null) {
+      return 'No Value :(';
+    }
+
+    return `${parseFloat(this.props.coin.percentChange1h).toFixed(2)}%`;
   }
+
+  get getImage(): string {
+    return CoinMarket.getImage(idx(this.props, _ => _.coin.cryptoId), 32);
+  }
+
+  get getIconPercent() {
+    if (this.props.coin.percentChange1h == null) {
+      return null;
+    }
+
+    const props: IconProps = {
+      size: 25
+    };
+
+    if (this.state.isNeg) {
+      props.name = 'ios-trending-down';
+      props.color = colors.red;
+    } else {
+      props.name = 'ios-trending-up';
+      props.color = colors.green;
+    }
+
+    return <Ionicons {...props} />;
+  }
+
+  get getIconArrow() {
+    const props: IconProps = {
+      size: 25
+    };
+
+    if (this.state.isNeg) {
+      props.name = 'ios-arrow-round-down';
+      props.color = colors.red;
+    } else {
+      props.name = 'ios-arrow-round-up';
+      props.color = colors.green;
+    }
+
+    return <Ionicons {...props} />;
+  }
+
+  get getPrice(): string {
+    return `$${parseFloat(this.props.coin.priceUsd).toFixed(2)}`
+  }
+
+  _onNavigationPress = () => {
+    this.props.navigation.navigate('CoinDetailsScreen', {
+      name: this.props.coin.name
+    });
+  };
 
   render() {
     if (this.props.coin == null) {
       return null;
     }
-
-    const isNeg = getIfPercentNegative(
-      idx(this.props, _ => _.coin.percentChange1h)
-    );
 
     return (
       <Root onPress={this._onNavigationPress}>
@@ -113,10 +183,7 @@ class Coin extends Component<void, Props, void> {
           <CoinIcon
             resizeMode="contain"
             source={{
-              uri: CoinMarket.getImage(
-                idx(this.props, _ => _.coin.cryptoId),
-                32
-              )
+              uri: this.getImage
             }}
           />
           <Title>{this.props.coin.symbol}</Title>
@@ -129,32 +196,27 @@ class Coin extends Component<void, Props, void> {
               </TotalText>{' '}
               $100.00{' '}
             </TotalText>
-            <Ionicons
-              name={isNeg ? 'ios-arrow-round-down' : 'ios-arrow-round-up'}
-              color={isNeg ? colors.red : colors.green}
-              size={25}
-            />
+            {this.getIconArrow}
           </TotalWrapper>
-          <TotalText isNeg={isNeg}>$7.60</TotalText>
+          <TotalText isNeg={this.state.isNeg}>$7.60</TotalText>
         </ContentWrapper>
         <MetaWrapper>
-          <Ionicons
-            name={isNeg ? 'ios-trending-down' : 'ios-trending-up'}
-            color={isNeg ? colors.red : colors.green}
-            size={25}
-          />
-          <PercentText isNeg={isNeg}>
-            {parseFloat(this.props.coin.percentChange1h).toFixed(2)}%
+          {this.getIconPercent}
+          <PercentText isNeg={this.state.isNeg}>
+            {this.getPercentChange1h}
           </PercentText>
         </MetaWrapper>
         <HoldingText>
           <HoldingText style={{ color: colors.lightGrey }}>
             Holdings:
           </HoldingText>{' '}
-          {(20.00).toFixed(2)}
+          {(20.0).toFixed(2)}
         </HoldingText>
         <PriceUsdText>
-          <PriceUsdText style={{ color: colors.lightGrey }}>Price:</PriceUsdText> ${parseFloat(this.props.coin.priceUsd).toFixed(2)}
+          <PriceUsdText style={{ color: colors.lightGrey }}>
+            Price:
+          </PriceUsdText>{' '}
+          {this.getPrice}
         </PriceUsdText>
       </Root>
     );
