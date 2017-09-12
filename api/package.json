@@ -5,7 +5,7 @@
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
     "lint": "eslint ./src",
     "update-schema": "babel-node ./scripts/updateSchema.js",
-    "dev": "sls offline -o 0.0.0.0 -P 3000"
+    "dev": "cross-env NODE_ENV=development sls offline -o 0.0.0.0 -P 3000"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -23,9 +23,11 @@
     "serverless-plugin-graphiql": "^0.3.0"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "cross-env": "^5.0.5",
     "graphql": "^0.11.3",
     "graphql-relay": "^0.5.2",
-    "invariant": "^2.2.2"
+    "invariant": "^2.2.2",
+    "redis": "^2.8.0"
   }
 }

@@ -7,12 +7,13 @@ import {
   GraphQLInt,
 } from 'graphql';
 import { connectionDefinitions, connectionFromArray, connectionArgs, globalIdField } from 'graphql-relay';
-import fetch from 'isomorphic-fetch';
+
+import type { Context } from '../../types';
+
 import { nodeInterface } from './resolver';
+import { getCryptos } from '../../services/CoinMarket';
 
 require('babel-polyfill');
-
-const COIN_MARKET_CAP_BASE_URL = 'https://api.coinmarketcap.com/v1';
 
 const CryptoType = new GraphQLObjectType({
   name: 'Crypto',
@@ -85,15 +86,8 @@ export const cryptosField = {
     limit: { type: GraphQLInt },
     ...connectionArgs
   },
-  resolve: async (_: Object, args: Object) => {
-    const res = await fetch(
-      `${COIN_MARKET_CAP_BASE_URL}/ticker/?limit=${args.limit || 10}}`,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
-
-    const data = await res.json();
+  resolve: async (_: Object, args: Object, ctx: Context) => {
+    const data = await getCryptos(ctx, args.limit || 100);
 
     return connectionFromArray(data, args);
   },

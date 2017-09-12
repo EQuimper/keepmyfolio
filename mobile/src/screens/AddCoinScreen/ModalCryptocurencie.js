@@ -29,7 +29,7 @@ const CloseButton = styled.TouchableOpacity.attrs({
   alignItems: center;
   justifyContent: center;
   zIndex: 1;
-`
+`;
 
 const Wrapper = styled.View`
   flex: 1;
@@ -42,13 +42,9 @@ const Separator = styled.View`
   backgroundColor: transparent;
 `;
 
-const ContentWrapper = styled.View`
-  marginTop: 20%;
-`
+const ContentWrapper = styled.View`marginTop: 20%;`;
 
-const ListWrapper = styled.View`
-  marginTop: 10;
-`
+const ListWrapper = styled.View`marginTop: 10;`;
 
 const Title = styled.Text`
   color: #fff;
@@ -60,16 +56,13 @@ const Title = styled.Text`
 type Props = {
   showModalCrypto: boolean,
   onCloseButtonPress: Function,
-  viewer: Viewer,
+  viewer: Viewer
 };
 
 class ModalCryptocurencie extends Component<void, Props, void> {
-
   _onCloseButtonPress = () => this.props.onCloseButtonPress();
 
-  _renderItem = () => {
-
-  }
+  _renderItem = () => {};
 
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges) || [];
@@ -82,7 +75,11 @@ class ModalCryptocurencie extends Component<void, Props, void> {
         >
           <Wrapper>
             <CloseButton onPress={this._onCloseButtonPress}>
-              <MaterialCommunityIcons color="#fff" size={30} name="window-close" />
+              <MaterialCommunityIcons
+                color="#fff"
+                size={30}
+                name="window-close"
+              />
             </CloseButton>
             <ContentWrapper>
               <Title>Choose your crypto</Title>
@@ -102,7 +99,6 @@ class ModalCryptocurencie extends Component<void, Props, void> {
     );
   }
 }
-
 
 const PaginationContainer = createPaginationContainer(
   ModalCryptocurencie,
@@ -124,7 +120,7 @@ const PaginationContainer = createPaginationContainer(
     getVariables(props, { count, cursor }) {
       return {
         count,
-        cursor,
+        cursor
       };
     },
     query: graphql`
@@ -133,8 +129,8 @@ const PaginationContainer = createPaginationContainer(
           ...ModalCryptocurencie_viewer
         }
       }
-    `,
-  },
+    `
+  }
 );
 
 export default createRenderer(PaginationContainer, {
@@ -147,6 +143,6 @@ export default createRenderer(PaginationContainer, {
   `,
   queriesParams: () => ({
     count: PAGE_SIZE,
-    cursor: null,
-  }),
+    cursor: null
+  })
 });

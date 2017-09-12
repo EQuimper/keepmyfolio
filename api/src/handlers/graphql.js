@@ -3,26 +3,39 @@
 import { graphql } from 'graphql';
 
 import schema from '../schema';
+import createHandler from './createHandler';
+import redis from './redisMiddleware';
+import json from './jsonMiddleware';
 
-const createResponse = (statusCode, body) => ({
-  statusCode,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  body: JSON.stringify(body),
-});
+function parseVariables(variables) {
+  if (!variables) {
+    return null;
+  }
+  if (typeof variables === 'string') {
+    return JSON.parse(variables);
+  }
+  return variables;
+}
 
-export const graphqlHandler = (e: Object, ctx: Object, cb: Function) => {
-  const body = JSON.parse(e.body);
+export const graphqlHandler = createHandler(
+  json(
+    redis(async (evt, context) => {
+      const { query, variables } = evt.body;
 
-  return graphql(schema, body.query, null, {}, body.variables)
-    .then(response => cb(null, createResponse(200, response)))
-    .catch(error =>
-      cb(
+      // $FlowFixMe
+      const result = await graphql(
+        schema,
+        query,
         null,
-        createResponse(error.responseStatusCode || 500, {
-          message: error.message || 'Internal server error',
-        }),
-      ),
-    );
-};
+        { ...context },
+        parseVariables(variables)
+      );
+
+      if (result.errors) {
+        result.errors.forEach(error => console.log(error)); // eslint-disable-line
+      }
+
+      return result;
+    })
+  )
+);

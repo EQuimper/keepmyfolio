@@ -44,6 +44,10 @@ const createRelayEnvironment = () => {
 const relayEnvironmentEmitter = new EventEmitter();
 const _relayEnvironment = createRelayEnvironment();
 
+export function getCache(query: any) {
+  return _relayEnvironment.store.readQuery(query)[0];
+}
+
 export function getStore() {
   return _relayEnvironment;
 }
