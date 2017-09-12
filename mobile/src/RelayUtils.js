@@ -76,7 +76,7 @@ function createRendererInternal(Component: any, config: Config): any {
       if (this.props.enabled) {
         Animated.timing(this.state.anim, {
           toValue: 1,
-          duration: 300,
+          duration: 500,
           useNativeDriver: true,
         }).start();
       }

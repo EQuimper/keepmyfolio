@@ -14,6 +14,8 @@ import type { State, NavigationState } from './types';
 
 import HomeScreen from './screens/HomeScreen';
 import CoinDetailsScreen from './screens/CoinDetailsScreen';
+import AddCoinScreen from './screens/AddCoinScreen';
+import WalletScreen from './screens/WalletScreen';
 
 import { colors, themes } from './utils/constants';
 import ButtonHeader from './components/commons/ButtonHeader';
@@ -41,6 +43,50 @@ const OuterAddButton = styled.View`
   marginTop: -30;
 `;
 
+const AddCoinNavigator = StackNavigator(
+  {
+    AddCoin: {
+      screen: AddCoinScreen,
+      navigationOptions: () => ({
+        headerTitle: 'Add an holding',
+        headerTitleStyle: {
+          color: '#fff'
+        },
+        headerStyle: {
+          backgroundColor: themes.dark.tabBarColor,
+        },
+        headerRight: (
+          <ButtonHeader side="right" onPress={() => null}>
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
+          </ButtonHeader>
+        )
+      })
+    }
+  },
+)
+
+const WalletNavigator = StackNavigator(
+  {
+    Wallet: {
+      screen: WalletScreen,
+      navigationOptions: () => ({
+        headerTitle: 'My Wallet',
+        headerTitleStyle: {
+          color: '#fff'
+        },
+        headerStyle: {
+          backgroundColor: themes.dark.tabBarColor,
+        },
+        headerRight: (
+          <ButtonHeader side="right" onPress={() => null}>
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
+          </ButtonHeader>
+        )
+      })
+    }
+  }
+)
+
 const HomeNavigator = StackNavigator(
   {
     Home: {
@@ -51,9 +97,7 @@ const HomeNavigator = StackNavigator(
           color: '#fff'
         },
         headerStyle: {
-          backgroundColor: themes.dark.cardBackground,
-          borderBottomColor: themes.dark.tabBarColor,
-          borderBottomWidth: 5
+          backgroundColor: themes.dark.tabBarColor,
         },
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
@@ -71,14 +115,12 @@ const HomeNavigator = StackNavigator(
           color: '#fff'
         },
         headerStyle: {
-          backgroundColor: themes.dark.cardBackground,
-          borderBottomColor: themes.dark.tabBarColor,
-          borderBottomWidth: 5
+          backgroundColor: themes.dark.tabBarColor,
         },
         headerLeft: <BackButton goBack={navigation.goBack} />,
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color="#fff" name="ios-search" />
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
           </ButtonHeader>
         )
       })
@@ -110,7 +152,7 @@ const Tabs = TabNavigator(
       })
     },
     Wallet: {
-      screen: HomeScreen,
+      screen: WalletNavigator,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
@@ -124,7 +166,7 @@ const Tabs = TabNavigator(
       })
     },
     AddCoin: {
-      screen: HomeScreen,
+      screen: AddCoinNavigator,
       navigationOptions: () => ({
         tabBarIcon: () => (
           <OuterAddButton>
@@ -176,6 +218,7 @@ const Tabs = TabNavigator(
     navigationOptions: {
       headerVisible: false
     },
+    // initialRouteName: 'AddCoin',
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
