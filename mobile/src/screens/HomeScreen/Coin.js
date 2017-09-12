@@ -114,12 +114,22 @@ class Coin extends Component<void, Props, State> {
     isNeg: getIfNeg(this.props)
   };
 
-  get getPercentChange1h(): string {
+  get getPercentChange1h(): any {
+    let str: string;
+    const style = {};
+
     if (this.props.coin.percentChange1h == null) {
-      return 'No Value :(';
+      str = 'No Value :(';
+      style.color = 'white';
+    } else {
+      str = `${parseFloat(this.props.coin.percentChange1h).toFixed(2)}%`;
     }
 
-    return `${parseFloat(this.props.coin.percentChange1h).toFixed(2)}%`;
+    return (
+      <PercentText isNeg={this.state.isNeg} style={style}>
+        {str}
+      </PercentText>
+    );
   }
 
   get getImage(): string {
@@ -163,7 +173,7 @@ class Coin extends Component<void, Props, State> {
   }
 
   get getPrice(): string {
-    return `$${parseFloat(this.props.coin.priceUsd).toFixed(2)}`
+    return `$${parseFloat(this.props.coin.priceUsd).toFixed(2)}`;
   }
 
   _onNavigationPress = () => {
@@ -202,9 +212,7 @@ class Coin extends Component<void, Props, State> {
         </ContentWrapper>
         <MetaWrapper>
           {this.getIconPercent}
-          <PercentText isNeg={this.state.isNeg}>
-            {this.getPercentChange1h}
-          </PercentText>
+          {this.getPercentChange1h}
         </MetaWrapper>
         <HoldingText>
           <HoldingText style={{ color: colors.lightGrey }}>
