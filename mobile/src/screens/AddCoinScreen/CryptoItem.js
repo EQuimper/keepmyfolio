@@ -22,6 +22,18 @@ const CryptoName = styled.Text`
   marginLeft: 10;
 `;
 
+const IconWrapper = styled.View`
+  justifyContent: center;
+  alignItems: center;
+  flex: 0.4;
+`;
+
+const TextWrapper = styled.View`
+  justifyContent: center;
+  alignItems: flex-start;
+  flex: 1;
+`;
+
 const CoinIcon = styled.Image`
   height: 30;
   width: 30;
@@ -35,10 +47,14 @@ type Props = {
 function CryptoItem({ coin, onSelectPress }: Props) {
   return (
     <Root onPress={() => onSelectPress(coin)}>
-      <CoinIcon source={{ uri: CoinMarket.getImage(coin.cryptoId, 32)}} />
-      <CryptoName>{coin.name}</CryptoName>
+      <IconWrapper>
+        <CoinIcon source={{ uri: CoinMarket.getImage(coin.cryptoId, 32) }} />
+      </IconWrapper>
+      <TextWrapper>
+        <CryptoName>{coin.name}</CryptoName>
+      </TextWrapper>
     </Root>
-  )
+  );
 }
 
 export default createFragmentContainer(

@@ -15,12 +15,12 @@ import ModalCryptocurencie from './ModalCryptocurencie';
 
 const Root = styled.TouchableWithoutFeedback`
   flex: 1;
-  backgroundColor: ${props => props.theme.tabBarColor};
+  backgroundColor: ${props => props.theme.cardBackground};
 `;
 
 const Wrapper = styled.View`
   flex: 1;
-  backgroundColor: ${props => props.theme.tabBarColor};
+  backgroundColor: ${props => props.theme.cardBackground};
 `;
 
 const Title = styled.Text`
@@ -33,7 +33,7 @@ const Title = styled.Text`
 const Card = styled.View`
   height: 50;
   width: 100%;
-  backgroundColor: ${props => props.theme.cardBackground};
+  backgroundColor: ${props => props.theme.tabBarColor};
   justifyContent: center;
 `;
 
