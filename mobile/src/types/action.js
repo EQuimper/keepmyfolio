@@ -20,8 +20,13 @@ type GetAllCoinMarketErrorAction = {
   error: Error,
 };
 
+type ToggleThemeAction = {
+  type: 'appState/TOGGLE_THEME',
+}
+
 export type Action =
   | LoginAction
   | GetAllCoinMarketAction
   | GetAllCoinMarketSuccessAction
-  | GetAllCoinMarketErrorAction;
+  | GetAllCoinMarketErrorAction
+  | ToggleThemeAction;

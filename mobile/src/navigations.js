@@ -16,6 +16,7 @@ import HomeScreen from './screens/HomeScreen';
 import CoinDetailsScreen from './screens/CoinDetailsScreen';
 import AddCoinScreen from './screens/AddCoinScreen';
 import WalletScreen from './screens/WalletScreen';
+import SettingScreen from './screens/SettingScreen';
 
 import { colors, themes } from './utils/constants';
 import ButtonHeader from './components/commons/ButtonHeader';
@@ -78,6 +79,24 @@ const WalletNavigator = StackNavigator(
             <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
           </ButtonHeader>
         )
+      })
+    }
+  }
+)
+
+const SettingNavigator = StackNavigator(
+  {
+    Setting: {
+      screen: SettingScreen,
+      navigationOptions: () => ({
+        headerTitle: 'Settings',
+        headerTitleStyle: {
+          color: '#fff'
+        },
+        headerStyle: {
+          backgroundColor: themes.dark.tabBarColor,
+        },
+        headerRight: null,
       })
     }
   }
@@ -192,7 +211,7 @@ const Tabs = TabNavigator(
       })
     },
     Settings: {
-      screen: HomeScreen,
+      screen: SettingNavigator,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>

@@ -172,7 +172,6 @@ class AddCoinScreen extends Component<void, Props, State> {
     this.setState({
       ...initialState,
       selectedCrypto: coin,
-      showModalCrypto: !this.state.showModalCrypto
     });
   };
 
