@@ -2,22 +2,33 @@
 
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
+import { connect } from 'react-redux';
+
+import type { State as AppState, ThemeColorsData } from '../../types';
 
 const Root = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.cardBackground};
 `;
 
 const Title = styled.Text``;
 
-class CoinDetailsScreen extends Component {
+type Props = {
+  theme: ThemeColorsData
+};
+
+class CoinDetailsScreen extends Component<void, Props, void> {
   render() {
+    const { theme } = this.props;
     return (
-      <Root>
-        <Title>Hello world</Title>
+      <Root style={{ backgroundColor: theme.cardBackground }}>
+        <Title style={{ color: theme.textColor }}>Hello world</Title>
       </Root>
     );
   }
 }
 
-export default CoinDetailsScreen;
+export default connect(
+  (state: AppState) => ({
+    theme: state.app.theme,
+  })
+)(CoinDetailsScreen);

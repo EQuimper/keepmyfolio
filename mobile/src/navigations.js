@@ -71,7 +71,7 @@ const AddCoinNavigator = StackNavigator({
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'Add an holding',
       headerTitleStyle: {
-        color: '#fff'
+        color: props.screenProps.theme.headerTitleColor
       },
       headerStyle: {
         backgroundColor: props.screenProps.theme.tabBarColor
@@ -87,7 +87,7 @@ const WalletNavigator = StackNavigator({
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'My Wallet',
       headerTitleStyle: {
-        color: '#fff'
+        color: props.screenProps.theme.headerTitleColor
       },
       headerStyle: {
         backgroundColor: props.screenProps.theme.tabBarColor
@@ -97,7 +97,7 @@ const WalletNavigator = StackNavigator({
           <Ionicons
             size={25}
             color={colors.lightGrey}
-            name="ios-search-outline"
+            name="ios-search"
           />
         </ButtonHeader>
       )
@@ -150,7 +150,7 @@ const HomeNavigator = StackNavigator(
         headerTitle: props.navigation.state.params.name,
         headerBackTitle: null,
         headerTitleStyle: {
-          color: '#fff'
+          color: props.screenProps.theme.headerTitleColor
         },
         headerStyle: {
           backgroundColor: props.screenProps.theme.tabBarColor
@@ -161,7 +161,7 @@ const HomeNavigator = StackNavigator(
             <Ionicons
               size={25}
               color={colors.lightGrey}
-              name="ios-search-outline"
+              name="ios-search"
             />
           </ButtonHeader>
         )
@@ -171,8 +171,8 @@ const HomeNavigator = StackNavigator(
   {
     headerMode: 'screen',
     cardStyle: {
-      // backgroundColor: colors.tabBarColor,
-      backgroundColor: themes.dark.tabBarColor
+      backgroundColor: 'transparent',
+      // backgroundColor: themes.dark.tabBarColor
     }
   }
 );
@@ -256,7 +256,7 @@ const Tabs = TabNavigator(
     lazy: true,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    animationEnabled: true,
+    animationEnabled: false,
     navigationOptions: {
       headerVisible: false
     },
@@ -282,7 +282,7 @@ const AppMainNav = StackNavigator(
     headerMode: 'none',
     initialRouteName: 'Tabs',
     cardStyle: {
-      backgroundColor: themes.dark.tabBarColor
+      backgroundColor: 'transparent'
     }
   }
 );
@@ -334,6 +334,6 @@ export const router = AppMainNav.router;
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1
+    flex: 1,
   }
 });

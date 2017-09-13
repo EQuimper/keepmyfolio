@@ -6,22 +6,21 @@ import { Keyboard } from 'react-native';
 import invariant from 'invariant';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import format from 'date-fns/format';
+import { connect } from 'react-redux';
 
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
-import type { Navigation } from '../../types';
+import type {
+  Navigation,
+  ThemeColorsData,
+  State as AppState,
+} from '../../types';
 
 import { colors } from '../../utils/constants';
 import ModalCryptocurencie from './ModalCryptocurencie';
 
-const Root = styled.TouchableWithoutFeedback`
-  flex: 1;
-  backgroundColor: ${props => props.theme.cardBackground};
-`;
+const Root = styled.TouchableWithoutFeedback`flex: 1;`;
 
-const Wrapper = styled.View`
-  flex: 1;
-  backgroundColor: ${props => props.theme.cardBackground};
-`;
+const Wrapper = styled.View`flex: 1;`;
 
 const Title = styled.Text`
   color: #fff;
@@ -33,7 +32,6 @@ const Title = styled.Text`
 const Card = styled.View`
   height: 50;
   width: 100%;
-  backgroundColor: ${props => props.theme.tabBarColor};
   justifyContent: center;
 `;
 
@@ -70,13 +68,13 @@ const Input = styled.TextInput.attrs({
   selectionColor: colors.primary,
 })`
   flex: 1;
-  color: #fff;
   alignSelf: stretch;
   paddingHorizontal: 5;
 `;
 
 type Props = {
   navigation: Navigation,
+  theme: ThemeColorsData,
 };
 
 type State = {
@@ -105,7 +103,11 @@ class AddCoinScreen extends Component<void, Props, State> {
       return <Title style={{ color: colors.lightGrey }}>Choose a crypto</Title>;
     }
 
-    return <Title>{this.state.selectedCrypto.name}</Title>;
+    return (
+      <Title style={{ color: this.props.theme.textColor }}>
+        {this.state.selectedCrypto.name}
+      </Title>
+    );
   }
 
   get getPrice(): string {
@@ -189,23 +191,28 @@ class AddCoinScreen extends Component<void, Props, State> {
   };
 
   render() {
+    const { theme } = this.props;
     return (
-      <Root onPress={this._onOutsidePress}>
-        <Wrapper>
+      <Root
+        onPress={this._onOutsidePress}
+        style={{ backgroundColor: theme.cardBackground }}
+      >
+        <Wrapper style={{ backgroundColor: theme.cardBackground }}>
           <ItemWrapper first>
-            <Title>Cryptocurencie</Title>
-            <Card>
+            <Title style={{ color: theme.textColor }}>Cryptocurencie</Title>
+            <Card style={{ backgroundColor: theme.tabBarColor }}>
               <SelectCrypto onPress={this._onModalCryptoPress}>
                 {this.getCryptoName}
               </SelectCrypto>
             </Card>
           </ItemWrapper>
           <ItemWrapper>
-            <Title>Price Pay</Title>
-            <Card>
+            <Title style={{ color: theme.textColor }}>Price Pay</Title>
+            <Card style={{ backgroundColor: theme.tabBarColor }}>
               <Input
                 keyboardType="numeric"
                 placeholder="0.00"
+                style={{ color: theme.textColor }}
                 value={this.getPrice}
                 onChangeText={this._onPriceChange}
                 editable={this.getDisabled}
@@ -213,11 +220,12 @@ class AddCoinScreen extends Component<void, Props, State> {
             </Card>
           </ItemWrapper>
           <ItemWrapper>
-            <Title>Total</Title>
-            <Card>
+            <Title style={{ color: theme.textColor }}>Total</Title>
+            <Card style={{ backgroundColor: theme.tabBarColor }}>
               <Input
                 keyboardType="numeric"
                 placeholder="0"
+                style={{ color: theme.textColor }}
                 value={this.state.totalAmountOfCrypto}
                 onChangeText={this._onTotalCoinChange}
                 editable={this.getDisabled}
@@ -225,15 +233,19 @@ class AddCoinScreen extends Component<void, Props, State> {
             </Card>
           </ItemWrapper>
           <ItemWrapper>
-            <Title>Date Buy</Title>
-            <Card>
-              <Title>{format(this.state.dateBuy, 'DD MMMM YYYY')}</Title>
+            <Title style={{ color: theme.textColor }}>Date Buy</Title>
+            <Card style={{ backgroundColor: theme.tabBarColor }}>
+              <Title style={{ color: theme.textColor }}>
+                {format(this.state.dateBuy, 'DD MMMM YYYY')}
+              </Title>
             </Card>
           </ItemWrapper>
           <ItemWrapper>
-            <Title>Total amount pay $</Title>
-            <Card>
-              <Title>{this.getTotalAmountPay}</Title>
+            <Title style={{ color: theme.textColor }}>Total amount pay $</Title>
+            <Card style={{ backgroundColor: theme.tabBarColor }}>
+              <Title style={{ color: theme.textColor }}>
+                {this.getTotalAmountPay}
+              </Title>
             </Card>
           </ItemWrapper>
           <ButtonWrapper>
@@ -253,6 +265,7 @@ class AddCoinScreen extends Component<void, Props, State> {
             </Button>
           </ButtonWrapper>
           <ModalCryptocurencie
+            theme={this.props.theme}
             onCloseButtonPress={this._onModalCryptoPress}
             showModalCrypto={this.state.showModalCrypto}
             onSelectCryptoPress={this._onSelectCryptoPress}
@@ -263,4 +276,6 @@ class AddCoinScreen extends Component<void, Props, State> {
   }
 }
 
-export default AddCoinScreen;
+export default connect((state: AppState) => ({
+  theme: state.app.theme,
+}))(AddCoinScreen);

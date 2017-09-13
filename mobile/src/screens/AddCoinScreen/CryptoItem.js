@@ -6,6 +6,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import { withHandlers } from 'recompose';
 
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
+import type { ThemeColorsData } from '../../types';
 
 import { CoinMarket } from '../../utils/api';
 
@@ -15,11 +16,9 @@ const Root = styled.TouchableOpacity`
   justifyContent: center;
   alignItems: center;
   flexDirection: row;
-  backgroundColor: ${props => props.theme.cardBackground};
 `;
 
 const CryptoName = styled.Text`
-  color: #fff;
   marginLeft: 10;
 `;
 
@@ -43,17 +42,18 @@ const CoinIcon = styled.Image`
 type Props = {
   coin: Coin,
   selectPress: (coin: Coin) => Coin,
-  onSelectPress: (coin: Coin) => Coin
+  onSelectPress: (coin: Coin) => Coin,
+  theme: ThemeColorsData
 };
 
-function CryptoItem ({ coin, selectPress }: Props) {
+function CryptoItem ({ coin, selectPress, theme }: Props) {
   return (
-    <Root onPress={() => selectPress(coin)}>
+    <Root onPress={selectPress} style={{ backgroundColor: theme.cardBackground }}>
       <IconWrapper>
         <CoinIcon source={{ uri: CoinMarket.getImage(coin.cryptoId, 32) }} />
       </IconWrapper>
       <TextWrapper>
-        <CryptoName>{coin.name}</CryptoName>
+        <CryptoName style={{ color: theme.textColor }}>{coin.name}</CryptoName>
       </TextWrapper>
     </Root>
   );

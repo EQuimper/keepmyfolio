@@ -28,3 +28,5 @@ export const themes = {
     thumbTintColor: colors.darkGray
   },
 };
+
+export const persistWhitelist = ['app'];

@@ -8,7 +8,10 @@ import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';
 
-import type { RelayType } from '../../types';
+import type {
+  RelayType,
+  ThemeColorsData,
+} from '../../types';
 import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 
@@ -38,7 +41,6 @@ const CloseButton = styled.TouchableOpacity.attrs({
 
 const Wrapper = styled.View`
   flex: 1;
-  backgroundColor: ${props => props.theme.tabBarColor};
   position: relative;
 `;
 
@@ -52,7 +54,6 @@ const ContentWrapper = styled.View`marginTop: 20%;`;
 const ListWrapper = styled.View`marginTop: 10;`;
 
 const Title = styled.Text`
-  color: #fff;
   fontSize: 18;
   fontWeight: 600;
   alignSelf: center;
@@ -64,6 +65,7 @@ type Props = {
   viewer: Viewer,
   relay: RelayType,
   onSelectCryptoPress: (coin: Coin) => Coin,
+  theme: ThemeColorsData,
 };
 
 class ModalCryptocurencie extends Component<void, Props, void> {
@@ -78,13 +80,19 @@ class ModalCryptocurencie extends Component<void, Props, void> {
   _renderItem = ({ item }) => {
     invariant(item, 'Item cannot be null');
     return (
-      <CryptoItem coin={item} onSelectPress={this.props.onSelectCryptoPress} />
+      <CryptoItem
+        coin={item}
+        onSelectPress={this.props.onSelectCryptoPress}
+        theme={this.props.theme}
+      />
     );
   };
 
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
     invariant(edges, 'Edges cannot be null');
+
+    const { theme } = this.props;
     return (
       <Root>
         <Modal
@@ -92,16 +100,16 @@ class ModalCryptocurencie extends Component<void, Props, void> {
           transparent={false}
           visible={this.props.showModalCrypto}
         >
-          <Wrapper>
+          <Wrapper style={{ backgroundColor: theme.tabBarColor }}>
             <CloseButton onPress={this._onCloseButtonPress}>
               <MaterialCommunityIcons
-                color="#fff"
+                color={theme.textColor}
                 size={30}
                 name="window-close"
               />
             </CloseButton>
             <ContentWrapper>
-              <Title>Choose your crypto</Title>
+              <Title style={{ color: theme.textColor }}>Choose your crypto</Title>
               <ListWrapper>
                 <FlatList
                   ItemSeparatorComponent={() => <Separator />}
