@@ -24,7 +24,7 @@ const Root = styled.View`
 `;
 
 const CloseButton = styled.TouchableOpacity.attrs({
-  hitSlops: { top: 20, left: 20, right: 20, bottom: 20 }
+  hitSlops: { top: 20, left: 20, right: 20, bottom: 20 },
 })`
   height: 50;
   width: 50;
@@ -77,8 +77,10 @@ class ModalCryptocurencie extends Component<void, Props, void> {
 
   _renderItem = ({ item }) => {
     invariant(item, 'Item cannot be null');
-    return <CryptoItem coin={item} onSelectPress={this.props.onSelectCryptoPress} />
-  }
+    return (
+      <CryptoItem coin={item} onSelectPress={this.props.onSelectCryptoPress} />
+    );
+  };
 
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
@@ -103,7 +105,10 @@ class ModalCryptocurencie extends Component<void, Props, void> {
               <ListWrapper>
                 <FlatList
                   ItemSeparatorComponent={() => <Separator />}
-                  contentContainerStyle={{ alignSelf: 'stretch', paddingBottom: 50 }}
+                  contentContainerStyle={{
+                    alignSelf: 'stretch',
+                    paddingBottom: 50,
+                  }}
                   keyExtractor={item => item.id}
                   renderItem={this._renderItem}
                   data={edges.map(e => idx(e, _ => _.node))}
@@ -137,7 +142,7 @@ const PaginationContainer = createPaginationContainer(
     getVariables(props, { count, cursor }) {
       return {
         count,
-        cursor
+        cursor,
       };
     },
     query: graphql`
@@ -146,8 +151,8 @@ const PaginationContainer = createPaginationContainer(
           ...ModalCryptocurencie_viewer
         }
       }
-    `
-  }
+    `,
+  },
 );
 
 export default createRenderer(PaginationContainer, {
@@ -160,6 +165,6 @@ export default createRenderer(PaginationContainer, {
   `,
   queriesParams: () => ({
     count: PAGE_SIZE,
-    cursor: null
-  })
+    cursor: null,
+  }),
 });

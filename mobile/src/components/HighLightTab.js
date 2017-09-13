@@ -13,7 +13,7 @@ const Root = styled.View`
   borderBottomColor: ${colors.primary};
   borderRadius: 1;
   alignSelf: stretch;
-`
+`;
 
 type Props = {
   focused: boolean,
@@ -28,9 +28,5 @@ export default function HighLightTab({ children, focused }: Props) {
     footerHeight = 0;
   }
 
-  return (
-    <Root footerHeight={footerHeight}>
-      {children}
-    </Root>
-  )
+  return <Root footerHeight={footerHeight}>{children}</Root>;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { UIManager, View, StatusBar, StyleSheet } from 'react-native';
+import { UIManager } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
 import AppNavigation from './src/navigations';
@@ -16,18 +16,9 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <ThemeProvider theme={themes.dark}>
-          <View style={styles.root}>
-            <StatusBar barStyle="light-content" />
-            <AppNavigation />
-          </View>
+          <AppNavigation />
         </ThemeProvider>
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1
-  }
-})

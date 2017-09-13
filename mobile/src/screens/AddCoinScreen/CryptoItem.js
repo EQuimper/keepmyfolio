@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { withHandlers } from 'recompose';
 
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 
@@ -41,12 +42,13 @@ const CoinIcon = styled.Image`
 
 type Props = {
   coin: Coin,
-  onSelectPress: Function
+  selectPress: (coin: Coin) => Coin,
+  onSelectPress: (coin: Coin) => Coin
 };
 
-function CryptoItem({ coin, onSelectPress }: Props) {
+function CryptoItem ({ coin, selectPress }: Props) {
   return (
-    <Root onPress={() => onSelectPress(coin)}>
+    <Root onPress={() => selectPress(coin)}>
       <IconWrapper>
         <CoinIcon source={{ uri: CoinMarket.getImage(coin.cryptoId, 32) }} />
       </IconWrapper>
@@ -57,8 +59,12 @@ function CryptoItem({ coin, onSelectPress }: Props) {
   );
 }
 
+const enhance = withHandlers({
+  selectPress: (props: Props) => () => props.onSelectPress(props.coin)
+})(CryptoItem);
+
 export default createFragmentContainer(
-  CryptoItem,
+  enhance,
   graphql`
     fragment CryptoItem_coin on Crypto {
       name

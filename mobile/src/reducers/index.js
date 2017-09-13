@@ -7,5 +7,5 @@ import app from './app';
 
 export default combineReducers({
   nav,
-  app
+  app,
 });

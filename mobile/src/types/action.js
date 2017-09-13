@@ -22,7 +22,7 @@ type GetAllCoinMarketErrorAction = {
 
 type ToggleThemeAction = {
   type: 'appState/TOGGLE_THEME',
-}
+};
 
 export type Action =
   | LoginAction

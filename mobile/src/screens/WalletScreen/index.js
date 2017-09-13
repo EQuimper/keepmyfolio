@@ -8,9 +8,7 @@ const Root = styled.View`
   background-color: ${props => props.theme.cardBackground};
 `;
 
-const Title = styled.Text`
-  color: #fff;
-`;
+const Title = styled.Text`color: #fff;`;
 
 class WalletScreen extends Component {
   render() {
@@ -18,7 +16,7 @@ class WalletScreen extends Component {
       <Root>
         <Title>Hello world</Title>
       </Root>
-    )
+    );
   }
 }
 

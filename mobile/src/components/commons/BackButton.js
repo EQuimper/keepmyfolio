@@ -15,5 +15,5 @@ export default function BackButton({ goBack }: Props) {
     <ButtonHeader onPress={() => goBack(null)} side="left">
       <Ionicons name="ios-arrow-back" size={25} color={colors.lightGrey} />
     </ButtonHeader>
-  )
+  );
 }

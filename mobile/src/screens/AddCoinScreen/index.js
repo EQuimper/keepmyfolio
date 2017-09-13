@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { Keyboard } from 'react-native';
 import invariant from 'invariant';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
-import format from 'date-fns/format'
+import format from 'date-fns/format';
 
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 import type { Navigation } from '../../types';
@@ -67,7 +67,7 @@ const Button = styled.TouchableOpacity`
 
 const Input = styled.TextInput.attrs({
   placeholderTextColor: colors.lightGrey,
-  selectionColor: colors.primary
+  selectionColor: colors.primary,
 })`
   flex: 1;
   color: #fff;
@@ -76,7 +76,7 @@ const Input = styled.TextInput.attrs({
 `;
 
 type Props = {
-  navigation: Navigation
+  navigation: Navigation,
 };
 
 type State = {
@@ -164,7 +164,7 @@ class AddCoinScreen extends Component<void, Props, State> {
 
   _onModalCryptoPress = () => {
     this.setState({
-      showModalCrypto: !this.state.showModalCrypto
+      showModalCrypto: !this.state.showModalCrypto,
     });
   };
 
@@ -177,15 +177,15 @@ class AddCoinScreen extends Component<void, Props, State> {
 
   _resetState = () => {
     this.setState({ ...initialState });
-  }
+  };
 
   _onCancelPress = () => {
-    this._resetState()
+    this._resetState();
   };
 
   _onSubmitPress = () => {
     this.props.navigation.navigate('Wallet');
-    this._resetState()
+    this._resetState();
   };
 
   render() {
@@ -227,7 +227,7 @@ class AddCoinScreen extends Component<void, Props, State> {
           <ItemWrapper>
             <Title>Date Buy</Title>
             <Card>
-              <Title>{format(this.state.dateBuy, "DD MMMM YYYY")}</Title>
+              <Title>{format(this.state.dateBuy, 'DD MMMM YYYY')}</Title>
             </Card>
           </ItemWrapper>
           <ItemWrapper>

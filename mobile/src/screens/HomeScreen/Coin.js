@@ -8,14 +8,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { colors } from '../../utils/constants';
 import { CoinMarket } from '../../utils/api';
-import type { Navigation } from '../../types';
+import type { Navigation, ThemeColorsData } from '../../types';
 import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 
 const Root = styled.TouchableOpacity`
   height: 130;
   width: 100%;
-  backgroundColor: ${props => props.theme.cardBackground};
   alignSelf: center;
   flexDirection: row;
   padding: 5px;
@@ -36,7 +35,6 @@ const CoinIcon = styled.Image`
 const Title = styled.Text`
   fontSize: 14;
   fontWeight: 500;
-  color: #fff;
   textAlign: center;
   marginTop: 5;
 `;
@@ -59,7 +57,6 @@ const TotalWrapper = styled.View`
 const HoldingText = styled.Text`
   position: absolute;
   bottom: 5;
-  color: #fff;
   left: 10;
 `;
 
@@ -67,20 +64,9 @@ const PriceUsdText = styled.Text`
   position: absolute;
   bottom: 5;
   right: 10;
-  color: #fff;
 `;
 
-const TotalText = styled.Text`
-  fontSize: 15;
-  color: ${props => {
-    if (props.normal) {
-      return '#fff';
-    } else if (props.isNeg) {
-      return colors.red;
-    }
-    return colors.green;
-  }};
-`;
+const TotalText = styled.Text`fontSize: 15;`;
 
 const MetaWrapper = styled.View`
   flex: 0.4;
@@ -97,21 +83,22 @@ function getIfNeg(props): boolean {
 type IconProps = {
   name?: string,
   size: number,
-  color?: string
+  color?: string,
 };
 
 type Props = {
   coin: CoinData,
-  navigation: Navigation
+  navigation: Navigation,
+  theme: ThemeColorsData,
 };
 
 type State = {
-  isNeg: boolean
+  isNeg: boolean,
 };
 
 class Coin extends Component<void, Props, State> {
   state = {
-    isNeg: getIfNeg(this.props)
+    isNeg: getIfNeg(this.props),
   };
 
   get getPercentChange1h(): any {
@@ -120,7 +107,7 @@ class Coin extends Component<void, Props, State> {
 
     if (this.props.coin.percentChange1h == null) {
       str = 'No Value :(';
-      style.color = 'white';
+      style.color = this.props.theme.textColor;
     } else {
       str = `${parseFloat(this.props.coin.percentChange1h).toFixed(2)}%`;
     }
@@ -142,7 +129,7 @@ class Coin extends Component<void, Props, State> {
     }
 
     const props: IconProps = {
-      size: 25
+      size: 25,
     };
 
     if (this.state.isNeg) {
@@ -158,7 +145,7 @@ class Coin extends Component<void, Props, State> {
 
   get getIconArrow() {
     const props: IconProps = {
-      size: 25
+      size: 25,
     };
 
     if (this.state.isNeg) {
@@ -178,7 +165,7 @@ class Coin extends Component<void, Props, State> {
 
   _onNavigationPress = () => {
     this.props.navigation.navigate('CoinDetailsScreen', {
-      name: this.props.coin.name
+      name: this.props.coin.name,
     });
   };
 
@@ -187,20 +174,27 @@ class Coin extends Component<void, Props, State> {
       return null;
     }
 
+    const { theme } = this.props;
+
     return (
-      <Root onPress={this._onNavigationPress}>
+      <Root
+        onPress={this._onNavigationPress}
+        style={{ backgroundColor: theme.cardBackground }}
+      >
         <TitleWrapper>
           <CoinIcon
             resizeMode="contain"
             source={{
-              uri: this.getImage
+              uri: this.getImage,
             }}
           />
-          <Title>{this.props.coin.symbol}</Title>
+          <Title style={{ color: theme.textColor }}>
+            {this.props.coin.symbol}
+          </Title>
         </TitleWrapper>
         <ContentWrapper>
           <TotalWrapper>
-            <TotalText normal>
+            <TotalText style={{ color: theme.textColor }}>
               <TotalText style={{ color: colors.lightGrey }}>
                 Total:
               </TotalText>{' '}
@@ -208,19 +202,23 @@ class Coin extends Component<void, Props, State> {
             </TotalText>
             {this.getIconArrow}
           </TotalWrapper>
-          <TotalText isNeg={this.state.isNeg}>$7.60</TotalText>
+          <TotalText
+            style={{ color: this.state.isNeg ? colors.red : colors.green }}
+          >
+            $7.60
+          </TotalText>
         </ContentWrapper>
         <MetaWrapper>
           {this.getIconPercent}
           {this.getPercentChange1h}
         </MetaWrapper>
-        <HoldingText>
+        <HoldingText style={{ color: theme.textColor }}>
           <HoldingText style={{ color: colors.lightGrey }}>
             Holdings:
           </HoldingText>{' '}
           {(20.0).toFixed(2)}
         </HoldingText>
-        <PriceUsdText>
+        <PriceUsdText style={{ color: theme.textColor }}>
           <PriceUsdText style={{ color: colors.lightGrey }}>
             Price:
           </PriceUsdText>{' '}
@@ -241,5 +239,5 @@ export default createFragmentContainer(
       symbol
       priceUsd
     }
-  `
+  `,
 );

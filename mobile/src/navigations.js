@@ -5,12 +5,19 @@ import {
   addNavigationHelpers,
   StackNavigator,
   TabNavigator,
+  TabBarBottom,
 } from 'react-navigation';
+import { StatusBar, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import styled from 'styled-components/native';
+import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 
-import type { State, NavigationState } from './types';
+import type {
+  State,
+  NavigationState,
+  ThemeColorsData,
+  Navigation
+} from './types';
 
 import HomeScreen from './screens/HomeScreen';
 import CoinDetailsScreen from './screens/CoinDetailsScreen';
@@ -40,102 +47,122 @@ const OuterAddButton = styled.View`
   height: 65;
   width: 65;
   borderRadius: ${65 / 2};
-  backgroundColor: ${props => props.theme.tabBarColor};
   marginTop: -30;
 `;
 
-const AddCoinNavigator = StackNavigator(
-  {
-    AddCoin: {
-      screen: AddCoinScreen,
-      navigationOptions: () => ({
-        headerTitle: 'Add an holding',
-        headerTitleStyle: {
-          color: '#fff'
-        },
-        headerStyle: {
-          backgroundColor: themes.dark.tabBarColor,
-        },
-        headerRight: null
-      })
-    }
+const TabBarBottomConnected = connect((state: State) => ({
+  style: {
+    backgroundColor: state.app.theme.tabBarColor,
+    borderTopColor: state.app.theme.tabBarColor,
+    height: 50
+  }
+}))(TabBarBottom);
+
+type NavProps = {
+  screenProps: {
+    theme: ThemeColorsData
   },
-)
+  navigation: Navigation
+};
 
-const WalletNavigator = StackNavigator(
-  {
-    Wallet: {
-      screen: WalletScreen,
-      navigationOptions: () => ({
-        headerTitle: 'My Wallet',
-        headerTitleStyle: {
-          color: '#fff'
-        },
-        headerStyle: {
-          backgroundColor: themes.dark.tabBarColor,
-        },
-        headerRight: (
-          <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
-          </ButtonHeader>
-        )
-      })
-    }
+const AddCoinNavigator = StackNavigator({
+  AddCoin: {
+    screen: AddCoinScreen,
+    navigationOptions: (props: NavProps) => ({
+      headerTitle: 'Add an holding',
+      headerTitleStyle: {
+        color: '#fff'
+      },
+      headerStyle: {
+        backgroundColor: props.screenProps.theme.tabBarColor
+      },
+      headerRight: null
+    })
   }
-)
+});
 
-const SettingNavigator = StackNavigator(
-  {
-    Setting: {
-      screen: SettingScreen,
-      navigationOptions: () => ({
-        headerTitle: 'Settings',
-        headerTitleStyle: {
-          color: '#fff'
-        },
-        headerStyle: {
-          backgroundColor: themes.dark.tabBarColor,
-        },
-        headerRight: null,
-      })
-    }
+const WalletNavigator = StackNavigator({
+  Wallet: {
+    screen: WalletScreen,
+    navigationOptions: (props: NavProps) => ({
+      headerTitle: 'My Wallet',
+      headerTitleStyle: {
+        color: '#fff'
+      },
+      headerStyle: {
+        backgroundColor: props.screenProps.theme.tabBarColor
+      },
+      headerRight: (
+        <ButtonHeader side="right" onPress={() => null}>
+          <Ionicons
+            size={25}
+            color={colors.lightGrey}
+            name="ios-search-outline"
+          />
+        </ButtonHeader>
+      )
+    })
   }
-)
+});
+
+const SettingNavigator = StackNavigator({
+  Setting: {
+    screen: SettingScreen,
+    navigationOptions: (props: NavProps) => ({
+      headerTitle: 'Settings',
+      headerTitleStyle: {
+        color: props.screenProps.theme.headerTitleColor
+      },
+      headerStyle: {
+        backgroundColor: props.screenProps.theme.tabBarColor
+      },
+      headerRight: null
+    })
+  }
+});
 
 const HomeNavigator = StackNavigator(
   {
     Home: {
       screen: HomeScreen,
-      navigationOptions: () => ({
+      navigationOptions: (props: NavProps) => ({
         headerTitle: 'KeepMyFolio',
         headerTitleStyle: {
-          color: '#fff'
+          color: props.screenProps.theme.headerTitleColor
         },
         headerStyle: {
-          backgroundColor: themes.dark.tabBarColor,
+          backgroundColor: props.screenProps.theme.tabBarColor
         },
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
+            <Ionicons
+              size={25}
+              color={colors.lightGrey}
+              name="ios-search"
+            />
           </ButtonHeader>
         )
       })
     },
     CoinDetailsScreen: {
       screen: CoinDetailsScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerTitle: navigation.state.params.name,
+      navigationOptions: (props: NavProps) => ({
+        headerTitle: props.navigation.state.params.name,
         headerBackTitle: null,
         headerTitleStyle: {
           color: '#fff'
         },
         headerStyle: {
-          backgroundColor: themes.dark.tabBarColor,
+          backgroundColor: props.screenProps.theme.tabBarColor
         },
-        headerLeft: <BackButton goBack={navigation.goBack} />,
+        headerLeft: <BackButton goBack={props.navigation.goBack} />,
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
+            <Ionicons
+              size={25}
+              color={colors.lightGrey}
+              name="ios-search-outline"
+            />
           </ButtonHeader>
         )
       })
@@ -182,9 +209,9 @@ const Tabs = TabNavigator(
     },
     AddCoin: {
       screen: AddCoinNavigator,
-      navigationOptions: () => ({
+      navigationOptions: (props: NavProps) => ({
         tabBarIcon: () => (
-          <OuterAddButton>
+          <OuterAddButton style={{ backgroundColor: props.screenProps.theme.tabBarColor }}>
             <AddButon>
               <Ionicons
                 size={TAB_ICON_SIZE}
@@ -234,17 +261,13 @@ const Tabs = TabNavigator(
       headerVisible: false
     },
     // initialRouteName: 'AddCoin',
+    tabBarComponent: TabBarBottomConnected,
     tabBarOptions: {
       showIcon: true,
       showLabel: false,
       activeTintColor: colors.primary,
       inactiveTintColor: colors.lightGrey,
-      pressColor: colors.primary,
-      style: {
-        backgroundColor: themes.dark.tabBarColor,
-        borderTopColor: themes.dark.tabBarColor,
-        height: 50
-      }
+      pressColor: colors.primary
     }
   }
 );
@@ -259,7 +282,6 @@ const AppMainNav = StackNavigator(
     headerMode: 'none',
     initialRouteName: 'Tabs',
     cardStyle: {
-      // backgroundColor: colors.tabBarColor,
       backgroundColor: themes.dark.tabBarColor
     }
   }
@@ -267,11 +289,25 @@ const AppMainNav = StackNavigator(
 
 type Props = {
   nav: NavigationState,
-  dispatch: Function
+  dispatch: Function,
+  theme: ThemeColorsData,
+  darkTheme: boolean,
 };
 
 class AppNavigator extends Component<void, Props, void> {
+  get _getBarStyle(): 'light-content' | 'dark-content' {
+    if (this.props.darkTheme) {
+      return 'light-content'
+    }
+
+    return 'dark-content';
+  }
+
   render() {
+    const screenProps = {
+      theme: this.props.theme
+    };
+
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,
       state: this.props.nav
@@ -279,12 +315,25 @@ class AppNavigator extends Component<void, Props, void> {
     // if (!this.props.user.isAuthenticated) {
     //   return <AuthenticationScreen />;
     // }
-    return <AppMainNav navigation={nav} />;
+    return (
+      <View style={styles.root}>
+        <StatusBar barStyle={this._getBarStyle} />
+        <AppMainNav navigation={nav} screenProps={screenProps} />
+      </View>
+    );
   }
 }
 
 export default connect((state: State) => ({
-  nav: state.nav
+  nav: state.nav,
+  theme: state.app.theme,
+  darkTheme: state.app.darkTheme
 }))(AppNavigator);
 
 export const router = AppMainNav.router;
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  }
+});

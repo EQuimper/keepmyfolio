@@ -8,18 +8,23 @@ export const colors = {
   primary: '#00C0FF',
   lightGrey: '#B4B4B4',
   white: '#ffffff',
-  tabBarColor: '#F3F3F3',
 };
 
 export const themes = {
   dark: {
+    ...colors,
     tabBarColor: '#192543',
     cardBackground: '#161C36',
+    headerTitleColor: colors.white,
+    textColor: colors.white,
+    thumbTintColor: colors.white,
   },
   light: {
+    ...colors,
     tabBarColor: '#F3F3F3',
-    cardBackground: '#ffffff',
-    lightGrey: '#B4B4B4',
-    white: '#ffffff',
-  }
-}
+    cardBackground: colors.white,
+    headerTitleColor: colors.darkGray,
+    textColor: colors.darkGray,
+    thumbTintColor: colors.darkGray
+  },
+};

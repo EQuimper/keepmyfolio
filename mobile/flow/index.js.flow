@@ -15,3 +15,7 @@ declare module 'relay-runtime/lib/RelayQueryResponseCache' {
 declare module 'MaskedViewIOS' {
   declare module.exports: any
 }
+
+declare module 'styled-components/native' {
+  declare module.exports: any
+}

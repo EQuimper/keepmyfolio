@@ -16,3 +16,18 @@ export type CoinMarketCapData = {
   percent_change_7d: string,
   last_updated: string,
 };
+
+export type ThemeColorsData = {
+  red: string,
+  green: string,
+  darkGray: string,
+  greyOutline: string,
+  primary: string,
+  lightGrey: string,
+  white: string,
+  tabBarColor: string,
+  cardBackground: string,
+  headerTitleColor: string,
+  textColor: string,
+  thumbTintColor: string,
+}

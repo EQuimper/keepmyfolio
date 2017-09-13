@@ -1,6 +1,6 @@
 // @flow
 
-import type { CoinMarketCapData } from './data';
+import type { CoinMarketCapData, ThemeColorsData } from './data';
 
 export type EntitiesState = {
   coins: Array<CoinMarketCapData>,
@@ -8,4 +8,5 @@ export type EntitiesState = {
 
 export type AppState = {
   darkTheme: boolean,
+  theme: ThemeColorsData,
 };

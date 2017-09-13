@@ -22,7 +22,12 @@ function fetchQuery(
   const isQuery = operation.query.operation === 'query';
 
   // If is a query return the response
-  if (isQuery && cachedResponse !== null && cachedConfig && !cachedConfig.force) {
+  if (
+    isQuery &&
+    cachedResponse !== null &&
+    cachedConfig &&
+    !cachedConfig.force
+  ) {
     return Promise.resolve(cachedResponse);
   }
 
@@ -39,18 +44,18 @@ function fetchQuery(
       variables,
     }),
   })
-  .then(res => res.json())
-  .then(res => {
-    if (res.errors) {
-      throw new Error(res.errors[0].message);
-    }
+    .then(res => res.json())
+    .then(res => {
+      if (res.errors) {
+        throw new Error(res.errors[0].message);
+      }
 
-    if (isQuery) {
-      _cache.set(operation.name, variables, res);
-    }
+      if (isQuery) {
+        _cache.set(operation.name, variables, res);
+      }
 
-    return res;
-  });
+      return res;
+    });
 }
 
 export function clearCache() {

@@ -6,12 +6,13 @@ import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';
+import { connect } from 'react-redux';
 
 import { createRenderer } from '../../RelayUtils';
 import Coin from './Coin';
 import { colors } from '../../utils/constants';
 
-import type { RelayType, Navigation } from '../../types';
+import type { RelayType, Navigation, State as AppState, ThemeColorsData } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
 
 const PAGE_SIZE = 10;
@@ -26,20 +27,21 @@ const Separator = styled.View`
 type Props = {
   viewer: Viewer,
   relay: RelayType,
-  navigation: Navigation
+  navigation: Navigation,
+  theme: ThemeColorsData,
 };
 
 type State = {
-  refreshing: boolean
+  refreshing: boolean,
 };
 
 class HomeScreen extends Component<void, Props, State> {
   state = {
-    refreshing: false
+    refreshing: false,
   };
 
   _renderItem = ({ item }) => (
-    <Coin coin={item} navigation={this.props.navigation} />
+    <Coin coin={item} navigation={this.props.navigation} theme={this.props.theme} />
   );
 
   _onEndReached = () => {
@@ -58,7 +60,7 @@ class HomeScreen extends Component<void, Props, State> {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
     invariant(edges, 'Edges cannot be null');
     return (
-      <Root>
+      <Root style={{ backgroundColor: this.props.theme.tabBarColor }}>
         <FlatList
           ItemSeparatorComponent={() => <Separator />}
           contentContainerStyle={{ alignSelf: 'stretch' }}
@@ -80,8 +82,14 @@ class HomeScreen extends Component<void, Props, State> {
   }
 }
 
+const HomeScreenConnected = connect(
+  (state: AppState) => ({
+    theme: state.app.theme
+  })
+)(HomeScreen)
+
 const PaginationContainer = createPaginationContainer(
-  HomeScreen,
+  HomeScreenConnected,
   graphql`
     fragment HomeScreen_viewer on Viewer {
       cryptos(first: $count, after: $cursor)
@@ -99,7 +107,7 @@ const PaginationContainer = createPaginationContainer(
     getVariables(props, { count, cursor }) {
       return {
         count,
-        cursor
+        cursor,
       };
     },
     query: graphql`
@@ -108,8 +116,8 @@ const PaginationContainer = createPaginationContainer(
           ...HomeScreen_viewer
         }
       }
-    `
-  }
+    `,
+  },
 );
 
 export default createRenderer(PaginationContainer, {
@@ -122,6 +130,6 @@ export default createRenderer(PaginationContainer, {
   `,
   queriesParams: () => ({
     count: PAGE_SIZE,
-    cursor: null
-  })
+    cursor: null,
+  }),
 });
