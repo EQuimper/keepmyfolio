@@ -1,0 +1,16 @@
+{
+  "name": "keepmyfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/EQuimper/keepmyfolio.git",
+  "author": "EQuimper <quimperemanuel@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {},
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^4.1.3"
+  }
+}
