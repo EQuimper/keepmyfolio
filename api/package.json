@@ -2,7 +2,6 @@
   "name": "keepmyfolio-api",
   "author": "Emanuel Quimper",
   "private": true,
-  "gitDir": "../",
   "scripts": {
     "build:watch": "babel -w --out-dir=dist --ignore=__tests__/* ./src",
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
