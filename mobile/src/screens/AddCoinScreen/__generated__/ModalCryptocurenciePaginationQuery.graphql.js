@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 658ae5a663dab58c1cfb85ac4de559f5
+ * @relayHash 6a232ba40faa9ab7bfa607f687588bcb
  */
 
 /* eslint-disable */
@@ -30,8 +30,7 @@ fragment ModalCryptocurencie_viewer on Viewer {
     edges {
       node {
         id
-        name
-        cryptoId
+        ...CryptoItem_coin
         __typename
       }
       cursor
@@ -41,6 +40,12 @@ fragment ModalCryptocurencie_viewer on Viewer {
       hasNextPage
     }
   }
+}
+
+fragment CryptoItem_coin on Crypto {
+  name
+  cryptoId
+  priceUsd
 }
 */
 
@@ -176,6 +181,13 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
+                        "name": "priceUsd",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
                         "name": "__typename",
                         "storageKey": null
                       }
@@ -256,7 +268,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query ModalCryptocurenciePaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...ModalCryptocurencie_viewer\n  }\n}\n\nfragment ModalCryptocurencie_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        name\n        cryptoId\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+  "text": "query ModalCryptocurenciePaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...ModalCryptocurencie_viewer\n  }\n}\n\nfragment ModalCryptocurencie_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...CryptoItem_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment CryptoItem_coin on Crypto {\n  name\n  cryptoId\n  priceUsd\n}\n"
 };
 
 module.exports = batch;

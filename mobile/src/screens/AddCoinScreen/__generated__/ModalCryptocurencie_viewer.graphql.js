@@ -13,8 +13,6 @@ export type ModalCryptocurencie_viewer = {|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
         +id: string;
-        +name: string;
-        +cryptoId: ?string;
       |};
     |}>;
   |};
@@ -82,18 +80,9 @@ const fragment /*: ConcreteFragment*/ = {
                   "storageKey": null
                 },
                 {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "args": null,
-                  "name": "name",
-                  "storageKey": null
-                },
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "args": null,
-                  "name": "cryptoId",
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "CryptoItem_coin",
+                  "args": null
                 },
                 {
                   "kind": "ScalarField",

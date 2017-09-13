@@ -15,11 +15,13 @@
     "relay": "relay-compiler --schema ./data/schema.graphql --src ./src",
     "configure": "node ./scripts/configure.js",
     "postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;",
-    "test": "node_modules/.bin/jest"
+    "test": "node_modules/.bin/jest",
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@appandflow/touchable": "^1.2.1",
     "axios": "^0.16.2",
+    "date-fns": "^1.28.5",
     "event-emitter": "^0.3.5",
     "expo": "^20.0.0",
     "glamorous-native": "^1.1.2",

@@ -5,6 +5,7 @@ import { FlatList, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
+import invariant from 'invariant';
 
 import { createRenderer } from '../../RelayUtils';
 import Coin from './Coin';
@@ -54,7 +55,8 @@ class HomeScreen extends Component<void, Props, State> {
   };
 
   render() {
-    const edges = idx(this.props, _ => _.viewer.cryptos.edges) || [];
+    const edges = idx(this.props, _ => _.viewer.cryptos.edges);
+    invariant(edges, 'Edges cannot be null');
     return (
       <Root>
         <FlatList

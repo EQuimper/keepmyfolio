@@ -55,11 +55,7 @@ const AddCoinNavigator = StackNavigator(
         headerStyle: {
           backgroundColor: themes.dark.tabBarColor,
         },
-        headerRight: (
-          <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search-outline" />
-          </ButtonHeader>
-        )
+        headerRight: null
       })
     }
   },

@@ -6,9 +6,14 @@ import { Modal, FlatList } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
+import invariant from 'invariant';
 
-import { createRenderer } from '../../RelayUtils';
+import type { RelayType } from '../../types';
 import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
+import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
+
+import CryptoItem from './CryptoItem';
+import { createRenderer } from '../../RelayUtils';
 
 const PAGE_SIZE = 10;
 
@@ -56,16 +61,28 @@ const Title = styled.Text`
 type Props = {
   showModalCrypto: boolean,
   onCloseButtonPress: Function,
-  viewer: Viewer
+  viewer: Viewer,
+  relay: RelayType,
+  onSelectCryptoPress: (coin: Coin) => Coin,
 };
 
 class ModalCryptocurencie extends Component<void, Props, void> {
   _onCloseButtonPress = () => this.props.onCloseButtonPress();
 
-  _renderItem = () => {};
+  _onEndReached = () => {
+    if (this.props.relay.hasMore() && !this.props.relay.isLoading()) {
+      this.props.relay.loadMore(PAGE_SIZE, () => {});
+    }
+  };
+
+  _renderItem = ({ item }) => {
+    invariant(item, 'Item cannot be null');
+    return <CryptoItem coin={item} onSelectPress={this.props.onSelectCryptoPress} />
+  }
 
   render() {
-    const edges = idx(this.props, _ => _.viewer.cryptos.edges) || [];
+    const edges = idx(this.props, _ => _.viewer.cryptos.edges);
+    invariant(edges, 'Edges cannot be null');
     return (
       <Root>
         <Modal
@@ -86,10 +103,11 @@ class ModalCryptocurencie extends Component<void, Props, void> {
               <ListWrapper>
                 <FlatList
                   ItemSeparatorComponent={() => <Separator />}
-                  contentContainerStyle={{ alignSelf: 'stretch' }}
+                  contentContainerStyle={{ alignSelf: 'stretch', paddingBottom: 50 }}
                   keyExtractor={item => item.id}
                   renderItem={this._renderItem}
                   data={edges.map(e => idx(e, _ => _.node))}
+                  onEndReached={this._onEndReached}
                 />
               </ListWrapper>
             </ContentWrapper>
@@ -109,8 +127,7 @@ const PaginationContainer = createPaginationContainer(
         edges {
           node {
             id
-            name
-            cryptoId
+            ...CryptoItem_coin
           }
         }
       }
