@@ -30,3 +30,7 @@ export const themes = {
 };
 
 export const persistWhitelist = ['app'];
+
+export const storageKey = {
+  theme: '@keepmyfolio-theme'
+}

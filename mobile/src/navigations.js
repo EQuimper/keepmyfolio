@@ -60,7 +60,8 @@ const TabBarBottomConnected = connect((state: State) => ({
 
 type NavProps = {
   screenProps: {
-    theme: ThemeColorsData
+    theme: ThemeColorsData,
+    darkTheme: boolean,
   },
   navigation: Navigation
 };
@@ -170,9 +171,9 @@ const HomeNavigator = StackNavigator(
   },
   {
     headerMode: 'screen',
-    cardStyle: {
-      backgroundColor: 'transparent',
-    }
+    // cardStyle: (props: NavProps) => ({
+    //   backgroundColor: themes[props.screenProps.darkTheme ? 'dark' : 'light'].cardBackground
+    // })
   }
 );
 
@@ -252,14 +253,15 @@ const Tabs = TabNavigator(
     }
   },
   {
-    lazy: true,
+    // TODO remove this :)
+    initialRouteName: 'Wallet',
+    lazy: false,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    animationEnabled: false,
+    animationEnabled: true,
     navigationOptions: {
       headerVisible: false
     },
-    // initialRouteName: 'AddCoin',
     tabBarComponent: TabBarBottomConnected,
     tabBarOptions: {
       showIcon: true,
@@ -280,9 +282,9 @@ const AppMainNav = StackNavigator(
   {
     headerMode: 'none',
     initialRouteName: 'Tabs',
-    cardStyle: {
-      backgroundColor: 'transparent'
-    }
+    // cardStyle: {
+    //   backgroundColor: 'white'
+    // }
   }
 );
 
@@ -304,7 +306,8 @@ class AppNavigator extends Component<void, Props, void> {
 
   render() {
     const screenProps = {
-      theme: this.props.theme
+      theme: this.props.theme,
+      darkTheme: this.props.darkTheme
     };
 
     const nav = addNavigationHelpers({

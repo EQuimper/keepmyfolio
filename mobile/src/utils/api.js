@@ -1,5 +1,7 @@
 // @flow
 
+import invariant from 'invariant';
+
 class CoinMarketApi {
   imagePath: string;
 
@@ -8,9 +10,7 @@ class CoinMarketApi {
   }
 
   getImage(id: ?string, size: number): string {
-    if (!id) {
-      return '';
-    }
+    invariant(id, 'Id is required');
     return `${this.imagePath}/${size}x${size}/${id}.png`;
   }
 }

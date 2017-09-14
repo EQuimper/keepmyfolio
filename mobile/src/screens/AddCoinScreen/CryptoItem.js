@@ -59,12 +59,12 @@ function CryptoItem ({ coin, selectPress, theme }: Props) {
   );
 }
 
-const enhance = withHandlers({
+const CryptoItemEnhance = withHandlers({
   selectPress: (props: Props) => () => props.onSelectPress(props.coin)
 })(CryptoItem);
 
 export default createFragmentContainer(
-  enhance,
+  CryptoItemEnhance,
   graphql`
     fragment CryptoItem_coin on Crypto {
       name
