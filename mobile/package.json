@@ -20,7 +20,10 @@
   },
   "dependencies": {
     "@appandflow/touchable": "^1.2.1",
+    "art": "^0.10.1",
     "axios": "^0.16.2",
+    "d3-scale": "^1.0.6",
+    "d3-shape": "^1.2.0",
     "date-fns": "^1.28.5",
     "event-emitter": "^0.3.5",
     "expo": "^20.0.0",

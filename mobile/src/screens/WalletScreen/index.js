@@ -6,19 +6,20 @@ import { connect } from 'react-redux';
 
 import type { State as AppState, ThemeColorsData } from '../../types';
 
-import { colors } from '../../utils/constants';
 import WalletHeader from './WalletHeader';
+import PortfolioPie from '../../components/charts/PortfolioPie';
 
 const Root = styled.View`flex: 1;`;
 
 const WalletPieWrapper = styled.View`
-  height: 150;
+  height: 250;
   width: 100%;
   marginTop: 5;
 `
 
 type Props = {
-  theme: ThemeColorsData
+  theme: ThemeColorsData,
+  darkTheme: boolean,
 };
 
 type State = {
@@ -42,7 +43,7 @@ class WalletScreen extends Component<void, Props, State> {
           totalPercent={0.25}
         />
         <WalletPieWrapper style={{ backgroundColor: theme.tabBarColor }}>
-
+          <PortfolioPie darkTheme={this.props.darkTheme} />
         </WalletPieWrapper>
       </Root>
     );
@@ -50,5 +51,6 @@ class WalletScreen extends Component<void, Props, State> {
 }
 
 export default connect((state: AppState) => ({
-  theme: state.app.theme
+  theme: state.app.theme,
+  darkTheme: state.app.darkTheme
 }))(WalletScreen);

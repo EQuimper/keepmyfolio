@@ -258,6 +258,7 @@ const Tabs = TabNavigator(
     lazy: false,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
+    // TODO check for it
     animationEnabled: true,
     navigationOptions: {
       headerVisible: false

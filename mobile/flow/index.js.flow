@@ -23,3 +23,7 @@ declare module 'styled-components/native' {
 declare module 'styled-components' {
   declare module.exports: any
 }
+
+declare module 'expo' {
+  declare module.exports: any
+}
