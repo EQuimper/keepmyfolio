@@ -9,7 +9,7 @@ import type {
 
 import type { Action } from './action';
 
-import type { EntitiesState, AppState } from './state';
+import type { EntitiesState, AppState, CryptosState } from './state';
 
 export type RelayType = any;
 
@@ -22,6 +22,7 @@ export type State = {
   nav: NavigationState,
   entities: EntitiesState,
   app: AppState,
+  cryptos: CryptosState,
 };
 
 export type ThunkAction = (
@@ -35,6 +36,7 @@ export type {
   Action,
   EntitiesState,
   AppState,
+  CryptosState
 };
 
-export { CoinMarketCapData, ThemeColorsData } from './data';
+export { CoinMarketCapData, ThemeColorsData, HoldingData } from './data';

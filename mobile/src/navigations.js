@@ -25,7 +25,7 @@ import AddCoinScreen from './screens/AddCoinScreen';
 import WalletScreen from './screens/WalletScreen';
 import SettingScreen from './screens/SettingScreen';
 
-import { colors, themes } from './utils/constants';
+import { colors } from './utils/constants';
 import ButtonHeader from './components/commons/ButtonHeader';
 import BackButton from './components/commons/BackButton';
 import HighLightTab from './components/HighLightTab';
@@ -172,7 +172,6 @@ const HomeNavigator = StackNavigator(
     headerMode: 'screen',
     cardStyle: {
       backgroundColor: 'transparent',
-      // backgroundColor: themes.dark.tabBarColor
     }
   }
 );

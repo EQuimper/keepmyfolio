@@ -10,3 +10,8 @@ export type AppState = {
   darkTheme: boolean,
   theme: ThemeColorsData,
 };
+
+export type CryptosState = {
+  entities: { [id: string]: CoinMarketCapData },
+  transactionId: number,
+};

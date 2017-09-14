@@ -30,4 +30,13 @@ export type ThemeColorsData = {
   headerTitleColor: string,
   textColor: string,
   thumbTintColor: string,
-}
+};
+
+export type HoldingData = {
+  priceTotalPay: string,
+  priceByCoin: string,
+  amountOfCoin: string,
+  name: any,
+  dateBuy: Date,
+  id: any,
+};

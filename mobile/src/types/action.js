@@ -1,6 +1,6 @@
 // @flow
 
-import type { CoinMarketCapData } from './data';
+import type { CoinMarketCapData, HoldingData } from './data';
 
 type LoginAction = {
   type: 'LOGIN',
@@ -24,9 +24,15 @@ type ToggleThemeAction = {
   type: 'appState/TOGGLE_THEME',
 };
 
+type AddNewHoldingAction = {
+  type: 'cryptos/ADD_NEW_HOLDING',
+  coin: HoldingData,
+};
+
 export type Action =
   | LoginAction
   | GetAllCoinMarketAction
   | GetAllCoinMarketSuccessAction
   | GetAllCoinMarketErrorAction
-  | ToggleThemeAction;
+  | ToggleThemeAction
+  | AddNewHoldingAction;

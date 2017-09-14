@@ -17,6 +17,7 @@ import type {
 
 import { colors } from '../../utils/constants';
 import ModalCryptocurencie from './ModalCryptocurencie';
+import { addNewHolding } from '../../actions/cryptos';
 
 const Root = styled.TouchableWithoutFeedback`flex: 1;`;
 
@@ -72,9 +73,30 @@ const Input = styled.TextInput.attrs({
   paddingHorizontal: 5;
 `;
 
+function calculAmountPay(
+  priceInMarket: string,
+  price: string,
+  totalAmount: string,
+): string {
+  const _priceInMarket = parseFloat(priceInMarket);
+  const _price = parseFloat(price);
+  const _totalAmount = parseFloat(totalAmount);
+
+  let _result: string;
+
+  if (_price) {
+    _result = (_totalAmount * _price).toFixed(2);
+  } else {
+    _result = (_totalAmount * _priceInMarket).toFixed(2);
+  }
+
+  return _result;
+}
+
 type Props = {
   navigation: Navigation,
   theme: ThemeColorsData,
+  addNewHolding: typeof addNewHolding,
 };
 
 type State = {
@@ -133,33 +155,46 @@ class AddCoinScreen extends Component<void, Props, State> {
   }
 
   get getTotalAmountPay(): string {
-    if (!this.state.selectedCrypto || !this.state.totalAmountOfCrypto) {
+    const { selectedCrypto, totalAmountOfCrypto, price } = this.state;
+    if (!selectedCrypto || !totalAmountOfCrypto) {
       return '0';
     }
 
-    invariant(this.state.selectedCrypto.priceUsd, 'Price is need');
+    invariant(selectedCrypto.priceUsd, 'Price is need');
 
-    let result: string;
-
-    const priceCrypto = parseFloat(this.state.selectedCrypto.priceUsd);
-    const totalAmountOfCrypto = parseFloat(this.state.totalAmountOfCrypto);
-    const price = parseFloat(this.state.price);
-
-    if (price) {
-      result = (totalAmountOfCrypto * price).toFixed(2);
-    } else {
-      result = (totalAmountOfCrypto * priceCrypto).toFixed(2);
-    }
-
-    return result;
+    return calculAmountPay(selectedCrypto.priceUsd, price, totalAmountOfCrypto);
   }
 
   _onPriceChange = (price: string) => {
-    this.setState({ price });
+    const { selectedCrypto, totalAmountOfCrypto } = this.state;
+
+    invariant(selectedCrypto, 'Selected crypto required');
+    invariant(selectedCrypto.priceUsd, 'Selected crypto priceUsd required');
+
+    this.setState({
+      price,
+      totalAmoutOfDollarPay: calculAmountPay(
+        selectedCrypto.priceUsd,
+        price,
+        totalAmountOfCrypto,
+      ),
+    });
   };
 
   _onTotalCoinChange = (amount: string) => {
-    this.setState({ totalAmountOfCrypto: amount });
+    const { selectedCrypto, price } = this.state;
+
+    invariant(selectedCrypto, 'Selected crypto required');
+    invariant(selectedCrypto.priceUsd, 'Selected crypto priceUsd required');
+
+    this.setState({
+      totalAmountOfCrypto: amount,
+      totalAmoutOfDollarPay: calculAmountPay(
+        selectedCrypto.priceUsd,
+        price,
+        amount,
+      ),
+    });
   };
 
   _onOutsidePress = () => Keyboard.dismiss();
@@ -187,6 +222,29 @@ class AddCoinScreen extends Component<void, Props, State> {
 
   _onSubmitPress = () => {
     this.props.navigation.navigate('Wallet');
+
+    const {
+      selectedCrypto,
+      price,
+      dateBuy,
+      totalAmountOfCrypto,
+      totalAmoutOfDollarPay,
+    } = this.state;
+
+    invariant(selectedCrypto, 'SelectedCrypto Required');
+    invariant(selectedCrypto.priceUsd, 'SelectedCrypto priceUsd Required');
+
+    const coin = {
+      priceTotalPay: totalAmoutOfDollarPay,
+      priceByCoin: price || selectedCrypto.priceUsd,
+      amountOfCoin: totalAmountOfCrypto,
+      name: selectedCrypto.name,
+      dateBuy,
+      id: selectedCrypto.cryptoId,
+    };
+
+    this.props.addNewHolding(coin);
+
     this._resetState();
   };
 
@@ -276,6 +334,9 @@ class AddCoinScreen extends Component<void, Props, State> {
   }
 }
 
-export default connect((state: AppState) => ({
-  theme: state.app.theme,
-}))(AddCoinScreen);
+export default connect(
+  (state: AppState) => ({
+    theme: state.app.theme,
+  }),
+  { addNewHolding },
+)(AddCoinScreen);
