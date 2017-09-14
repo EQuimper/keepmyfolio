@@ -5,14 +5,6 @@
   "author": "Emanuel Quimper",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "gitDir": "../",
-  "lint-staged": {
-    "*.js": [
-      "prettier --parser flow --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
-      "eslint --fix ./src",
-      "git add"
-    ]
-  },
   "jest": {
     "preset": "jest-expo"
   },
@@ -24,8 +16,7 @@
     "configure": "node ./scripts/configure.js",
     "postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;",
     "test": "node_modules/.bin/jest",
-    "lint": "eslint ./src",
-    "precommit": "lint-staged"
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@appandflow/touchable": "^1.2.1",
@@ -55,9 +46,7 @@
     "eslint-config-equimper": "^2.2.1",
     "eslint-config-prettier": "^2.4.0",
     "flow-bin": "0.49.1",
-    "husky": "^0.14.3",
     "jest-expo": "^20.0.0",
-    "lint-staged": "^4.1.3",
     "prettier": "^1.6.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",

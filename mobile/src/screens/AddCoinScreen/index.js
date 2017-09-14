@@ -120,7 +120,7 @@ const initialState: State = {
 class AddCoinScreen extends Component<void, Props, State> {
   state = initialState;
 
-  get getCryptoName() {
+  get _getCryptoName() {
     if (!this.state.selectedCrypto) {
       return <Title style={{ color: colors.lightGrey }}>Choose a crypto</Title>;
     }
@@ -132,7 +132,7 @@ class AddCoinScreen extends Component<void, Props, State> {
     );
   }
 
-  get getPrice(): string {
+  get _getPrice(): string {
     if (!this.state.selectedCrypto) {
       return '';
     }
@@ -146,7 +146,7 @@ class AddCoinScreen extends Component<void, Props, State> {
     return this.state.selectedCrypto.priceUsd;
   }
 
-  get getDisabled(): boolean {
+  get _getDisabled(): boolean {
     if (!this.state.selectedCrypto) {
       return false;
     }
@@ -154,7 +154,7 @@ class AddCoinScreen extends Component<void, Props, State> {
     return true;
   }
 
-  get getTotalAmountPay(): string {
+  get _getTotalAmountPay(): string {
     const { selectedCrypto, totalAmountOfCrypto, price } = this.state;
     if (!selectedCrypto || !totalAmountOfCrypto) {
       return '0';
@@ -260,7 +260,7 @@ class AddCoinScreen extends Component<void, Props, State> {
             <Title style={{ color: theme.textColor }}>Cryptocurencie</Title>
             <Card style={{ backgroundColor: theme.tabBarColor }}>
               <SelectCrypto onPress={this._onModalCryptoPress}>
-                {this.getCryptoName}
+                {this._getCryptoName}
               </SelectCrypto>
             </Card>
           </ItemWrapper>
@@ -271,9 +271,9 @@ class AddCoinScreen extends Component<void, Props, State> {
                 keyboardType="numeric"
                 placeholder="0.00"
                 style={{ color: theme.textColor }}
-                value={this.getPrice}
+                value={this._getPrice}
                 onChangeText={this._onPriceChange}
-                editable={this.getDisabled}
+                editable={this._getDisabled}
               />
             </Card>
           </ItemWrapper>
@@ -286,7 +286,7 @@ class AddCoinScreen extends Component<void, Props, State> {
                 style={{ color: theme.textColor }}
                 value={this.state.totalAmountOfCrypto}
                 onChangeText={this._onTotalCoinChange}
-                editable={this.getDisabled}
+                editable={this._getDisabled}
               />
             </Card>
           </ItemWrapper>
@@ -302,13 +302,13 @@ class AddCoinScreen extends Component<void, Props, State> {
             <Title style={{ color: theme.textColor }}>Total amount pay $</Title>
             <Card style={{ backgroundColor: theme.tabBarColor }}>
               <Title style={{ color: theme.textColor }}>
-                {this.getTotalAmountPay}
+                {this._getTotalAmountPay}
               </Title>
             </Card>
           </ItemWrapper>
           <ButtonWrapper>
             <Button
-              disabled={!this.getDisabled}
+              disabled={!this._getDisabled}
               onPress={this._onCancelPress}
               color={colors.red}
             >
@@ -316,7 +316,7 @@ class AddCoinScreen extends Component<void, Props, State> {
             </Button>
             <Button
               onPress={this._onSubmitPress}
-              disabled={!this.getDisabled}
+              disabled={!this._getDisabled}
               color={colors.green}
             >
               <Entypo size={25} color="#fff" name="check" />

@@ -101,7 +101,7 @@ class Coin extends Component<void, Props, State> {
     isNeg: getIfNeg(this.props),
   };
 
-  get getPercentChange1h(): any {
+  get _getPercentChange1h(): any {
     let str: string;
     const style = {};
 
@@ -119,11 +119,11 @@ class Coin extends Component<void, Props, State> {
     );
   }
 
-  get getImage(): string {
+  get _getImage(): string {
     return CoinMarket.getImage(idx(this.props, _ => _.coin.cryptoId), 32);
   }
 
-  get getIconPercent() {
+  get _getIconPercent() {
     if (this.props.coin.percentChange1h == null) {
       return null;
     }
@@ -143,7 +143,7 @@ class Coin extends Component<void, Props, State> {
     return <Ionicons {...props} />;
   }
 
-  get getIconArrow() {
+  get _getIconArrow() {
     const props: IconProps = {
       size: 25,
     };
@@ -159,7 +159,7 @@ class Coin extends Component<void, Props, State> {
     return <Ionicons {...props} />;
   }
 
-  get getPrice(): string {
+  get _getPrice(): string {
     return `$${parseFloat(this.props.coin.priceUsd).toFixed(2)}`;
   }
 
@@ -185,7 +185,7 @@ class Coin extends Component<void, Props, State> {
           <CoinIcon
             resizeMode="contain"
             source={{
-              uri: this.getImage,
+              uri: this._getImage,
             }}
           />
           <Title style={{ color: theme.textColor }}>
@@ -200,7 +200,7 @@ class Coin extends Component<void, Props, State> {
               </TotalText>{' '}
               $100.00{' '}
             </TotalText>
-            {this.getIconArrow}
+            {this._getIconArrow}
           </TotalWrapper>
           <TotalText
             style={{ color: this.state.isNeg ? colors.red : colors.green }}
@@ -209,8 +209,8 @@ class Coin extends Component<void, Props, State> {
           </TotalText>
         </ContentWrapper>
         <MetaWrapper>
-          {this.getIconPercent}
-          {this.getPercentChange1h}
+          {this._getIconPercent}
+          {this._getPercentChange1h}
         </MetaWrapper>
         <HoldingText style={{ color: theme.textColor }}>
           <HoldingText style={{ color: colors.lightGrey }}>
@@ -222,7 +222,7 @@ class Coin extends Component<void, Props, State> {
           <PriceUsdText style={{ color: colors.lightGrey }}>
             Price:
           </PriceUsdText>{' '}
-          {this.getPrice}
+          {this._getPrice}
         </PriceUsdText>
       </Root>
     );
