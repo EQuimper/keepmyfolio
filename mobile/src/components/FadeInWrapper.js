@@ -12,7 +12,7 @@ type State = {
   anim: Animated.Value,
 };
 
-export default class FadeInWrapper extends Component<void, Props, State> {
+class FadeInWrapper extends Component<void, Props, State> {
   state = {
     anim: new Animated.Value(this.props.enabled ? 0 : 1),
   };
@@ -35,3 +35,5 @@ export default class FadeInWrapper extends Component<void, Props, State> {
     );
   }
 }
+
+export default FadeInWrapper;

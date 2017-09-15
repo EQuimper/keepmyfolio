@@ -171,9 +171,9 @@ const HomeNavigator = StackNavigator(
   },
   {
     headerMode: 'screen',
-    // cardStyle: (props: NavProps) => ({
-    //   backgroundColor: themes[props.screenProps.darkTheme ? 'dark' : 'light'].cardBackground
-    // })
+    cardStyle: {
+      backgroundColor: '#000'
+    }
   }
 );
 
@@ -283,11 +283,13 @@ const AppMainNav = StackNavigator(
   {
     headerMode: 'none',
     initialRouteName: 'Tabs',
-    // cardStyle: {
-    //   backgroundColor: 'white'
-    // }
+    cardStyle: {
+      backgroundColor: '#000'
+    }
   }
 );
+
+type BarStyleProps = 'light-content' | 'dark-content';
 
 type Props = {
   nav: NavigationState,
@@ -297,7 +299,7 @@ type Props = {
 };
 
 class AppNavigator extends Component<void, Props, void> {
-  get _getBarStyle(): 'light-content' | 'dark-content' {
+  get _getBarStyle(): BarStyleProps {
     if (this.props.darkTheme) {
       return 'light-content'
     }
@@ -327,6 +329,12 @@ class AppNavigator extends Component<void, Props, void> {
   }
 }
 
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  }
+});
+
 export default connect((state: State) => ({
   nav: state.nav,
   theme: state.app.theme,
@@ -334,9 +342,3 @@ export default connect((state: State) => ({
 }))(AppNavigator);
 
 export const router = AppMainNav.router;
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  }
-});

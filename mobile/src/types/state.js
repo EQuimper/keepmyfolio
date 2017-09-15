@@ -1,17 +1,13 @@
 // @flow
 
-import type { CoinMarketCapData, ThemeColorsData } from './data';
-
-export type EntitiesState = {
-  coins: Array<CoinMarketCapData>,
-};
+import type { HoldingData, ThemeColorsData } from './data';
 
 export type AppState = {
-  darkTheme: boolean,
-  theme: ThemeColorsData,
+  +darkTheme: boolean,
+  +theme: ThemeColorsData,
 };
 
 export type CryptosState = {
-  entities: { [id: string]: CoinMarketCapData },
-  transactionId: number,
+  +entities: { +[id: string]: HoldingData },
+  +transactionId: number,
 };

@@ -1,29 +1,24 @@
 // @flow
 
-import type { CoinMarketCapData, HoldingData } from './data';
+import type { HoldingData } from './data';
 
+// ------------------------------------
+// User Actions
+// ------------------------------------
 type LoginAction = {
   type: 'LOGIN',
 };
 
-type GetAllCoinMarketAction = {
-  type: 'GET_ALL_COIN_MARKET',
-};
-
-type GetAllCoinMarketSuccessAction = {
-  type: 'GET_ALL_COIN_MARKET_SUCCESS',
-  data: Array<CoinMarketCapData>,
-};
-
-type GetAllCoinMarketErrorAction = {
-  type: 'GET_ALL_COIN_MARKET_ERROR',
-  error: Error,
-};
-
+// ------------------------------------
+// App Actions
+// ------------------------------------
 type ToggleThemeAction = {
-  type: 'appState/TOGGLE_THEME',
+  type: 'app/TOGGLE_THEME',
 };
 
+// ------------------------------------
+// Cryptos Actions
+// ------------------------------------
 type AddNewHoldingAction = {
   type: 'cryptos/ADD_NEW_HOLDING',
   coin: HoldingData,
@@ -31,8 +26,5 @@ type AddNewHoldingAction = {
 
 export type Action =
   | LoginAction
-  | GetAllCoinMarketAction
-  | GetAllCoinMarketSuccessAction
-  | GetAllCoinMarketErrorAction
   | ToggleThemeAction
   | AddNewHoldingAction;

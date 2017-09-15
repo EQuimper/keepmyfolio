@@ -22,6 +22,7 @@ type Props = {
 
 export default function HighLightTab({ children, focused }: Props) {
   let footerHeight;
+
   if (focused) {
     footerHeight = 1;
   } else {

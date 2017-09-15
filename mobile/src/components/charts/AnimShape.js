@@ -15,7 +15,7 @@ type State = {
   path: string
 };
 
-const AnimationDurationMs = 300;
+const ANIMATION_DURATION = 300;
 
 class AnimShape extends Component<void, Props, State> {
   state = {
@@ -55,7 +55,7 @@ class AnimShape extends Component<void, Props, State> {
 
       LayoutAnimation.configureNext(
         LayoutAnimation.create(
-          AnimationDurationMs,
+          ANIMATION_DURATION,
           LayoutAnimation.Types.easeInEaseOut,
           LayoutAnimation.Properties.opacity
         )
@@ -77,7 +77,6 @@ class AnimShape extends Component<void, Props, State> {
     }
   }
 
-  // This is where we animate our graph's path value.
   _animate(start) {
     this._animating = requestAnimationFrame(timestamp => {
 
@@ -85,7 +84,7 @@ class AnimShape extends Component<void, Props, State> {
         start = timestamp; // eslint-disable-line
       }
 
-      const delta = (timestamp - start) / AnimationDurationMs;
+      const delta = (timestamp - start) / ANIMATION_DURATION;
 
       if (delta > 1) {
         this._animating = null;

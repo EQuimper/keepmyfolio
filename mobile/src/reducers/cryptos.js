@@ -2,7 +2,7 @@
 
 import type { Action, CryptosState } from '../types';
 
-const initialState = {
+const initialState: CryptosState = {
   entities: {},
   transactionId: 0,
 };

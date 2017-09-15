@@ -4,7 +4,7 @@ import type { AppState, Action } from '../types';
 
 import { themes } from '../utils/constants';
 
-const initialState = {
+const initialState: AppState = {
   darkTheme: true,
   theme: themes.dark
 };
@@ -14,7 +14,7 @@ export default function appReducer(
   action: Action,
 ) {
   switch (action.type) {
-    case 'appState/TOGGLE_THEME':
+    case 'app/TOGGLE_THEME':
       return {
         ...state,
         darkTheme: !state.darkTheme,

@@ -9,7 +9,7 @@ import type {
 
 import type { Action } from './action';
 
-import type { EntitiesState, AppState, CryptosState } from './state';
+import type { AppState, CryptosState } from './state';
 
 export type RelayType = any;
 
@@ -20,7 +20,6 @@ export type Navigation = NavigationScreenProp<
 
 export type State = {
   nav: NavigationState,
-  entities: EntitiesState,
   app: AppState,
   cryptos: CryptosState,
 };
@@ -34,9 +33,8 @@ export type {
   NavigationState,
   NavigationAction,
   Action,
-  EntitiesState,
   AppState,
   CryptosState
 };
 
-export { CoinMarketCapData, ThemeColorsData, HoldingData } from './data';
+export { ThemeColorsData, HoldingData } from './data';

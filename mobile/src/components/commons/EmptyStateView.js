@@ -1,15 +1,15 @@
 // @flow
 
 import React from 'react';
-import glamorous from 'glamorous-native';
+import styled from 'styled-components/native';
 
-const Root = glamorous.view({
-  flex: 1,
-});
+const Root = styled.View`
+  flex: 1;
+`;
 
-const Heading1 = glamorous.text({});
+const Heading1 = styled.Text``;
 
-const Heading2 = glamorous.text({});
+const Heading2 = styled.Text``;
 
 type Props = {
   title: string,
