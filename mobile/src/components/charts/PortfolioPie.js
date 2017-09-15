@@ -6,14 +6,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 
 import AnimShape from './AnimShape';
-import { pieChartColors } from '../../utils/constants';
+import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
 
 const { Surface, Group } = ART;
 
@@ -43,8 +43,8 @@ const Right = styled.ScrollView.attrs({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingTop: 10,
-    paddingBottom: 25
-  }
+    paddingBottom: 25,
+  },
 })`
   flex: 0.6;
   paddingTop: 10;
@@ -52,7 +52,7 @@ const Right = styled.ScrollView.attrs({
 
 type Item = {
   number: number,
-  name: string
+  name: string,
 };
 
 type Data = Array<Item>;
@@ -64,38 +64,47 @@ const data: Data = [
   { number: 23, name: 'NEO' },
   { number: 42, name: 'OMG' },
   { number: 4, name: 'XRP' },
-  { number: 4, name: 'TenX' }
+  { number: 4, name: 'TenX' },
 ];
 
 const PIE_WIDTH = WIDTH / 2 - 10;
 
-function getColor(darkTheme: boolean, index: number) {
-  const _theme = darkTheme ? 'dark' : 'light';
-  const _index = index % pieChartColors[_theme].length;
-  return pieChartColors[_theme][_index];
-}
-
 type State = {
-  highlightedIndex: number
+  highlightedIndex: number,
+  data: Data,
 };
 
 type Props = {
-  darkTheme: boolean
+  darkTheme: boolean,
+  onSelectCrypto: (index: number) => void,
+  color: string,
 };
 
 class PortfolioPie extends Component<void, Props, State> {
   state = {
-    highlightedIndex: 0
+    highlightedIndex: 0,
+    data: []
   };
+
+  componentDidMount() {
+    this._sortData()
+  }
+
+  _sortData = () => {
+    const newData =  [...data].sort((a, b) => b.number - a.number)
+
+    this.setState({ data: newData })
+  }
 
   _value = (item: Item) => item.number;
 
   _label = (item: Item) => item.name;
 
-  _color = (index: number) => getColor(this.props.darkTheme, index);
+  _color = (index: number) =>
+    getColorForWalletGraph(this.props.darkTheme, index);
 
   _createPieChart = (index: number) => {
-    const arcs = d3.shape.pie().value(this._value)(data);
+    const arcs = d3.shape.pie().value(this._value)(this.state.data);
 
     const hightlightedArc = d3.shape
       .arc()
@@ -118,15 +127,16 @@ class PortfolioPie extends Component<void, Props, State> {
 
     return {
       path,
-      color: this._color(index)
+      color: this._color(index),
     };
   };
 
   _onPieItemSelected = (index: number) => {
     this.setState({
       ...this.state,
-      highlightedIndex: index
+      highlightedIndex: index,
     });
+    this.props.onSelectCrypto(index);
   };
 
   render() {
@@ -138,7 +148,7 @@ class PortfolioPie extends Component<void, Props, State> {
         <Left>
           <Surface width={PIE_WIDTH + 30} height={PIE_WIDTH + 30}>
             <Group x={x} y={y}>
-              {data.map((item, index) => (
+              {this.state.data.map((item, index) => (
                 <AnimShape
                   key={`pie_shape_${index}`} // eslint-disable-line
                   color={this._color(index)}
@@ -149,7 +159,7 @@ class PortfolioPie extends Component<void, Props, State> {
           </Surface>
         </Left>
         <Right>
-          {data.map((item, index) => {
+          {this.state.data.map((item, index) => {
             const fontWeight =
               this.state.highlightedIndex === index ? '700' : '400';
             return (
@@ -163,8 +173,8 @@ class PortfolioPie extends Component<void, Props, State> {
                       styles.label,
                       {
                         color: this._color(index),
-                        fontWeight
-                      }
+                        fontWeight,
+                      },
                     ]}
                   >
                     {this._label(item)}: {this._value(item)}%
@@ -181,13 +191,13 @@ class PortfolioPie extends Component<void, Props, State> {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20
+    margin: 20,
   },
   label: {
     fontSize: 15,
     marginTop: 5,
-    fontWeight: 'normal'
-  }
+    fontWeight: 'normal',
+  },
 });
 
 export default PortfolioPie;
