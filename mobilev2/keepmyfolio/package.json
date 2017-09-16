@@ -11,7 +11,8 @@
 		"flow": "flow check",
 		"configure": "node ./scripts/configure.js",
 		"postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;",
-		"relay": "relay-compiler --schema ./data/schema.graphql --src ./src"
+		"relay": "relay-compiler --schema ./data/schema.graphql --src ./src",
+		"lint": "eslint ./src"
 	},
 	"dependencies": {
 		"art": "^0.10.1",

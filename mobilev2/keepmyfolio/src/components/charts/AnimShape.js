@@ -106,9 +106,6 @@ class AnimShape extends Component<void, Props, State> {
   }
 
   render() {
-    console.log('====================================');
-    console.log('ANIM SHAPE PROPS', this.props);
-    console.log('====================================');
     return (
       <Shape
         d={this.state.path}
