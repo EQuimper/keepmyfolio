@@ -2,7 +2,6 @@
 ; We fork some components by platform
 .*/*[.]android.js
 .*/node_modules/styled-components/.*
-.*/node_modules/expo/.*
 .*/node_modules/react-navigation/.*
 .*/node_modules/react-native-tab-view/.*
 .*/node_modules/art/.*
@@ -10,13 +9,7 @@
 .*/node_modules/relay-runtime/lib/*.
 .*/node_modules/react-relay/lib/*.
 .*/node_modules/babel-plugin-relay/*.
-.*/node_modules/react-native/Libraries/Components/StaticContainer.react.js
-.*/node_modules/react-native/Libraries/EventEmitter/EventSubscriptionVendor.js
-.*/node_modules/react-native/Libraries/EventEmitter/EmitterSubscription.js
-.*/node_modules/react-native/Libraries/EventEmitter/EventSubscription.js
-.*/node_modules/react-relay/lib/relayUnstableBatchedUpdates.js
-.*/node_modules/react-native/Libraries/Components/MaskedView/MaskedViewIOS.ios.js
-.*/node_modules/@appandflow/touchable/.*
+.*/node_modules/react-static-container/*.
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { Modal, FlatList } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';

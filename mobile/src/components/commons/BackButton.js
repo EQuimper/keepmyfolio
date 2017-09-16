@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { withHandlers } from 'recompose';
 
 import ButtonHeader from './ButtonHeader';
