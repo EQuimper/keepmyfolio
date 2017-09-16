@@ -10,7 +10,8 @@ import {
 import { StatusBar, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
-import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import type {
   State,

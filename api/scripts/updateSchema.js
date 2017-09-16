@@ -3,8 +3,8 @@
 
 import fs from 'fs';
 import path from 'path';
-import { graphql } from 'graphql';
-import { introspectionQuery, printSchema } from 'graphql/utilities';
+// import { graphql } from 'graphql';
+import { printSchema } from 'graphql/utilities';
 
 import Schema from '../src/schema';
 
@@ -26,6 +26,6 @@ import Schema from '../src/schema';
 
 // Save user readable type system shorthand of schema
 fs.writeFileSync(
-  path.join(__dirname, '../../mobile/data/schema.graphql'),
+  path.join(__dirname, '../../mobilev2/keepmyfolio/data/schema.graphql'),
   printSchema(Schema),
 );

@@ -10,7 +10,8 @@
 		"prettier": "prettier --parser flow --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
 		"flow": "flow check",
 		"configure": "node ./scripts/configure.js",
-		"postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;"
+		"postinstall": "find node_modules -type f -not -regex \".*react-native\\/.*\" -name \".babelrc\" -exec rm -rf {} \\;",
+		"relay": "relay-compiler --schema ./data/schema.graphql --src ./src"
 	},
 	"dependencies": {
 		"art": "^0.10.1",
@@ -22,12 +23,14 @@
 		"invariant": "^2.2.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.3",
+		"react-native-vector-icons": "^4.4.0",
 		"react-navigation": "^1.0.0-beta.11",
 		"react-redux": "^5.0.6",
 		"react-relay": "^1.3.0",
 		"recompose": "^0.25.0",
 		"redux": "^3.7.2",
 		"redux-persist": "^4.9.1",
+		"redux-thunk": "^2.2.0",
 		"relay-runtime": "^1.3.0",
 		"styled-components": "^2.1.2"
 	},

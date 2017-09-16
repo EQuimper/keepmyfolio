@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { Keyboard } from 'react-native';
 import invariant from 'invariant';
-import { Entypo, FontAwesome } from '@expo/vector-icons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 import format from 'date-fns/format';
 import { connect } from 'react-redux';
 

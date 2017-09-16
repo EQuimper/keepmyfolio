@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import idx from 'idx';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { colors } from '../../utils/constants';
 import { CoinMarket } from '../../utils/api';

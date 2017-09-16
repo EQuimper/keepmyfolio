@@ -18,8 +18,8 @@ const Root = styled.View`flex: 1;`;
 
 const ScrollView = styled.ScrollView.attrs({
   contentContainerStyle: {
-    paddingBottom: 5,
-  },
+    paddingBottom: 5
+  }
 })`
 
 `;
@@ -38,7 +38,7 @@ const WalletGraphWrapper = styled.View`
 
 type DataProps = Array<{
   date: number,
-  amount: number,
+  amount: number
 }>;
 
 const data: DataProps = [];
@@ -46,32 +46,32 @@ const data: DataProps = [];
 for (let i = 0; i < 25; i++) {
   data.push({
     date: 2000 + i,
-    amount: parseFloat((Math.random() * 100).toFixed(2)),
+    amount: parseFloat((Math.random() * 100).toFixed(2))
   });
 }
 
 type Props = {
   theme: ThemeColorsData,
-  darkTheme: boolean,
+  darkTheme: boolean
 };
 
 type State = {
   isNeg: boolean,
   graphHistoryData: DataProps,
-  selectedCryptoIndex: number,
+  selectedCryptoIndex: number
 };
 
 class WalletScreen extends Component<void, Props, State> {
   state = {
     isNeg: true,
     graphHistoryData: data,
-    selectedCryptoIndex: 0,
+    selectedCryptoIndex: 0
   };
 
   get _getColor(): string {
     return getColorForWalletGraph(
       this.props.darkTheme,
-      this.state.selectedCryptoIndex,
+      this.state.selectedCryptoIndex
     );
   }
 
@@ -80,7 +80,7 @@ class WalletScreen extends Component<void, Props, State> {
     for (let i = 0; i < 25; i++) {
       newData.push({
         date: 2000 + i,
-        amount: parseFloat((Math.random() * 100).toFixed(2)),
+        amount: parseFloat((Math.random() * 100).toFixed(2))
       });
     }
 
@@ -90,7 +90,7 @@ class WalletScreen extends Component<void, Props, State> {
   _onSelectCrypto = (index: number) => {
     this.setState({
       selectedCryptoIndex: index,
-      graphHistoryData: this._shuffle(),
+      graphHistoryData: this._shuffle()
     });
   };
 
@@ -130,5 +130,5 @@ class WalletScreen extends Component<void, Props, State> {
 
 export default connect((state: AppState) => ({
   theme: state.app.theme,
-  darkTheme: state.app.darkTheme,
+  darkTheme: state.app.darkTheme
 }))(WalletScreen);
