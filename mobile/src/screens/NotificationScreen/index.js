@@ -16,7 +16,7 @@ type Props = {
   theme: ThemeColorsData
 };
 
-class CoinDetailsScreen extends PureComponent<void, Props, void> {
+class NotificationScreen extends PureComponent<void, Props, void> {
   render() {
     const { theme } = this.props;
     return (
@@ -31,4 +31,4 @@ export default connect(
   (state: AppState) => ({
     theme: state.app.theme,
   })
-)(CoinDetailsScreen);
+)(NotificationScreen);

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import { Keyboard } from 'react-native';
 import invariant from 'invariant';
@@ -118,7 +118,7 @@ const initialState: State = {
   dateBuy: new Date(),
 };
 
-class AddCoinScreen extends Component<void, Props, State> {
+class AddCoinScreen extends PureComponent<void, Props, State> {
   state = initialState;
 
   get _getCryptoName() {
@@ -323,12 +323,14 @@ class AddCoinScreen extends Component<void, Props, State> {
               <Entypo size={25} color="#fff" name="check" />
             </Button>
           </ButtonWrapper>
-          <ModalCryptocurencie
-            theme={this.props.theme}
-            onCloseButtonPress={this._onModalCryptoPress}
-            showModalCrypto={this.state.showModalCrypto}
-            onSelectCryptoPress={this._onSelectCryptoPress}
-          />
+          {this.state.showModalCrypto && (
+            <ModalCryptocurencie
+              theme={this.props.theme}
+              onCloseButtonPress={this._onModalCryptoPress}
+              showModalCrypto={this.state.showModalCrypto}
+              onSelectCryptoPress={this._onSelectCryptoPress}
+            />
+          )}
         </Wrapper>
       </Root>
     );

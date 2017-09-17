@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import styled from 'styled-components/native';
 import { createPaginationContainer, graphql } from 'react-relay';
@@ -35,7 +35,7 @@ type State = {
   refreshing: boolean,
 };
 
-class HomeScreen extends Component<void, Props, State> {
+class HomeScreen extends PureComponent<void, Props, State> {
   state = {
     refreshing: false,
   };

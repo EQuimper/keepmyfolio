@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { UIManager, AsyncStorage } from 'react-native';
 import { ThemeProvider } from 'styled-components';
@@ -21,7 +21,7 @@ type State = {
 
 // TODO: Remove themeprovider
 
-class App extends Component<void, {}, State> {
+class App extends PureComponent<void, {}, State> {
   state = {
     isReady: false,
   }

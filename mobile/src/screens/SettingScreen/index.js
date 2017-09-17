@@ -1,7 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
-import { Switch } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Switch, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
@@ -42,7 +42,7 @@ type Props = {
   theme: ThemeColorsData
 };
 
-class SettingScreen extends Component<void, Props, void> {
+class SettingScreen extends PureComponent<void, Props, void> {
   _handleValueChange = () => {
     this.props.toggleTheme();
   };
@@ -66,6 +66,15 @@ class SettingScreen extends Component<void, Props, void> {
             />
           </SliderWrapper>
         </Card>
+        <TouchableOpacity>
+          <Card style={{ backgroundColor: this.props.theme.tabBarColor }}>
+            <CardNameWrapper>
+              <CardText style={{ color: this.props.theme.textColor }}>
+                FEEDBACK
+              </CardText>
+            </CardNameWrapper>
+          </Card>
+        </TouchableOpacity>
       </Root>
     );
   }

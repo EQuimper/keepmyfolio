@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
@@ -61,7 +61,7 @@ type State = {
   selectedCryptoIndex: number
 };
 
-class WalletScreen extends Component<void, Props, State> {
+class WalletScreen extends PureComponent<void, Props, State> {
   state = {
     isNeg: true,
     graphHistoryData: data,

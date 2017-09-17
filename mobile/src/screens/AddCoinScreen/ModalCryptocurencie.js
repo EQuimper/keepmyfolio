@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import { Modal, FlatList } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -68,7 +68,7 @@ type Props = {
   theme: ThemeColorsData,
 };
 
-class ModalCryptocurencie extends Component<void, Props, void> {
+class ModalCryptocurencie extends PureComponent<void, Props, void> {
   _onCloseButtonPress = () => this.props.onCloseButtonPress();
 
   _onEndReached = () => {
@@ -94,39 +94,37 @@ class ModalCryptocurencie extends Component<void, Props, void> {
 
     const { theme } = this.props;
     return (
-      <Root>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.props.showModalCrypto}
-        >
-          <Wrapper style={{ backgroundColor: theme.tabBarColor }}>
-            <CloseButton onPress={this._onCloseButtonPress}>
-              <MaterialCommunityIcons
-                color={theme.textColor}
-                size={30}
-                name="window-close"
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.props.showModalCrypto}
+      >
+        <Wrapper style={{ backgroundColor: theme.tabBarColor }}>
+          <CloseButton onPress={this._onCloseButtonPress}>
+            <MaterialCommunityIcons
+              color={theme.textColor}
+              size={30}
+              name="window-close"
+            />
+          </CloseButton>
+          <ContentWrapper>
+            <Title style={{ color: theme.textColor }}>Choose your crypto</Title>
+            <ListWrapper>
+              <FlatList
+                ItemSeparatorComponent={() => <Separator />}
+                contentContainerStyle={{
+                  alignSelf: 'stretch',
+                  paddingBottom: 50,
+                }}
+                keyExtractor={item => item.id}
+                renderItem={this._renderItem}
+                data={edges.map(e => idx(e, _ => _.node))}
+                onEndReached={this._onEndReached}
               />
-            </CloseButton>
-            <ContentWrapper>
-              <Title style={{ color: theme.textColor }}>Choose your crypto</Title>
-              <ListWrapper>
-                <FlatList
-                  ItemSeparatorComponent={() => <Separator />}
-                  contentContainerStyle={{
-                    alignSelf: 'stretch',
-                    paddingBottom: 50,
-                  }}
-                  keyExtractor={item => item.id}
-                  renderItem={this._renderItem}
-                  data={edges.map(e => idx(e, _ => _.node))}
-                  onEndReached={this._onEndReached}
-                />
-              </ListWrapper>
-            </ContentWrapper>
-          </Wrapper>
-        </Modal>
-      </Root>
+            </ListWrapper>
+          </ContentWrapper>
+        </Wrapper>
+      </Modal>
     );
   }
 }

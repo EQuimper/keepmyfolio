@@ -25,6 +25,7 @@ import CoinDetailsScreen from './screens/CoinDetailsScreen';
 import AddCoinScreen from './screens/AddCoinScreen';
 import WalletScreen from './screens/WalletScreen';
 import SettingScreen from './screens/SettingScreen';
+import NotificationScreen from './screens/NotificationScreen';
 
 import { colors } from './utils/constants';
 import ButtonHeader from './components/commons/ButtonHeader';
@@ -133,7 +134,7 @@ const HomeNavigator = StackNavigator(
           color: props.screenProps.theme.headerTitleColor
         },
         headerStyle: {
-          backgroundColor: props.screenProps.theme.tabBarColor
+          backgroundColor: props.screenProps.theme.tabBarColor,
         },
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
@@ -173,7 +174,7 @@ const HomeNavigator = StackNavigator(
   {
     headerMode: 'screen',
     cardStyle: {
-      backgroundColor: '#000'
+      backgroundColor: colors.darkGray
     }
   }
 );
@@ -225,7 +226,7 @@ const Tabs = TabNavigator(
       })
     },
     Notifications: {
-      screen: HomeScreen,
+      screen: NotificationScreen,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
@@ -285,7 +286,7 @@ const AppMainNav = StackNavigator(
     headerMode: 'none',
     initialRouteName: 'Tabs',
     cardStyle: {
-      backgroundColor: '#000'
+      backgroundColor: colors.darkGray
     }
   }
 );

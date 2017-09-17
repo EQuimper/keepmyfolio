@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components/native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import idx from 'idx';
@@ -96,7 +96,7 @@ type State = {
   isNeg: boolean,
 };
 
-class Coin extends Component<void, Props, State> {
+class Coin extends PureComponent<void, Props, State> {
   state = {
     isNeg: getIfNeg(this.props),
   };
