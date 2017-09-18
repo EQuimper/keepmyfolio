@@ -23,3 +23,5 @@ export type HoldingData = {
   dateBuy: Date,
   id: any,
 };
+
+export type TimeSelect = '1d' | '7d' | '1m' | '6m'| '1y';

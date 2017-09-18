@@ -9,7 +9,6 @@ import {
 } from 'react-navigation';
 import { StatusBar, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import styled from 'styled-components/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
@@ -17,7 +16,7 @@ import type {
   State,
   NavigationState,
   ThemeColorsData,
-  Navigation
+  Navigation,
 } from './types';
 
 import HomeScreen from './screens/HomeScreen';
@@ -31,33 +30,16 @@ import { colors } from './utils/constants';
 import ButtonHeader from './components/commons/ButtonHeader';
 import BackButton from './components/commons/BackButton';
 import HighLightTab from './components/HighLightTab';
+import AddButtonTab from './components/AddButtonTab';
 
 const TAB_ICON_SIZE = 25;
-
-const AddButon = styled.View`
-  height: 50;
-  width: 50;
-  borderRadius: 25;
-  backgroundColor: ${colors.primary};
-  justifyContent: center;
-  alignItems: center;
-`;
-
-const OuterAddButton = styled.View`
-  justifyContent: center;
-  alignItems: center;
-  height: 65;
-  width: 65;
-  borderRadius: ${65 / 2};
-  marginTop: -30;
-`;
 
 const TabBarBottomConnected = connect((state: State) => ({
   style: {
     backgroundColor: state.app.theme.tabBarColor,
     borderTopColor: state.app.theme.tabBarColor,
-    height: 50
-  }
+    height: 50,
+  },
 }))(TabBarBottom);
 
 type NavProps = {
@@ -65,7 +47,7 @@ type NavProps = {
     theme: ThemeColorsData,
     darkTheme: boolean,
   },
-  navigation: Navigation
+  navigation: Navigation,
 };
 
 const AddCoinNavigator = StackNavigator({
@@ -74,14 +56,14 @@ const AddCoinNavigator = StackNavigator({
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'Add an holding',
       headerTitleStyle: {
-        color: props.screenProps.theme.headerTitleColor
+        color: props.screenProps.theme.headerTitleColor,
       },
       headerStyle: {
-        backgroundColor: props.screenProps.theme.tabBarColor
+        backgroundColor: props.screenProps.theme.tabBarColor,
       },
-      headerRight: null
-    })
-  }
+      headerRight: null,
+    }),
+  },
 });
 
 const WalletNavigator = StackNavigator({
@@ -90,22 +72,18 @@ const WalletNavigator = StackNavigator({
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'My Wallet',
       headerTitleStyle: {
-        color: props.screenProps.theme.headerTitleColor
+        color: props.screenProps.theme.headerTitleColor,
       },
       headerStyle: {
-        backgroundColor: props.screenProps.theme.tabBarColor
+        backgroundColor: props.screenProps.theme.tabBarColor,
       },
       headerRight: (
         <ButtonHeader side="right" onPress={() => null}>
-          <Ionicons
-            size={25}
-            color={colors.lightGrey}
-            name="ios-search"
-          />
+          <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
         </ButtonHeader>
-      )
-    })
-  }
+      ),
+    }),
+  },
 });
 
 const SettingNavigator = StackNavigator({
@@ -114,14 +92,14 @@ const SettingNavigator = StackNavigator({
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'Settings',
       headerTitleStyle: {
-        color: props.screenProps.theme.headerTitleColor
+        color: props.screenProps.theme.headerTitleColor,
       },
       headerStyle: {
-        backgroundColor: props.screenProps.theme.tabBarColor
+        backgroundColor: props.screenProps.theme.tabBarColor,
       },
-      headerRight: null
-    })
-  }
+      headerRight: null,
+    }),
+  },
 });
 
 const HomeNavigator = StackNavigator(
@@ -131,52 +109,44 @@ const HomeNavigator = StackNavigator(
       navigationOptions: (props: NavProps) => ({
         headerTitle: 'KeepMyFolio',
         headerTitleStyle: {
-          color: props.screenProps.theme.headerTitleColor
+          color: props.screenProps.theme.headerTitleColor,
         },
         headerStyle: {
           backgroundColor: props.screenProps.theme.tabBarColor,
         },
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons
-              size={25}
-              color={colors.lightGrey}
-              name="ios-search"
-            />
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
           </ButtonHeader>
-        )
-      })
+        ),
+      }),
     },
     CoinDetailsScreen: {
       screen: CoinDetailsScreen,
       navigationOptions: (props: NavProps) => ({
-        headerTitle: props.navigation.state.params.name,
+        headerTitle: props.navigation.state.params.coin.name,
         headerBackTitle: null,
         headerTitleStyle: {
-          color: props.screenProps.theme.headerTitleColor
+          color: props.screenProps.theme.headerTitleColor,
         },
         headerStyle: {
-          backgroundColor: props.screenProps.theme.tabBarColor
+          backgroundColor: props.screenProps.theme.tabBarColor,
         },
         headerLeft: <BackButton goBack={props.navigation.goBack} />,
         headerRight: (
           <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons
-              size={25}
-              color={colors.lightGrey}
-              name="ios-search"
-            />
+            <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
           </ButtonHeader>
-        )
-      })
-    }
+        ),
+      }),
+    },
   },
   {
     headerMode: 'screen',
     cardStyle: {
-      backgroundColor: colors.darkGray
-    }
-  }
+      backgroundColor: colors.darkGray,
+    },
+  },
 );
 
 const Tabs = TabNavigator(
@@ -192,8 +162,8 @@ const Tabs = TabNavigator(
               name="home"
             />
           </HighLightTab>
-        )
-      })
+        ),
+      }),
     },
     Wallet: {
       screen: WalletNavigator,
@@ -206,24 +176,18 @@ const Tabs = TabNavigator(
               name="wallet"
             />
           </HighLightTab>
-        )
-      })
+        ),
+      }),
     },
     AddCoin: {
       screen: AddCoinNavigator,
       navigationOptions: (props: NavProps) => ({
         tabBarIcon: () => (
-          <OuterAddButton style={{ backgroundColor: props.screenProps.theme.tabBarColor }}>
-            <AddButon>
-              <Ionicons
-                size={TAB_ICON_SIZE}
-                color={colors.white}
-                name="md-add"
-              />
-            </AddButon>
-          </OuterAddButton>
-        )
-      })
+          <AddButtonTab backgroundColor={props.screenProps.theme.tabBarColor}>
+            <Ionicons size={TAB_ICON_SIZE} color={colors.white} name="md-add" />
+          </AddButtonTab>
+        ),
+      }),
     },
     Notifications: {
       screen: NotificationScreen,
@@ -236,8 +200,8 @@ const Tabs = TabNavigator(
               name="bell"
             />
           </HighLightTab>
-        )
-      })
+        ),
+      }),
     },
     Settings: {
       screen: SettingNavigator,
@@ -250,20 +214,20 @@ const Tabs = TabNavigator(
               name="settings"
             />
           </HighLightTab>
-        )
-      })
-    }
+        ),
+      }),
+    },
   },
   {
-    // TODO remove this :)
-    initialRouteName: 'Wallet',
+    // TODO: remove this :)
+    // initialRouteName: 'Wallet',
     lazy: false,
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    // TODO check for it
+    // TODO: check for it
     animationEnabled: true,
     navigationOptions: {
-      headerVisible: false
+      headerVisible: false,
     },
     tabBarComponent: TabBarBottomConnected,
     tabBarOptions: {
@@ -271,24 +235,24 @@ const Tabs = TabNavigator(
       showLabel: false,
       activeTintColor: colors.primary,
       inactiveTintColor: colors.lightGrey,
-      pressColor: colors.primary
-    }
-  }
+      pressColor: colors.primary,
+    },
+  },
 );
 
 const AppMainNav = StackNavigator(
   {
     Tabs: {
-      screen: Tabs
-    }
+      screen: Tabs,
+    },
   },
   {
     headerMode: 'none',
     initialRouteName: 'Tabs',
     cardStyle: {
-      backgroundColor: colors.darkGray
-    }
-  }
+      backgroundColor: colors.darkGray,
+    },
+  },
 );
 
 type BarStyleProps = 'light-content' | 'dark-content';
@@ -303,7 +267,7 @@ type Props = {
 class AppNavigator extends Component<void, Props, void> {
   get _getBarStyle(): BarStyleProps {
     if (this.props.darkTheme) {
-      return 'light-content'
+      return 'light-content';
     }
 
     return 'dark-content';
@@ -312,12 +276,12 @@ class AppNavigator extends Component<void, Props, void> {
   render() {
     const screenProps = {
       theme: this.props.theme,
-      darkTheme: this.props.darkTheme
+      darkTheme: this.props.darkTheme,
     };
 
     const nav = addNavigationHelpers({
       dispatch: this.props.dispatch,
-      state: this.props.nav
+      state: this.props.nav,
     });
     // if (!this.props.user.isAuthenticated) {
     //   return <AuthenticationScreen />;
@@ -334,13 +298,13 @@ class AppNavigator extends Component<void, Props, void> {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  }
+  },
 });
 
 export default connect((state: State) => ({
   nav: state.nav,
   theme: state.app.theme,
-  darkTheme: state.app.darkTheme
+  darkTheme: state.app.darkTheme,
 }))(AppNavigator);
 
 export const router = AppMainNav.router;

@@ -1,14 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
-import { ART, LayoutAnimation } from 'react-native';
+import { LayoutAnimation } from 'react-native';
+import { Shape } from 'react-native/Libraries/ART/ReactNativeART';
 import Morph from 'art/morph/path';
-
-const { Shape } = ART;
 
 type Props = {
   color: string,
-  d: () => any
+  d: () => any,
 };
 
 type State = {

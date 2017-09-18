@@ -6,10 +6,14 @@ export const colors = {
   darkGray: '#31393C',
   greyOutline: '#bbbbbb',
   primary: '#00C0FF',
+  primaryLight: 'rgba(0, 192, 255, 0.15)',
   lightGrey: '#B4B4B4',
   white: '#ffffff',
 };
 
+/**
+ * App themes
+ */
 export const themes = {
   dark: {
     ...colors,
@@ -29,13 +33,22 @@ export const themes = {
   },
 };
 
+/**
+ * List of reducer we persist with redux-persist
+ */
 export const persistWhitelist = ['app'];
 
+/**
+ * Object of each key the app use in the asyncStorage
+ */
 export const storageKey = {
   theme: '@keepmyfolio-theme'
 }
 
+/**
+ * All colors for graphs
+ */
 export const pieChartColors = {
   light: ['#82C2EE', '#EFBD4A', '#436D96', '#382B28', '#78C68E', '#E04837'],
-  dark: ['#66CA71', '#5A57C7', '#FDBE34', '#F38181', '#FFF1A8']
+  dark: ['#66CA71', '#FDBE34', '#5A57C7', '#F38181', '#FFF1A8', '#0496FF']
 }

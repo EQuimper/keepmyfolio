@@ -165,7 +165,7 @@ class Coin extends PureComponent<void, Props, State> {
 
   _onNavigationPress = () => {
     this.props.navigation.navigate('CoinDetailsScreen', {
-      name: this.props.coin.name,
+      coin: this.props.coin,
     });
   };
 

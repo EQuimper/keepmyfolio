@@ -1,28 +1,31 @@
 // @flow
 
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import styled from 'styled-components/native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 import { colors } from '../utils/constants';
-
-const Root = styled.View`
-  flex: 1;
-  justifyContent: center;
-  alignItems: center;
-`;
 
 type Props = {
   color?: string,
   size?: 'large' | 'small',
 };
 
-export default function Loading(
+function Loading(
   { color = colors.primary, size = 'large' }: Props = {},
 ) {
   return (
-    <Root>
+    <View style={styles.root}>
       <ActivityIndicator color={color} size={size} />
-    </Root>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
+
+export default Loading;

@@ -1,8 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
-import styled from 'styled-components/native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';
@@ -12,17 +11,15 @@ import { createRenderer } from '../../RelayUtils';
 import Coin from './Coin';
 import { colors } from '../../utils/constants';
 
-import type { RelayType, Navigation, State as AppState, ThemeColorsData } from '../../types';
+import type {
+  RelayType,
+  Navigation,
+  State as AppState,
+  ThemeColorsData,
+} from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
 
 const PAGE_SIZE = 10;
-
-const Root = styled.View`flex: 1;`;
-
-const Separator = styled.View`
-  height: 5;
-  backgroundColor: transparent;
-`;
 
 type Props = {
   viewer: Viewer,
@@ -41,7 +38,11 @@ class HomeScreen extends PureComponent<void, Props, State> {
   };
 
   _renderItem = ({ item }) => (
-    <Coin coin={item} navigation={this.props.navigation} theme={this.props.theme} />
+    <Coin
+      coin={item}
+      navigation={this.props.navigation}
+      theme={this.props.theme}
+    />
   );
 
   _onEndReached = () => {
@@ -60,10 +61,12 @@ class HomeScreen extends PureComponent<void, Props, State> {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
     invariant(edges, 'Edges cannot be null');
     return (
-      <Root style={{ backgroundColor: this.props.theme.tabBarColor }}>
+      <View
+        style={[styles.root, { backgroundColor: this.props.theme.tabBarColor }]}
+      >
         <FlatList
-          ItemSeparatorComponent={() => <Separator />}
-          contentContainerStyle={{ alignSelf: 'stretch' }}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          contentContainerStyle={styles.contentContainerList}
           keyExtractor={item => item.id}
           renderItem={this._renderItem}
           data={edges.map(e => idx(e, _ => _.node))}
@@ -77,16 +80,27 @@ class HomeScreen extends PureComponent<void, Props, State> {
             />
           }
         />
-      </Root>
+      </View>
     );
   }
 }
 
-const HomeScreenConnected = connect(
-  (state: AppState) => ({
-    theme: state.app.theme
-  })
-)(HomeScreen)
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  separator: {
+    height: 5,
+    backgroundColor: 'transparent',
+  },
+  contentContainerList: {
+    alignSelf: 'stretch',
+  },
+});
+
+const HomeScreenConnected = connect((state: AppState) => ({
+  theme: state.app.theme,
+}))(HomeScreen);
 
 const PaginationContainer = createPaginationContainer(
   HomeScreenConnected,

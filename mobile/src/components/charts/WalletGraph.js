@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { ART } from 'react-native';
+import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
@@ -9,8 +9,6 @@ import * as shape from 'd3-shape';
 import type { ThemeColorsData } from '../../types';
 
 import AnimShape from './AnimShape';
-
-const { Surface, Group } = ART;
 
 const d3 = {
   shape,
@@ -38,7 +36,15 @@ type Props = {
   width: number,
 };
 
-class WalletGraph extends Component<void, Props, void> {
+type State = {
+  width: number,
+};
+
+class WalletGraph extends Component<void, Props, State> {
+  state = {
+    width: this.props.width
+  }
+
   _yValue = (item: GraphEl) => -item.amount;
 
   _xValue = (item: GraphEl, index: number) => index * 15;
@@ -56,11 +62,11 @@ class WalletGraph extends Component<void, Props, void> {
   render() {
     const { theme } = this.props;
 
-    const HEIGHT = this.props.width / 2;
+    const HEIGHT = this.state.width / 2;
 
     return (
       <Root style={{ backgroundColor: theme.tabBarColor }}>
-        <Surface width={this.props.width} height={HEIGHT}>
+        <Surface width={this.state.width} height={HEIGHT}>
           <Group x={5} y={HEIGHT - 50}>
             <AnimShape d={this._createArea} color={this.props.color} />
           </Group>

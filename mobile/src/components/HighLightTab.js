@@ -1,26 +1,16 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components/native';
+import { StyleSheet, View } from 'react-native';
 
 import { colors } from '../utils/constants';
-
-const Root = styled.View`
-  justifyContent: center;
-  alignItems: center;
-  flex: 1;
-  borderBottomWidth: ${props => props.footerHeight};
-  borderBottomColor: ${colors.primary};
-  borderRadius: 1;
-  alignSelf: stretch;
-`;
 
 type Props = {
   focused: boolean,
   children: React.Element<*>,
 };
 
-export default function HighLightTab({ children, focused }: Props) {
+function HighLightTab({ children, focused }: Props) {
   let footerHeight;
 
   if (focused) {
@@ -29,5 +19,27 @@ export default function HighLightTab({ children, focused }: Props) {
     footerHeight = 0;
   }
 
-  return <Root footerHeight={footerHeight}>{children}</Root>;
+  return (
+    <View
+      style={[
+        styles.root,
+        { borderBottomColor: colors.primary, borderBottomWidth: footerHeight },
+      ]}
+      footerHeight={footerHeight}
+    >
+      {children}
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    borderRadius: 1,
+    alignSelf: 'stretch',
+  },
+});
+
+export default HighLightTab;

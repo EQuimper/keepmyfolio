@@ -2,20 +2,18 @@
 
 import React, { Component } from 'react';
 import {
-  ART,
   StyleSheet,
   Text,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 
 import AnimShape from './AnimShape';
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
-
-const { Surface, Group } = ART;
 
 const { width: WIDTH } = Dimensions.get('window');
 
@@ -164,6 +162,7 @@ class PortfolioPie extends Component<void, Props, State> {
               this.state.highlightedIndex === index ? '700' : '400';
             return (
               <TouchableOpacity
+                disabled={index === this.state.highlightedIndex}
                 key={index} // eslint-disable-line
                 onPress={() => this._onPieItemSelected(index)}
               >

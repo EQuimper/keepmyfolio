@@ -16,15 +16,14 @@ if (UIManager.setLayoutAnimationEnabledExperimental) {
 }
 
 type State = {
-  isReady: boolean
+  isReady: boolean,
 };
 
 // TODO: Remove themeprovider
-
 class App extends PureComponent<void, {}, State> {
   state = {
     isReady: false,
-  }
+  };
 
   componentDidMount() {
     persistStore(
