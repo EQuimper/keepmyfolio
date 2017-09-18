@@ -6,7 +6,8 @@ import { themes } from '../utils/constants';
 
 const initialState: AppState = {
   darkTheme: true,
-  theme: themes.dark
+  theme: themes.dark,
+  isSearchBarShow: false,
 };
 
 export default function appReducer(
@@ -18,7 +19,12 @@ export default function appReducer(
       return {
         ...state,
         darkTheme: !state.darkTheme,
-        theme: themes[state.darkTheme ? 'light' : 'dark']
+        theme: themes[state.darkTheme ? 'light' : 'dark'],
+      };
+    case 'app/TOGGLE_SEARCH_BAR':
+      return {
+        ...state,
+        isSearchBarShow: !state.isSearchBarShow,
       };
     default:
       return state;

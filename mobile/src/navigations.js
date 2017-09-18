@@ -27,10 +27,10 @@ import SettingScreen from './screens/SettingScreen';
 import NotificationScreen from './screens/NotificationScreen';
 
 import { colors } from './utils/constants';
-import ButtonHeader from './components/commons/ButtonHeader';
 import BackButton from './components/commons/BackButton';
 import HighLightTab from './components/HighLightTab';
 import AddButtonTab from './components/AddButtonTab';
+import ButtonSearch from './components/ButtonSearch';
 
 const TAB_ICON_SIZE = 25;
 
@@ -77,11 +77,7 @@ const WalletNavigator = StackNavigator({
       headerStyle: {
         backgroundColor: props.screenProps.theme.tabBarColor,
       },
-      headerRight: (
-        <ButtonHeader side="right" onPress={() => null}>
-          <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
-        </ButtonHeader>
-      ),
+      // headerRight: <ButtonSearch />
     }),
   },
 });
@@ -114,11 +110,7 @@ const HomeNavigator = StackNavigator(
         headerStyle: {
           backgroundColor: props.screenProps.theme.tabBarColor,
         },
-        headerRight: (
-          <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
-          </ButtonHeader>
-        ),
+        headerRight: <ButtonSearch />,
       }),
     },
     CoinDetailsScreen: {
@@ -133,11 +125,7 @@ const HomeNavigator = StackNavigator(
           backgroundColor: props.screenProps.theme.tabBarColor,
         },
         headerLeft: <BackButton goBack={props.navigation.goBack} />,
-        headerRight: (
-          <ButtonHeader side="right" onPress={() => null}>
-            <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
-          </ButtonHeader>
-        ),
+        headerRight: <ButtonSearch />
       }),
     },
   },

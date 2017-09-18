@@ -16,6 +16,10 @@ type ToggleThemeAction = {
   type: 'app/TOGGLE_THEME',
 };
 
+type ToggleSearchBarAction = {
+  type: 'app/TOGGLE_SEARCH_BAR',
+};
+
 // ------------------------------------
 // Cryptos Actions
 // ------------------------------------
@@ -27,4 +31,5 @@ type AddNewHoldingAction = {
 export type Action =
   | LoginAction
   | ToggleThemeAction
+  | ToggleSearchBarAction
   | AddNewHoldingAction;

@@ -6,6 +6,8 @@ export type ThemeColorsData = {
   darkGray: string,
   greyOutline: string,
   primary: string,
+  primaryLight: string,
+  transparent: string,
   lightGrey: string,
   white: string,
   tabBarColor: string,

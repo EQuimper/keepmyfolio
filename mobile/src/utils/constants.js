@@ -9,6 +9,7 @@ export const colors = {
   primaryLight: 'rgba(0, 192, 255, 0.15)',
   lightGrey: '#B4B4B4',
   white: '#ffffff',
+  transparent: 'transparent'
 };
 
 /**

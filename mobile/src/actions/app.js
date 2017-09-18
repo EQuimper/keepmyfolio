@@ -7,3 +7,9 @@ export function toggleTheme(): Action {
     type: 'app/TOGGLE_THEME',
   }
 }
+
+export function toggleSearchBar(): Action {
+  return {
+    type: 'app/TOGGLE_SEARCH_BAR'
+  }
+}

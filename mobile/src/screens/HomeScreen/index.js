@@ -7,10 +7,6 @@ import idx from 'idx';
 import invariant from 'invariant';
 import { connect } from 'react-redux';
 
-import { createRenderer } from '../../RelayUtils';
-import Coin from './Coin';
-import { colors } from '../../utils/constants';
-
 import type {
   RelayType,
   Navigation,
@@ -18,6 +14,11 @@ import type {
   ThemeColorsData,
 } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
+
+import { createRenderer } from '../../RelayUtils';
+import Coin from './Coin';
+import { colors } from '../../utils/constants';
+import SearchBar from '../../components/SearchBar';
 
 const PAGE_SIZE = 10;
 
@@ -64,6 +65,7 @@ class HomeScreen extends PureComponent<void, Props, State> {
       <View
         style={[styles.root, { backgroundColor: this.props.theme.tabBarColor }]}
       >
+        <SearchBar theme={this.props.theme} />
         <FlatList
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           contentContainerStyle={styles.contentContainerList}
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 5,
-    backgroundColor: 'transparent',
+    backgroundColor: colors.transparent,
   },
   contentContainerList: {
     alignSelf: 'stretch',

@@ -20,6 +20,7 @@ type State = {
 };
 
 // TODO: Remove themeprovider
+// TODO: Make sure the searchBar close in app enter
 class App extends PureComponent<void, {}, State> {
   state = {
     isReady: false,
