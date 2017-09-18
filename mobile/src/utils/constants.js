@@ -1,5 +1,7 @@
 // @flow
 
+import { createBlacklistFilter } from 'redux-persist-transform-filter';
+
 export const colors = {
   red: '#F8333C',
   green: '#4ADF86',
@@ -33,6 +35,14 @@ export const themes = {
     thumbTintColor: colors.darkGray
   },
 };
+
+/**
+ * Remove some keey from the app reducer
+ */
+export const subsetOfAppReducer = createBlacklistFilter(
+  'app',
+  ['isSearchBarShow']
+);
 
 /**
  * List of reducer we persist with redux-persist
