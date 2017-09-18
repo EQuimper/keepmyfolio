@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { withHandlers } from 'recompose';
 
 import { colors } from '../../utils/constants';

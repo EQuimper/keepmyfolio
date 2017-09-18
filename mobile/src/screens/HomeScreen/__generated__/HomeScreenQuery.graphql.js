@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 08b6d18ffaac929586a1f0eb4106a807
+ * @relayHash 0153163d6e30a74eb4d2b58302e0390d
  */
 
 /* eslint-disable */
@@ -48,6 +48,9 @@ fragment Coin_coin on Crypto {
   percentChange1h
   symbol
   priceUsd
+  priceBtc
+  marketCapUsd
+  totalSuply
 }
 */
 
@@ -204,6 +207,27 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
+                        "name": "priceBtc",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "marketCapUsd",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "totalSuply",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
                         "name": "__typename",
                         "storageKey": null
                       }
@@ -284,7 +308,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeScreenQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n}\n"
+  "text": "query HomeScreenQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n  priceBtc\n  marketCapUsd\n  totalSuply\n}\n"
 };
 
 module.exports = batch;

@@ -14,6 +14,9 @@ export type Coin_coin = {|
   +percentChange1h: ?string;
   +symbol: string;
   +priceUsd: ?string;
+  +priceBtc: ?string;
+  +marketCapUsd: ?string;
+  +totalSuply: ?string;
 |};
 */
 
@@ -57,6 +60,27 @@ const fragment /*: ConcreteFragment*/ = {
       "alias": null,
       "args": null,
       "name": "priceUsd",
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "args": null,
+      "name": "priceBtc",
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "args": null,
+      "name": "marketCapUsd",
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "args": null,
+      "name": "totalSuply",
       "storageKey": null
     }
   ],

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import idx from 'idx';
-import { Image, View, StyleSheet, Text } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 
 import type { Coin_coin as Coin } from '../HomeScreen/__generated__/Coin_coin.graphql';
 import type { ThemeColorsData, TimeSelect } from '../../types';
@@ -10,8 +10,11 @@ import type { ThemeColorsData, TimeSelect } from '../../types';
 import { CoinMarket } from '../../utils/api';
 import { colors } from '../../utils/constants';
 import TimeButton from './TimeButton';
+import MetaCard from './MetaCard';
 
 const titleEls = ['1d', '7d', '1m', '6m', '1y'];
+
+const IMG_HEIGHT = 64;
 
 type Props = {
   coin: Coin,
@@ -22,7 +25,10 @@ type Props = {
 
 class CoinTopDetails extends Component<void, Props, void> {
   get _getImage(): string {
-    return CoinMarket.getImage(idx(this.props, _ => _.coin.cryptoId), 32);
+    return CoinMarket.getImage(
+      idx(this.props, _ => _.coin.cryptoId),
+      IMG_HEIGHT,
+    );
   }
 
   _renderTimeButtons = (title: string) => {
@@ -44,7 +50,13 @@ class CoinTopDetails extends Component<void, Props, void> {
   };
 
   render() {
-    // const { theme } = this.props;
+    const { theme, coin } = this.props;
+
+    const _price = idx(coin, _ => _.priceUsd) || '0';
+    const _marketCap = idx(coin, _ => _.marketCapUsd) || '0';
+    const _priceBtc = idx(coin, _ => _.priceBtc) || '0';
+    const _totalSuply = idx(coin, _ => _.totalSuply) || '0';
+
     return (
       <View style={styles.root}>
         <View style={styles.buttonsWrapper}>
@@ -54,7 +66,32 @@ class CoinTopDetails extends Component<void, Props, void> {
           <View style={styles.imgWrapper}>
             <Image style={styles.img} source={{ uri: this._getImage }} />
           </View>
-          <View style={{ flex: 70 }} />
+          <View style={styles.metaWrapper}>
+            <MetaCard
+              textColor={theme.textColor}
+              backgroundColor={theme.tabBarColor}
+              title="Price USD"
+              value={_price}
+            />
+            <MetaCard
+              textColor={theme.textColor}
+              backgroundColor={theme.tabBarColor}
+              title="Market Cap"
+              value={_marketCap}
+            />
+            <MetaCard
+              textColor={theme.textColor}
+              backgroundColor={theme.tabBarColor}
+              title="Price BTC"
+              value={_priceBtc}
+            />
+            <MetaCard
+              textColor={theme.textColor}
+              backgroundColor={theme.tabBarColor}
+              title="Total Supply"
+              value={_totalSuply}
+            />
+          </View>
         </View>
       </View>
     );
@@ -63,11 +100,11 @@ class CoinTopDetails extends Component<void, Props, void> {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 40,
+    flex: 45,
   },
   img: {
-    height: 50,
-    width: 50,
+    height: IMG_HEIGHT,
+    width: IMG_HEIGHT,
   },
   buttonsWrapper: {
     height: 50,
@@ -77,6 +114,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 1,
+  },
+  metaWrapper: {
+    flexDirection: 'row',
+    flex: 80,
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    alignItems: 'center',
   },
   infoWrapper: {
     flex: 1,

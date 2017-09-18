@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomWrapper: {
-    flex: 30,
+    flex: 25,
     backgroundColor: colors.primaryLight,
   },
 });

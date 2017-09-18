@@ -189,9 +189,6 @@ class PortfolioPie extends Component<void, Props, State> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 20,
-  },
   label: {
     fontSize: 15,
     marginTop: 5,

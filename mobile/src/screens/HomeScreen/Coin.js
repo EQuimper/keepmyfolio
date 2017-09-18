@@ -238,6 +238,9 @@ export default createFragmentContainer(
       percentChange1h
       symbol
       priceUsd
+      priceBtc
+      marketCapUsd
+      totalSuply
     }
   `,
 );
