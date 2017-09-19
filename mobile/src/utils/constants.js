@@ -63,3 +63,10 @@ export const pieChartColors = {
   light: ['#82C2EE', '#EFBD4A', '#436D96', '#382B28', '#78C68E', '#E04837'],
   dark: ['#66CA71', '#FDBE34', '#5A57C7', '#F38181', '#FFF1A8', '#0496FF']
 }
+
+export const properties = {
+  feedbackEmail: {
+    email: 'quimperemanuel@gmail.comn',
+    subject: 'KeepMyFolio feedback'
+  }
+}

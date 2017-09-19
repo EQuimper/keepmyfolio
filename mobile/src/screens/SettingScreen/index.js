@@ -1,12 +1,19 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { Switch, TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+import {
+  Switch,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Text,
+  Linking,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import type { State, ThemeColorsData } from '../../types';
 
-import { colors } from '../../utils/constants';
+import { colors, properties } from '../../utils/constants';
 import { toggleTheme } from '../../actions/app';
 
 type Props = {
@@ -18,6 +25,16 @@ type Props = {
 class SettingScreen extends PureComponent<void, Props, void> {
   _handleValueChange = () => {
     this.props.toggleTheme();
+  };
+
+  _onFeedbackPress = async () => {
+    const url = `mailto:${properties.feedbackEmail.email}?subject=${properties
+      .feedbackEmail.subject}`;
+    const _canOpen = await Linking.openURL(url);
+
+    if (_canOpen) {
+      return Linking.openURL(url)
+    }
   };
 
   render() {
@@ -51,7 +68,7 @@ class SettingScreen extends PureComponent<void, Props, void> {
             />
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this._onFeedbackPress}>
           <View
             style={[
               styles.card,
