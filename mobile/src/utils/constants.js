@@ -1,6 +1,9 @@
 // @flow
 
 import { createBlacklistFilter } from 'redux-persist-transform-filter';
+import DeviceInfo from 'react-native-device-info';
+
+import type { DeviceInfoType } from '../types';
 
 export const colors = {
   red: '#F8333C',
@@ -11,7 +14,7 @@ export const colors = {
   primaryLight: 'rgba(0, 192, 255, 0.15)',
   lightGrey: '#B4B4B4',
   white: '#ffffff',
-  transparent: 'transparent'
+  transparent: 'transparent',
 };
 
 /**
@@ -32,17 +35,16 @@ export const themes = {
     cardBackground: colors.white,
     headerTitleColor: colors.darkGray,
     textColor: colors.darkGray,
-    thumbTintColor: colors.darkGray
+    thumbTintColor: colors.darkGray,
   },
 };
 
 /**
  * Remove some keey from the app reducer
  */
-export const subsetOfAppReducer = createBlacklistFilter(
-  'app',
-  ['isSearchBarShow']
-);
+export const subsetOfAppReducer = createBlacklistFilter('app', [
+  'isSearchBarShow',
+]);
 
 /**
  * List of reducer we persist with redux-persist
@@ -53,20 +55,30 @@ export const persistWhitelist = ['app'];
  * Object of each key the app use in the asyncStorage
  */
 export const storageKey = {
-  theme: '@keepmyfolio-theme'
-}
+  theme: '@keepmyfolio-theme',
+};
 
 /**
  * All colors for graphs
  */
 export const pieChartColors = {
   light: ['#82C2EE', '#EFBD4A', '#436D96', '#382B28', '#78C68E', '#E04837'],
-  dark: ['#66CA71', '#FDBE34', '#5A57C7', '#F38181', '#FFF1A8', '#0496FF']
-}
+  dark: ['#66CA71', '#FDBE34', '#5A57C7', '#F38181', '#FFF1A8', '#0496FF'],
+};
 
+/**
+ * Properties of the app
+ */
 export const properties = {
   feedbackEmail: {
     email: 'quimperemanuel@gmail.comn',
-    subject: 'KeepMyFolio feedback'
-  }
-}
+    subject: 'KeepMyFolio feedback',
+  },
+};
+
+/**
+ * Constants about the device
+ */
+export const deviceInfo: DeviceInfoType = {
+  isEmulator: DeviceInfo.isEmulator(),
+};

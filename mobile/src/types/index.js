@@ -37,4 +37,4 @@ export type {
   CryptosState
 };
 
-export { ThemeColorsData, HoldingData, TimeSelect } from './data';
+export { ThemeColorsData, HoldingData, TimeSelect, DeviceInfoType } from './data';

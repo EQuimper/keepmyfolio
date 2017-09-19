@@ -27,3 +27,7 @@ export type HoldingData = {
 };
 
 export type TimeSelect = '1d' | '7d' | '1m' | '6m'| '1y';
+
+export type DeviceInfoType = {
+  isEmulator: boolean,
+};

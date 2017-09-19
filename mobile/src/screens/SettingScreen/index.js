@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 import type { State, ThemeColorsData } from '../../types';
 
-import { colors, properties } from '../../utils/constants';
+import { colors, properties, deviceInfo } from '../../utils/constants';
 import { toggleTheme } from '../../actions/app';
 
 type Props = {
@@ -28,6 +28,9 @@ class SettingScreen extends PureComponent<void, Props, void> {
   };
 
   _onFeedbackPress = async () => {
+    if (deviceInfo.isEmulator) {
+      return null;
+    }
     const url = `mailto:${properties.feedbackEmail.email}?subject=${properties
       .feedbackEmail.subject}`;
     const _canOpen = await Linking.openURL(url);
