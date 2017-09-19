@@ -125,7 +125,6 @@ const HomeNavigator = StackNavigator(
           backgroundColor: props.screenProps.theme.tabBarColor,
         },
         headerLeft: <BackButton goBack={props.navigation.goBack} />,
-        headerRight: <ButtonSearch />
       }),
     },
   },
