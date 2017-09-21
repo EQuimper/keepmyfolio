@@ -11,23 +11,7 @@ import type {
 } from '../../types';
 import type { Coin_coin as Coin } from '../HomeScreen/__generated__/Coin_coin.graphql';
 
-import CoinDetailsLine from '../../components/charts/CoinDetailsLine';
-import CoindDetailsCandle from '../../components/charts/CoindDetailsCandle';
-import CoinTopDetails from './CoinTopDetails';
-import { colors } from '../../utils/constants';
-
-function getFake(length?: number = 20): Array<number> {
-  return Array.from({ length }).map(() => Math.floor(Math.random() * 100) + 1);
-}
-
-const VALUES = {
-  '1d': [...getFake()],
-  '7d': [...getFake()],
-  '1m': [...getFake()],
-  '6m': [...getFake()],
-  '1y': [...getFake()],
-  ALL: [...getFake()],
-};
+import CoinDetailsTabs from './CoinDetailsTabs';
 
 type Props = {
   theme: ThemeColorsData,
@@ -53,15 +37,16 @@ class CoinDetailsScreen extends PureComponent<void, Props, State> {
 
   render() {
     const { theme, navigation } = this.props;
-    const { timeSelect } = this.state;
+    const { coin } = navigation.state.params;
+    // const { timeSelect } = this.state;
+
+    const screenProps = {
+      theme,
+      coin,
+    };
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
-        <CoinTopDetails
-          selectTime={this._selectTime}
-          timeSelect={timeSelect}
-          coin={navigation.state.params.coin}
-          theme={theme}
-        />
+        <CoinDetailsTabs screenProps={screenProps} />
       </View>
     );
   }
@@ -71,16 +56,8 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  bottomWrapper: {
-    flex: 25,
-    backgroundColor: colors.primaryLight,
-  },
 });
 
 export default connect((state: AppState) => ({
   theme: state.app.theme,
 }))(CoinDetailsScreen);
-
-// <CoindDetailsCandle />
-
-// <CoinDetailsLine values={VALUES[this.state.timeSelect]} theme={theme} />
