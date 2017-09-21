@@ -62,15 +62,10 @@ class CoinDetailsScreen extends PureComponent<void, Props, State> {
           coin={navigation.state.params.coin}
           theme={theme}
         />
-
-        <CoinDetailsLine values={VALUES[this.state.timeSelect]} theme={theme} />
-        <View style={styles.bottomWrapper} />
       </View>
     );
   }
 }
-
-// <CoinDetailsLine values={VALUES[this.state.timeSelect]} theme={theme} />
 
 const styles = StyleSheet.create({
   root: {
@@ -87,3 +82,5 @@ export default connect((state: AppState) => ({
 }))(CoinDetailsScreen);
 
 // <CoindDetailsCandle />
+
+// <CoinDetailsLine values={VALUES[this.state.timeSelect]} theme={theme} />

@@ -10,7 +10,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 
 import { colors } from '../../utils/constants';
 
-const candleData = Array.from({ length: 100 }).map((_, i) => ({
+const candleData = Array.from({ length: 50 }).map((_, i) => ({
   x: i,
   open: Math.floor(Math.random() * 100) + 1,
   close: Math.floor(Math.random() * 100) + 1,
@@ -63,7 +63,7 @@ class CoinDetailsCandle extends Component {
           horizontal
           // style={{ height: 500 }}
           contentContainerStyle={{
-            backgroundColor: 'red',
+            // backgroundColor: 'red',
             alignItems: 'center',
             justifyContent: 'center',
             // width: '300%',

@@ -236,11 +236,14 @@ export default createFragmentContainer(
       name
       cryptoId
       percentChange1h
+      percentChange24h
+      percentChange7d
       symbol
       priceUsd
       priceBtc
       marketCapUsd
       totalSuply
+      volumeUsd24h
     }
   `,
 );
