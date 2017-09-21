@@ -2,18 +2,22 @@
 
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { ThemeColorsData } from '../../types';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   root: {
+    flexDirection: 'row',
     height: 60,
-    width: '100%',
     marginTop: 5,
     paddingHorizontal: 10,
-    flexDirection: 'row',
+    width: '100%',
   },
   title: {
     fontSize: 14,

@@ -11,28 +11,43 @@ import { StatusBar, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type {
   State,
   NavigationState,
   ThemeColorsData,
   Navigation,
 } from './types';
-
-import HomeScreen from './screens/HomeScreen';
-import CoinDetailsScreen from './screens/CoinDetailsScreen';
+// ------------------------------------
+// SCREENS
+// ------------------------------------
 import AddCoinScreen from './screens/AddCoinScreen';
-import WalletScreen from './screens/WalletScreen';
-import SettingScreen from './screens/SettingScreen';
+import CoinDetailsScreen from './screens/CoinDetailsScreen';
+import HomeScreen from './screens/HomeScreen';
 import NotificationScreen from './screens/NotificationScreen';
-
-import { colors } from './utils/constants';
-import BackButton from './components/commons/BackButton';
-import HighLightTab from './components/HighLightTab';
+import SettingScreen from './screens/SettingScreen';
+import WalletScreen from './screens/WalletScreen';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import AddButtonTab from './components/AddButtonTab';
+import BackButton from './components/commons/BackButton';
 import ButtonSearch from './components/ButtonSearch';
+import HighLightTab from './components/HighLightTab';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { colors } from './utils/constants';
 
 const TAB_ICON_SIZE = 25;
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
 
 const TabBarBottomConnected = connect((state: State) => ({
   style: {
@@ -144,9 +159,9 @@ const Tabs = TabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
             <SimpleLineIcons
-              size={TAB_ICON_SIZE}
               color={tintColor}
               name="home"
+              size={TAB_ICON_SIZE}
             />
           </HighLightTab>
         ),
@@ -158,9 +173,9 @@ const Tabs = TabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
             <SimpleLineIcons
-              size={TAB_ICON_SIZE}
               color={tintColor}
               name="wallet"
+              size={TAB_ICON_SIZE}
             />
           </HighLightTab>
         ),
@@ -171,7 +186,7 @@ const Tabs = TabNavigator(
       navigationOptions: (props: NavProps) => ({
         tabBarIcon: () => (
           <AddButtonTab backgroundColor={props.screenProps.theme.tabBarColor}>
-            <Ionicons size={TAB_ICON_SIZE} color={colors.white} name="md-add" />
+            <Ionicons color={colors.white} name="md-add" size={TAB_ICON_SIZE} />
           </AddButtonTab>
         ),
       }),
@@ -182,9 +197,9 @@ const Tabs = TabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
             <SimpleLineIcons
-              size={TAB_ICON_SIZE}
               color={tintColor}
               name="bell"
+              size={TAB_ICON_SIZE}
             />
           </HighLightTab>
         ),
@@ -196,9 +211,9 @@ const Tabs = TabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
           <HighLightTab focused={focused}>
             <SimpleLineIcons
-              size={TAB_ICON_SIZE}
               color={tintColor}
               name="settings"
+              size={TAB_ICON_SIZE}
             />
           </HighLightTab>
         ),
@@ -281,12 +296,6 @@ class AppNavigator extends Component<void, Props, void> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 export default connect((state: State) => ({
   nav: state.nav,

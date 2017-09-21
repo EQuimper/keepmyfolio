@@ -43,9 +43,9 @@ class CoinTopDetails extends Component<void, Props, void> {
 
     return (
       <TimeButton
-        selectTime={this.props.selectTime}
-        key={title}
         isActive={isActive}
+        key={title}
+        selectTime={this.props.selectTime}
         title={title}
         titleColor={this.props.theme.textColor}
       />

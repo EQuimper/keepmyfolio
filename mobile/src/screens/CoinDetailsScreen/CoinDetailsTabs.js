@@ -26,7 +26,7 @@ export default TabNavigator(
       screen: MarketDetailsTab,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Entypo size={30} color={tintColor} name="grid" />
+          <Entypo color={tintColor} name="grid" size={30} />
         ),
       }),
     },
@@ -34,7 +34,7 @@ export default TabNavigator(
       screen: LineGraphDetails,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Entypo size={30} color={tintColor} name="area-graph" />
+          <Entypo color={tintColor} name="area-graph" size={30} />
         ),
       }),
     },
@@ -42,7 +42,7 @@ export default TabNavigator(
       screen: MarketDetailsTab,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <Entypo size={30} color={tintColor} name="bar-graph" />
+          <Entypo color={tintColor} name="bar-graph" size={30} />
         ),
       }),
     },
@@ -50,7 +50,7 @@ export default TabNavigator(
       screen: MarketDetailsTab,
       navigationOptions: () => ({
         tabBarIcon: ({ tintColor }) => (
-          <MaterialIcons size={30} color={tintColor} name="graphic-eq" />
+          <MaterialIcons color={tintColor} name="graphic-eq" size={30} />
         ),
       }),
     },

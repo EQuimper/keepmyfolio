@@ -1,32 +1,52 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-
+import { createPaginationContainer, graphql } from 'react-relay';
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type {
-  RelayType,
   Navigation,
+  RelayType,
   State as AppState,
   ThemeColorsData,
 } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
-
-import { createRenderer } from '../../RelayUtils';
-import Coin from './Coin';
-import { colors } from '../../utils/constants';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import SearchBar from '../../components/SearchBar';
+import Coin from './Coin';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { createRenderer } from '../../RelayUtils';
+import { colors } from '../../utils/constants';
 
 const PAGE_SIZE = 10;
 
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  separator: {
+    backgroundColor: colors.transparent,
+    height: 5,
+  },
+  contentContainerList: {
+    alignSelf: 'stretch',
+  },
+});
+
 type Props = {
-  viewer: Viewer,
-  relay: RelayType,
   navigation: Navigation,
+  relay: RelayType,
   theme: ThemeColorsData,
+  viewer: Viewer,
 };
 
 type State = {
@@ -69,36 +89,23 @@ class HomeScreen extends PureComponent<void, Props, State> {
         <FlatList
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           contentContainerStyle={styles.contentContainerList}
-          keyExtractor={item => item.id}
-          renderItem={this._renderItem}
           data={edges.map(e => idx(e, _ => _.node))}
+          keyExtractor={item => item.id}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0.5}
           refreshControl={
             <RefreshControl
-              refreshing={this.state.refreshing}
               onRefresh={this._onRefresh}
+              refreshing={this.state.refreshing}
               tintColor={colors.primary}
             />
           }
+          renderItem={this._renderItem}
         />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  separator: {
-    height: 5,
-    backgroundColor: colors.transparent,
-  },
-  contentContainerList: {
-    alignSelf: 'stretch',
-  },
-});
 
 const HomeScreenConnected = connect((state: AppState) => ({
   theme: state.app.theme,

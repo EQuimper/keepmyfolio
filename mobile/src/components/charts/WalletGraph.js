@@ -1,13 +1,17 @@
 // @flow
 
-import React, { Component } from 'react';
-import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
-import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
-
+import React, { Component } from 'react';
+import styled from 'styled-components/native';
+import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { ThemeColorsData } from '../../types';
-
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import AnimShape from './AnimShape';
 
 const d3 = {
@@ -22,17 +26,17 @@ const Root = styled.View`
 `;
 
 type GraphEl = {
-  date: number,
   amount: number,
+  date: number,
 };
 
 type DataProps = Array<GraphEl>;
 
 type Props = {
-  theme: ThemeColorsData,
+  color: string,
   darkTheme: boolean,
   data: DataProps,
-  color: string,
+  theme: ThemeColorsData,
   width: number,
 };
 
@@ -66,9 +70,9 @@ class WalletGraph extends Component<void, Props, State> {
 
     return (
       <Root style={{ backgroundColor: theme.tabBarColor }}>
-        <Surface width={this.state.width} height={HEIGHT}>
+        <Surface height={HEIGHT} width={this.state.width}>
           <Group x={5} y={HEIGHT - 50}>
-            <AnimShape d={this._createArea} color={this.props.color} />
+            <AnimShape color={this.props.color} d={this._createArea} />
           </Group>
         </Surface>
       </Root>

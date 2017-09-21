@@ -2,8 +2,18 @@
 
 import React from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors } from '../utils/constants';
+
+const styles = StyleSheet.create({
+  root: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 type Props = {
   color?: string,
@@ -17,13 +27,5 @@ function Loading({ color = colors.primary, size = 'large' }: Props = {}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Loading;

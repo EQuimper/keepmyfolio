@@ -79,50 +79,50 @@ class MarketDetailsTab extends Component<void, Props, void> {
     return (
       <ScrollView contentContainerStyle={styles.metaWrapper}>
         <MetaCard
-          textColor={theme.textColor}
           backgroundColor={theme.tabBarColor}
+          textColor={theme.textColor}
           title="Price USD"
           value={_price}
         />
         <MetaCard
-          textColor={theme.textColor}
           backgroundColor={theme.tabBarColor}
+          textColor={theme.textColor}
           title="Market Cap"
           value={_marketCap}
         />
         <MetaCard
-          textColor={theme.textColor}
           backgroundColor={theme.tabBarColor}
+          textColor={theme.textColor}
           title="Price BTC"
           value={_priceBtc}
         />
         <MetaCard
-          textColor={theme.textColor}
           backgroundColor={theme.tabBarColor}
+          textColor={theme.textColor}
           title="Total Supply"
           value={_totalSuply}
         />
         <MetaCard
-          textColor={theme.textColor}
           backgroundColor={theme.tabBarColor}
+          textColor={theme.textColor}
           title="VOLUME"
           value={_volume}
         />
         <MetaCard
-          textColor={this._percent1hColor}
           backgroundColor={theme.tabBarColor}
+          textColor={this._percent1hColor}
           title="% CHANGE 1H"
           value={_percentChang1h}
         />
         <MetaCard
-          textColor={this._percent24hColor}
           backgroundColor={theme.tabBarColor}
+          textColor={this._percent24hColor}
           title="% CHANGE 24H"
           value={_percentChang24h}
         />
         <MetaCard
-          textColor={this._percent7dColor}
           backgroundColor={theme.tabBarColor}
+          textColor={this._percent7dColor}
           title="% CHANGE 7D"
           value={_percentChang7d}
         />

@@ -269,12 +269,12 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
             <Title style={{ color: theme.textColor }}>Price Pay</Title>
             <Card style={{ backgroundColor: theme.tabBarColor }}>
               <Input
+                editable={this._getDisabled}
                 keyboardType="numeric"
+                onChangeText={this._onPriceChange}
                 placeholder="0.00"
                 style={{ color: theme.textColor }}
                 value={this._getPrice}
-                onChangeText={this._onPriceChange}
-                editable={this._getDisabled}
               />
             </Card>
           </ItemWrapper>
@@ -282,12 +282,12 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
             <Title style={{ color: theme.textColor }}>Total</Title>
             <Card style={{ backgroundColor: theme.tabBarColor }}>
               <Input
+                editable={this._getDisabled}
                 keyboardType="numeric"
+                onChangeText={this._onTotalCoinChange}
                 placeholder="0"
                 style={{ color: theme.textColor }}
                 value={this.state.totalAmountOfCrypto}
-                onChangeText={this._onTotalCoinChange}
-                editable={this._getDisabled}
               />
             </Card>
           </ItemWrapper>
@@ -309,26 +309,26 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
           </ItemWrapper>
           <ButtonWrapper>
             <Button
+              color={colors.red}
               disabled={!this._getDisabled}
               onPress={this._onCancelPress}
-              color={colors.red}
             >
-              <FontAwesome size={25} color="#fff" name="close" />
+              <FontAwesome color="#fff" name="close" size={25} />
             </Button>
             <Button
-              onPress={this._onSubmitPress}
-              disabled={!this._getDisabled}
               color={colors.green}
+              disabled={!this._getDisabled}
+              onPress={this._onSubmitPress}
             >
-              <Entypo size={25} color="#fff" name="check" />
+              <Entypo color="#fff" name="check" size={25} />
             </Button>
           </ButtonWrapper>
           {this.state.showModalCrypto && (
             <ModalCryptocurencie
-              theme={this.props.theme}
               onCloseButtonPress={this._onModalCryptoPress}
-              showModalCrypto={this.state.showModalCrypto}
               onSelectCryptoPress={this._onSelectCryptoPress}
+              showModalCrypto={this.state.showModalCrypto}
+              theme={this.props.theme}
             />
           )}
         </Wrapper>

@@ -1,30 +1,41 @@
 // @flow
 /* eslint-disable react/no-multi-comp */
 
+import EventEmitter from 'event-emitter';
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import { Environment, RecordSource, Store } from 'relay-runtime';
 import { QueryRenderer } from 'react-relay';
-import EventEmitter from 'event-emitter';
-
-import network from './network';
-import Loading from './components/Loading';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import EmptyStateView from './components/commons/EmptyStateView';
+import Loading from './components/Loading';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import network from './network';
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
 
 type Variables = { [name: string]: mixed };
 
 type Config = {
-  query?: any,
-  queries?: { [name: string]: any },
-  queriesParams?: ?(props: Object) => Object,
+  forceFetch?: boolean,
   fragments?: { [name: string]: any } | any,
   initialVariables?: Variables,
-  prepareVariables?: (prevVariables: Variables, route: any) => Variables,
-  forceFetch?: boolean,
   onReadyStateChange?: (readyState: any) => void,
+  prepareVariables?: (prevVariables: Variables, route: any) => Variables,
+  queries?: { [name: string]: any },
+  queriesParams?: ?(props: Object) => Object,
+  query?: any,
+  renderFailure?: (error: Error, retry?: () => void) => ?React.Element<*>,
   renderFetched?: (props: Object) => ?React.Element<*>,
   renderLoading?: () => ?React.Element<*>,
-  renderFailure?: (error: Error, retry?: () => void) => ?React.Element<*>,
 };
 
 const handlerProvider = null;
@@ -54,12 +65,12 @@ export function getStore() {
 
 function createRendererInternal(Component: any, config: Config): any {
   const {
-    query,
-    queriesParams,
     forceFetch,
+    queriesParams,
+    query,
+    renderFailure,
     renderFetched,
     renderLoading,
-    renderFailure,
   } = config;
 
   // Used to fade in content after loading.
@@ -88,7 +99,7 @@ function createRendererInternal(Component: any, config: Config): any {
 
     render() {
       return (
-        <Animated.View style={{ opacity: this.state.anim, flex: 1 }}>
+        <Animated.View style={[styles.root, { opacity: this.state.anim }]}>
           <Component {...this.props} />
         </Animated.View>
       );
@@ -172,19 +183,19 @@ function createRendererInternal(Component: any, config: Config): any {
       if (this.state.hasError) {
         return (
           <EmptyStateView
-            title="OOPS!"
             subTitle="Something went wrong, please try again."
+            title="OOPS!"
           />
         );
       }
 
       return (
         <QueryRenderer
-          query={query}
+          cacheConfig={{ force: !!forceFetch }}
           environment={this.state.relayEnvironment}
+          query={query}
           render={render}
           variables={this.state.params}
-          cacheConfig={{ force: !!forceFetch }}
         />
       );
     }
@@ -204,15 +215,15 @@ export function createRenderer(Component: any, config: Config): any {
       if (error.message.toLowerCase().includes('network request failed')) {
         return (
           <EmptyStateView
-            title="OOPS!"
             subTitle="Something went wrong, please try again."
+            title="OOPS!"
           />
         );
       }
       return (
         <EmptyStateView
-          title="OOPS!"
           subTitle="Something went wrong, please try again."
+          title="OOPS!"
         />
       );
     },

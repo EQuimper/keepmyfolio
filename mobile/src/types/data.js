@@ -1,29 +1,29 @@
 // @flow
 
 export type ThemeColorsData = {
-  red: string,
-  green: string,
+  cardBackground: string,
   darkGray: string,
+  green: string,
   greyOutline: string,
+  headerTitleColor: string,
+  lightGrey: string,
   primary: string,
   primaryLight: string,
-  transparent: string,
-  lightGrey: string,
-  white: string,
+  red: string,
   tabBarColor: string,
-  cardBackground: string,
-  headerTitleColor: string,
   textColor: string,
   thumbTintColor: string,
+  transparent: string,
+  white: string,
 };
 
 export type HoldingData = {
-  priceTotalPay: string,
-  priceByCoin: string,
   amountOfCoin: string,
-  name: any,
   dateBuy: Date,
   id: any,
+  name: any,
+  priceByCoin: string,
+  priceTotalPay: string,
 };
 
 export type TimeSelect = '1d' | '7d' | '1m' | '6m' | '1y' | 'ALL';

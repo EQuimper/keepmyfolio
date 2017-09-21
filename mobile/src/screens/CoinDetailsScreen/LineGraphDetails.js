@@ -55,7 +55,7 @@ class LineGraphDetails extends Component<void, Props, State> {
           theme={theme}
           timeSelect={timeSelect}
         />
-        <CoinDetailsLine values={VALUES[timeSelect]} theme={theme} />
+        <CoinDetailsLine theme={theme} values={VALUES[timeSelect]} />
       </View>
     );
   }

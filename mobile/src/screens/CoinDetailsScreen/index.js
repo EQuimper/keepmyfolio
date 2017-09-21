@@ -1,20 +1,29 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-
+import { connect } from 'react-redux';
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type {
   State as AppState,
   ThemeColorsData,
   TimeSelect,
 } from '../../types';
 import type { Coin_coin as Coin } from '../HomeScreen/__generated__/Coin_coin.graphql';
-
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import CoinDetailsTabs from './CoinDetailsTabs';
 
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
+
 type Props = {
-  theme: ThemeColorsData,
   navigation: {
     state: {
       params: {
@@ -22,6 +31,7 @@ type Props = {
       },
     },
   },
+  theme: ThemeColorsData,
 };
 
 type State = {
@@ -51,12 +61,6 @@ class CoinDetailsScreen extends PureComponent<void, Props, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-});
 
 export default connect((state: AppState) => ({
   theme: state.app.theme,

@@ -19,12 +19,12 @@ type Props = {
 
 function ButtonSearch({ onPress, isShow }: Props) {
   const icon = isShow ? (
-    <Ionicons size={25} color={colors.lightGrey} name="md-close" />
+    <Ionicons color={colors.lightGrey} name="md-close" size={25} />
   ) : (
-    <Ionicons size={25} color={colors.lightGrey} name="ios-search" />
+    <Ionicons color={colors.lightGrey} name="ios-search" size={25} />
   );
   return (
-    <ButtonHeader side="right" onPress={onPress}>
+    <ButtonHeader onPress={onPress} side="right">
       {icon}
     </ButtonHeader>
   );

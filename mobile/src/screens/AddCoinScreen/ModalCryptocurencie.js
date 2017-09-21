@@ -1,68 +1,85 @@
 // @flow
 
-import React, { PureComponent } from 'react';
-import styled from 'styled-components/native';
-import { Modal, FlatList } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { createPaginationContainer, graphql } from 'react-relay';
+import React, { PureComponent } from 'react';
 import idx from 'idx';
 import invariant from 'invariant';
-
-import type { RelayType, ThemeColorsData } from '../../types';
-import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
+import {
+  Modal,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
+import { createPaginationContainer, graphql } from 'react-relay';
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
-
+import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
+import type { RelayType, ThemeColorsData } from '../../types';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import CryptoItem from './CryptoItem';
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { createRenderer } from '../../RelayUtils';
+import { colors } from '../../utils/constants';
 
 const PAGE_SIZE = 10;
+const HIT_SLOP = {
+  top: 20,
+  left: 20,
+  right: 20,
+  bottom: 20,
+};
 
-const Root = styled.View`
-  flex: 1;
-  justifyContent: center;
-  alignItems: center;
-`;
-
-const CloseButton = styled.TouchableOpacity.attrs({
-  hitSlop: { top: 20, left: 20, right: 20, bottom: 20 },
-})`
-  height: 50;
-  width: 50;
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  alignItems: center;
-  justifyContent: center;
-  zIndex: 1;
-`;
-
-const Wrapper = styled.View`
-  flex: 1;
-  position: relative;
-`;
-
-const Separator = styled.View`
-  height: 5;
-  backgroundColor: transparent;
-`;
-
-const ContentWrapper = styled.View`marginTop: 20%;`;
-
-const ListWrapper = styled.View`marginTop: 10;`;
-
-const Title = styled.Text`
-  fontSize: 18;
-  fontWeight: 600;
-  alignSelf: center;
-`;
+const styles = StyleSheet.create({
+  contentWrapper: {
+    marginTop: '20%',
+  },
+  closeBtn: {
+    alignItems: 'center',
+    height: 50,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: '5%',
+    top: '5%',
+    width: 50,
+    zIndex: 1,
+  },
+  listContainer: {
+    alignSelf: 'stretch',
+    paddingBottom: 50,
+  },
+  listWrapper: {
+    marginTop: 10,
+  },
+  separator: {
+    backgroundColor: colors.transparent,
+    height: 5,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    alignSelf: 'center',
+  },
+  wrapper: {
+    flex: 1,
+    position: 'relative',
+  },
+});
 
 type Props = {
-  showModalCrypto: boolean,
   onCloseButtonPress: Function,
-  viewer: Viewer,
-  relay: RelayType,
   onSelectCryptoPress: (coin: Coin) => Coin,
+  relay: RelayType,
+  showModalCrypto: boolean,
   theme: ThemeColorsData,
+  viewer: Viewer,
 };
 
 class ModalCryptocurencie extends PureComponent<void, Props, void> {
@@ -96,31 +113,34 @@ class ModalCryptocurencie extends PureComponent<void, Props, void> {
         transparent={false}
         visible={this.props.showModalCrypto}
       >
-        <Wrapper style={{ backgroundColor: theme.tabBarColor }}>
-          <CloseButton onPress={this._onCloseButtonPress}>
+        <View style={[styles.wrapper, { backgroundColor: theme.tabBarColor }]}>
+          <TouchableOpacity
+            hitSlop={HIT_SLOP}
+            onPress={this._onCloseButtonPress}
+            style={styles.closeBtn}
+          >
             <MaterialCommunityIcons
               color={theme.textColor}
-              size={30}
               name="window-close"
+              size={30}
             />
-          </CloseButton>
-          <ContentWrapper>
-            <Title style={{ color: theme.textColor }}>Choose your crypto</Title>
-            <ListWrapper>
+          </TouchableOpacity>
+          <View style={styles.contentWrapper}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Choose your crypto
+            </Text>
+            <View style={styles.listWrapper}>
               <FlatList
-                ItemSeparatorComponent={() => <Separator />}
-                contentContainerStyle={{
-                  alignSelf: 'stretch',
-                  paddingBottom: 50,
-                }}
-                keyExtractor={item => item.id}
-                renderItem={this._renderItem}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                contentContainerStyle={styles.listContainer}
                 data={edges.map(e => idx(e, _ => _.node))}
+                keyExtractor={item => item.id}
                 onEndReached={this._onEndReached}
+                renderItem={this._renderItem}
               />
-            </ListWrapper>
-          </ContentWrapper>
-        </Wrapper>
+            </View>
+          </View>
+        </View>
       </Modal>
     );
   }

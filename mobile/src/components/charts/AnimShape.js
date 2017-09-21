@@ -104,8 +104,8 @@ class AnimShape extends Component<void, Props, State> {
     return (
       <Shape
         d={this.state.path}
-        stroke={this.props.color}
         fill={this.props.color}
+        stroke={this.props.color}
       />
     );
   }

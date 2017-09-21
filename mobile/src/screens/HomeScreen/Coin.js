@@ -1,78 +1,76 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import styled from 'styled-components/native';
-import { createFragmentContainer, graphql } from 'react-relay';
 import idx from 'idx';
+import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { createFragmentContainer, graphql } from 'react-relay';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { colors } from '../../utils/constants';
-import { CoinMarket } from '../../utils/api';
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { Navigation, ThemeColorsData } from '../../types';
 import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { CoinMarket } from '../../utils/api';
+import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 
-const Root = styled.TouchableOpacity`
-  height: 130;
-  width: 100%;
-  alignSelf: center;
-  flexDirection: row;
-  padding: 5px;
-  position: relative;
-`;
+const COIN_ICON_SIZE = 30;
 
-const TitleWrapper = styled.View`
-  flex: 0.4;
-  justifyContent: center;
-  alignItems: center;
-`;
-
-const CoinIcon = styled.Image`
-  height: 30;
-  width: 30;
-`;
-
-const Title = styled.Text`
-  fontSize: 14;
-  fontWeight: 500;
-  textAlign: center;
-  marginTop: 5;
-`;
-
-const PercentText = styled.Text`
-  color: ${props => (props.isNeg ? colors.red : colors.green)};
-`;
-
-const ContentWrapper = styled.View`
-  flex: 1;
-  alignItems: center;
-  justifyContent: center;
-`;
-
-const TotalWrapper = styled.View`
-  alignItems: center;
-  flexDirection: row;
-`;
-
-const HoldingText = styled.Text`
-  position: absolute;
-  bottom: 5;
-  left: 10;
-`;
-
-const PriceUsdText = styled.Text`
-  position: absolute;
-  bottom: 5;
-  right: 10;
-`;
-
-const TotalText = styled.Text`fontSize: 15;`;
-
-const MetaWrapper = styled.View`
-  flex: 0.4;
-  alignItems: center;
-  justifyContent: center;
-`;
+const styles = StyleSheet.create({
+  coinIcon: {
+    height: COIN_ICON_SIZE,
+    width: COIN_ICON_SIZE,
+  },
+  contentWrapper: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  holdingText: {
+    bottom: 5,
+    left: 10,
+    position: 'absolute',
+  },
+  metaWrapper: {
+    alignItems: 'center',
+    flex: 0.4,
+    justifyContent: 'center',
+  },
+  priceUsdText: {
+    bottom: 5,
+    position: 'absolute',
+    right: 10,
+  },
+  root: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    height: 130,
+    padding: 5,
+    position: 'relative',
+    width: '100%',
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  titleWrapper: {
+    alignItems: 'center',
+    flex: 0.4,
+    justifyContent: 'center',
+  },
+  totalText: {
+    fontSize: 15,
+  },
+  totalWrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
 
 function getIfNeg(props): boolean {
   const percentChange1h = idx(props, _ => _.coin.percentChange1h) || 'null';
@@ -81,9 +79,9 @@ function getIfNeg(props): boolean {
 }
 
 type IconProps = {
+  color?: string,
   name?: string,
   size: number,
-  color?: string,
 };
 
 type Props = {
@@ -105,18 +103,17 @@ class Coin extends PureComponent<void, Props, State> {
     let str: string;
     const style = {};
 
+    const color: string = this.state.isNeg ? colors.red : colors.green;
+
     if (this.props.coin.percentChange1h == null) {
       str = 'No Value :(';
       style.color = this.props.theme.textColor;
     } else {
       str = `${parseFloat(this.props.coin.percentChange1h).toFixed(2)}%`;
+      style.color = color;
     }
 
-    return (
-      <PercentText isNeg={this.state.isNeg} style={style}>
-        {str}
-      </PercentText>
-    );
+    return <Text style={style}>{str}</Text>;
   }
 
   get _getImage(): string {
@@ -177,54 +174,58 @@ class Coin extends PureComponent<void, Props, State> {
     const { theme } = this.props;
 
     return (
-      <Root
+      <TouchableOpacity
         onPress={this._onNavigationPress}
-        style={{ backgroundColor: theme.cardBackground }}
+        style={[styles.root, { backgroundColor: theme.cardBackground }]}
       >
-        <TitleWrapper>
-          <CoinIcon
+        <View style={styles.titleWrapper}>
+          <Image
             resizeMode="contain"
             source={{
               uri: this._getImage,
             }}
+            style={styles.coinIcon}
           />
-          <Title style={{ color: theme.textColor }}>
+          <Text style={[styles.title, { color: theme.textColor }]}>
             {this.props.coin.symbol}
-          </Title>
-        </TitleWrapper>
-        <ContentWrapper>
-          <TotalWrapper>
-            <TotalText style={{ color: theme.textColor }}>
-              <TotalText style={{ color: colors.lightGrey }}>
+          </Text>
+        </View>
+        <View style={styles.contentWrapper}>
+          <View style={styles.totalWrapper}>
+            <Text style={[styles.totalText, { color: theme.textColor }]}>
+              <Text style={[styles.totalText, { color: colors.lightGrey }]}>
                 Total:
-              </TotalText>{' '}
+              </Text>{' '}
               $100.00{' '}
-            </TotalText>
+            </Text>
             {this._getIconArrow}
-          </TotalWrapper>
-          <TotalText
-            style={{ color: this.state.isNeg ? colors.red : colors.green }}
+          </View>
+          <Text
+            style={[
+              styles.totalText,
+              { color: this.state.isNeg ? colors.red : colors.green },
+            ]}
           >
             $7.60
-          </TotalText>
-        </ContentWrapper>
-        <MetaWrapper>
+          </Text>
+        </View>
+        <View style={styles.metaWrapper}>
           {this._getIconPercent}
           {this._getPercentChange1h}
-        </MetaWrapper>
-        <HoldingText style={{ color: theme.textColor }}>
-          <HoldingText style={{ color: colors.lightGrey }}>
+        </View>
+        <Text style={[styles.holdingText, { color: theme.textColor }]}>
+          <Text style={[styles.holdingText, { color: colors.lightGrey }]}>
             Holdings:
-          </HoldingText>{' '}
+          </Text>{' '}
           {(20.0).toFixed(2)}
-        </HoldingText>
-        <PriceUsdText style={{ color: theme.textColor }}>
-          <PriceUsdText style={{ color: colors.lightGrey }}>
+        </Text>
+        <Text style={[styles.priceUsdText, { color: theme.textColor }]}>
+          <Text style={[styles.priceUsdText, { color: colors.lightGrey }]}>
             Price:
-          </PriceUsdText>{' '}
+          </Text>{' '}
           {this._getPrice}
-        </PriceUsdText>
-      </Root>
+        </Text>
+      </TouchableOpacity>
     );
   }
 }

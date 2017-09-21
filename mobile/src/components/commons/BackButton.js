@@ -15,7 +15,7 @@ type Props = {
 function BackButton({ goBackPress }: Props) {
   return (
     <ButtonHeader onPress={goBackPress} side="left">
-      <Ionicons name="ios-arrow-back" size={25} color={colors.lightGrey} />
+      <Ionicons color={colors.lightGrey} name="ios-arrow-back" size={25} />
     </ButtonHeader>
   );
 }

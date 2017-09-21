@@ -1,18 +1,31 @@
 // @flow
 
-import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
-import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
-
+import React, { PureComponent } from 'react';
+import styled from 'styled-components/native';
+import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import AnimShape from './AnimShape';
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
 
 const { width: WIDTH } = Dimensions.get('window');
 
 const d3 = { scale, shape };
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 15,
+    marginTop: 5,
+    fontWeight: 'normal',
+  },
+});
 
 const Root = styled.View`
   flex: 1;
@@ -73,7 +86,7 @@ type Props = {
   color: string,
 };
 
-class PortfolioPie extends Component<void, Props, State> {
+class PortfolioPie extends PureComponent<void, Props, State> {
   state = {
     highlightedIndex: 0,
     data: [],
@@ -139,13 +152,13 @@ class PortfolioPie extends Component<void, Props, State> {
     return (
       <Root>
         <Left>
-          <Surface width={PIE_WIDTH + 30} height={PIE_WIDTH + 30}>
+          <Surface height={PIE_WIDTH + 30} width={PIE_WIDTH + 30}>
             <Group x={x} y={y}>
               {this.state.data.map((item, index) => (
                 <AnimShape
-                  key={`pie_shape_${index}`} // eslint-disable-line
                   color={this._color(index)}
                   d={() => this._createPieChart(index)}
+                  key={`pie_shape_${index}`}
                 />
               ))}
             </Group>
@@ -158,7 +171,7 @@ class PortfolioPie extends Component<void, Props, State> {
             return (
               <TouchableOpacity
                 disabled={index === this.state.highlightedIndex}
-                key={index} // eslint-disable-line
+                key={index}
                 onPress={() => this._onPieItemSelected(index)}
               >
                 <AssetTitleWrapper>
@@ -182,13 +195,5 @@ class PortfolioPie extends Component<void, Props, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 15,
-    marginTop: 5,
-    fontWeight: 'normal',
-  },
-});
 
 export default PortfolioPie;

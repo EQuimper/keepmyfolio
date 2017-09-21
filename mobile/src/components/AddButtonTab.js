@@ -2,11 +2,32 @@
 
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors } from '../utils/constants';
 
-const OUTER_SIZE = 65;
 const ADD_BUTTON_SIZE = 50;
+const OUTER_SIZE = 65;
+
+const styles = StyleSheet.create({
+  addButton: {
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    borderRadius: ADD_BUTTON_SIZE / 2,
+    height: ADD_BUTTON_SIZE,
+    justifyContent: 'center',
+    width: ADD_BUTTON_SIZE,
+  },
+  root: {
+    alignItems: 'center',
+    borderRadius: OUTER_SIZE / 2,
+    height: OUTER_SIZE,
+    justifyContent: 'center',
+    marginTop: -30,
+    width: OUTER_SIZE,
+  },
+});
 
 type Props = {
   children: React.Element<*>,
@@ -20,24 +41,5 @@ function AddButtonTab({ children, backgroundColor }: Props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: OUTER_SIZE,
-    width: OUTER_SIZE,
-    borderRadius: OUTER_SIZE / 2,
-    marginTop: -30,
-  },
-  addButton: {
-    height: ADD_BUTTON_SIZE,
-    width: ADD_BUTTON_SIZE,
-    borderRadius: ADD_BUTTON_SIZE / 2,
-    backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default AddButtonTab;

@@ -10,28 +10,57 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { ThemeColorsData, State as AppState } from '../types';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors } from '../utils/constants';
 
 const ANIMATION_MS = 300;
 
+const styles = StyleSheet.create({
+  root: {
+    alignItems: 'center',
+    height: 50,
+    justifyContent: 'center',
+    marginBottom: 5,
+    width: '100%',
+  },
+  iconWrapper: {
+    alignItems: 'center',
+    flex: 0.1,
+    justifyContent: 'center',
+  },
+  wrapper: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  input: {
+    flex: 1,
+  },
+});
+
 type Props = {
-  theme: ThemeColorsData,
   isShow: boolean,
+  theme: ThemeColorsData,
 };
 
 type State = {
-  isShow: boolean,
   isFocused: boolean,
+  isShow: boolean,
   text: string,
 };
 
 class SearchBar extends Component<void, Props, State> {
   state = {
-    isShow: this.props.isShow,
     isFocused: this.props.isShow,
+    isShow: this.props.isShow,
     text: '',
   };
 
@@ -83,47 +112,22 @@ class SearchBar extends Component<void, Props, State> {
           style={[styles.wrapper, { backgroundColor: theme.cardBackground }]}
         >
           <View style={styles.iconWrapper}>
-            <Ionicons size={25} color={theme.textColor} name="ios-search" />
+            <Ionicons color={theme.textColor} name="ios-search" size={25} />
           </View>
           <TextInput
-            onChangeText={this._onChangeText}
-            underlineColorAndroid="transparent"
-            autoFocus={this.state.isFocused}
-            returnKeyType="search"
             autoCorrect={false}
+            autoFocus={this.state.isFocused}
+            onChangeText={this._onChangeText}
+            returnKeyType="search"
             selectionColor={Platform.OS === 'ios' ? colors.primary : undefined}
             style={[styles.input, { color: theme.textColor }]}
+            underlineColorAndroid="transparent"
           />
         </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    height: 50,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  iconWrapper: {
-    flex: 0.1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  wrapper: {
-    width: '100%',
-    height: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    flex: 1,
-  },
-});
 
 export default connect((state: AppState) => ({
   isShow: state.app.isSearchBarShow,

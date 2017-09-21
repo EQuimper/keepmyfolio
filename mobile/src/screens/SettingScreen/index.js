@@ -2,19 +2,49 @@
 
 import React, { PureComponent } from 'react';
 import {
-  Switch,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Text,
   Linking,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { connect } from 'react-redux';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { State, ThemeColorsData } from '../../types';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors, properties, deviceInfo } from '../../utils/constants';
 import { toggleTheme } from '../../actions/app';
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  card: {
+    flexDirection: 'row',
+    height: 50,
+    marginTop: 5,
+    paddingHorizontal: 10,
+    width: '100%',
+  },
+  cardNameWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  cardText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  sliderWrapper: {
+    alignItems: 'flex-end',
+    flex: 0.4,
+    justifyContent: 'center',
+  },
+});
 
 type Props = {
   darkTheme: boolean,
@@ -22,6 +52,7 @@ type Props = {
   theme: ThemeColorsData,
 };
 
+// TODO: FIX SWITCH
 class SettingScreen extends PureComponent<void, Props, void> {
   _handleValueChange = () => {
     this.props.toggleTheme();
@@ -38,6 +69,8 @@ class SettingScreen extends PureComponent<void, Props, void> {
     if (_canOpen) {
       return Linking.openURL(url);
     }
+
+    return null;
   };
 
   render() {
@@ -63,11 +96,11 @@ class SettingScreen extends PureComponent<void, Props, void> {
           </View>
           <View style={styles.sliderWrapper}>
             <Switch
-              value={this.props.darkTheme}
-              tintColor={colors.primary}
-              thumbTintColor={this.props.theme.thumbTintColor}
-              onValueChange={this._handleValueChange}
               onTintColor={colors.primary}
+              onValueChange={this._handleValueChange}
+              thumbTintColor={this.props.theme.thumbTintColor}
+              tintColor={colors.primary}
+              value={this.props.darkTheme}
             />
           </View>
         </View>
@@ -91,32 +124,6 @@ class SettingScreen extends PureComponent<void, Props, void> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  cardText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  card: {
-    height: 50,
-    width: '100%',
-    paddingHorizontal: 10,
-    marginTop: 5,
-    flexDirection: 'row',
-  },
-  cardNameWrapper: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  sliderWrapper: {
-    flex: 0.4,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-});
 
 export default connect(
   (state: State) => ({

@@ -5,13 +5,28 @@ import { Dimensions, LayoutAnimation, StyleSheet, View } from 'react-native';
 import {
   Group,
   Path,
-  Surface,
   Shape,
+  Surface,
 } from 'react-native/Libraries/ART/ReactNativeART';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { ThemeColorsData } from '../../types';
-
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import { colors } from '../../utils/constants';
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 30,
+    paddingTop: 20,
+  },
+  wrapper: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+});
 
 type DefaultProps = {
   fillColor: string,
@@ -20,16 +35,16 @@ type DefaultProps = {
 };
 
 type Props = {
-  values: Array<number>,
   fillColor: string,
   strokeColor: string,
   strokeWidth: number,
   theme: ThemeColorsData,
+  values: Array<number>,
 };
 
 type State = {
-  width: number,
   height: number,
+  width: number,
 };
 
 class CoinDetailsLine extends Component<DefaultProps, Props, State> {
@@ -105,11 +120,11 @@ class CoinDetailsLine extends Component<DefaultProps, Props, State> {
     const { width, height } = this.state;
     return (
       <View
-        style={[styles.root, { backgroundColor: theme.cardBackground }]}
         onLayout={this._onLayout}
+        style={[styles.root, { backgroundColor: theme.cardBackground }]}
       >
         <View style={styles.wrapper}>
-          <Surface width={width} height={height}>
+          <Surface height={height} width={width}>
             <Group x={0} y={height}>
               <Shape
                 d={this._buildPath(values)}
@@ -124,16 +139,5 @@ class CoinDetailsLine extends Component<DefaultProps, Props, State> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 30,
-    paddingTop: 20,
-  },
-  wrapper: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-});
 
 export default CoinDetailsLine;
