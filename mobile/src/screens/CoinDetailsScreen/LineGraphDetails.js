@@ -49,7 +49,7 @@ class LineGraphDetails extends Component<void, Props, State> {
     const { theme } = this.props.screenProps;
     const { timeSelect } = this.state;
     return (
-      <View style={styles.root}>
+      <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
         <CoinTopDetails
           selectTime={this._selectTime}
           theme={theme}

@@ -121,9 +121,10 @@ const CoinDetailsNavigator = StackNavigator(
   },
   {
     headerMode: 'null',
-    // TODO: CHeck for this
     cardStyle: {
       backgroundColor: '#161C36',
+      // backgroundColor: 'transparent',
+      // shadowColor: 'transparent'
     },
   }
 )
@@ -161,7 +162,9 @@ const HomeNavigator = StackNavigator(
   {
     headerMode: 'screen',
     cardStyle: {
-      backgroundColor: colors.darkGray,
+      backgroundColor: '#161C36',
+      // backgroundColor: 'transparent',
+      // shadowColor: 'transparent'
     },
   },
 );
@@ -267,7 +270,9 @@ const AppMainNav = StackNavigator(
     headerMode: 'none',
     initialRouteName: 'Tabs',
     cardStyle: {
-      backgroundColor: colors.darkGray,
+      backgroundColor: '#161C36',
+      // backgroundColor: 'transparent',
+      // shadowColor: 'transparent'
     },
   },
 );
