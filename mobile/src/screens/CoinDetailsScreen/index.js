@@ -37,7 +37,7 @@ type Props = {
 type State = {
   timeSelect: TimeSelect,
 };
-
+// TODO: Remove this unused component or keep it for passing theme
 class CoinDetailsScreen extends PureComponent<void, Props, State> {
   state = {
     timeSelect: '1d',
@@ -52,7 +52,8 @@ class CoinDetailsScreen extends PureComponent<void, Props, State> {
 
     const screenProps = {
       theme,
-      coin,
+      coinId: coin.id
+      // coin,
     };
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>

@@ -162,7 +162,8 @@ class Coin extends PureComponent<void, Props, State> {
 
   _onNavigationPress = () => {
     this.props.navigation.navigate('CoinDetailsScreen', {
-      coin: this.props.coin,
+      coinId: this.props.coin.id,
+      name: this.props.coin.name
     });
   };
 
@@ -234,11 +235,10 @@ export default createFragmentContainer(
   Coin,
   graphql`
     fragment Coin_coin on Crypto {
+      id
       name
       cryptoId
       percentChange1h
-      percentChange24h
-      percentChange7d
       symbol
       priceUsd
       priceBtc

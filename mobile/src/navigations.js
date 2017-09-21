@@ -24,7 +24,7 @@ import type {
 // SCREENS
 // ------------------------------------
 import AddCoinScreen from './screens/AddCoinScreen';
-import CoinDetailsScreen from './screens/CoinDetailsScreen';
+import CoinDetailsTabs from './screens/CoinDetailsScreen/CoinDetailsTabs';
 import HomeScreen from './screens/HomeScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import SettingScreen from './screens/SettingScreen';
@@ -129,9 +129,9 @@ const HomeNavigator = StackNavigator(
       }),
     },
     CoinDetailsScreen: {
-      screen: CoinDetailsScreen,
+      screen: CoinDetailsTabs,
       navigationOptions: (props: NavProps) => ({
-        headerTitle: props.navigation.state.params.coin.name,
+        headerTitle: props.navigation.state.params.name,
         headerBackTitle: null,
         headerTitleStyle: {
           color: props.screenProps.theme.headerTitleColor,

@@ -4,13 +4,18 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLString,
-  GraphQLInt,
+  GraphQLInt
 } from 'graphql';
-import { connectionDefinitions, connectionFromArray, connectionArgs, globalIdField } from 'graphql-relay';
+import {
+  connectionDefinitions,
+  connectionFromArray,
+  connectionArgs,
+  globalIdField
+} from 'graphql-relay';
 
 import type { Context } from '../../types';
 
-import { nodeInterface } from './resolver';
+import { nodeInterface, addResolver } from './resolver';
 import { getCryptos } from '../../services/CoinMarket';
 
 require('babel-polyfill');
@@ -25,55 +30,55 @@ const CryptoType = new GraphQLObjectType({
     rank: { type: new GraphQLNonNull(GraphQLString) },
     cryptoId: {
       type: GraphQLString,
-      resolve: item => item.id,
+      resolve: item => item.id
     },
     priceUsd: {
       type: GraphQLString,
-      resolve: item => item.price_usd,
+      resolve: item => item.price_usd
     },
     priceBtc: {
       type: GraphQLString,
-      resolve: item => item.price_btc,
+      resolve: item => item.price_btc
     },
     volumeUsd24h: {
       type: GraphQLString,
-      resolve: item => item['24h_volume_usd'],
+      resolve: item => item['24h_volume_usd']
     },
     marketCapUsd: {
       type: GraphQLString,
-      resolve: item => item.market_cap_usd,
+      resolve: item => item.market_cap_usd
     },
     availableSuply: {
       type: GraphQLString,
-      resolve: item => item.available_supply,
+      resolve: item => item.available_supply
     },
     totalSuply: {
       type: GraphQLString,
-      resolve: item => item.total_supply,
+      resolve: item => item.total_supply
     },
     percentChange1h: {
       type: GraphQLString,
-      resolve: item => item.percent_change_1h,
+      resolve: item => item.percent_change_1h
     },
     percentChange24h: {
       type: GraphQLString,
-      resolve: item => item.percent_change_24h,
+      resolve: item => item.percent_change_24h
     },
     percentChange7d: {
       type: GraphQLString,
-      resolve: item => item.percent_change_7d,
+      resolve: item => item.percent_change_7d
     },
     lastUpdated: {
       type: GraphQLString,
-      resolve: item => item.last_updated,
-    },
+      resolve: item => item.last_updated
+    }
   }),
   interfaces: [nodeInterface]
 });
 
 const {
   connectionType: CryptoConnectionType,
-  edgeType: CryptoEdgeType, // eslint-disable-line
+  edgeType: CryptoEdgeType // eslint-disable-line
 } = connectionDefinitions({
   name: 'Cryptos',
   nodeType: CryptoType
@@ -90,5 +95,14 @@ export const cryptosField = {
     const data = await getCryptos(ctx, args.limit || 100);
 
     return connectionFromArray(data, args);
-  },
+  }
 };
+
+addResolver(async (type, id, ctx) => {
+  if (type === 'Crypto') {
+    const cryptos = await getCryptos(ctx, 100);
+    return cryptos.find(item => item.id === id);
+  }
+
+  return null;
+}, () => CryptoType);
