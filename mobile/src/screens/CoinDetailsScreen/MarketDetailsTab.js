@@ -1,15 +1,15 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView, View, RefreshControl } from 'react-native';
 import idx from 'idx';
-import { graphql, createFragmentContainer } from 'react-relay';
+import { graphql, createRefetchContainer } from 'react-relay';
 
 // ------------------------------------
 // TYPES
 // ------------------------------------
 import type { MarketDetailsTab_coin as Coin } from './__generated__/MarketDetailsTab_coin.graphql';
-import type { Navigation, ThemeColorsData } from '../../types';
+import type { Navigation, ThemeColorsData, RelayType } from '../../types';
 // ------------------------------------
 // COMPONENTS
 // ------------------------------------
@@ -19,6 +19,7 @@ import MetaCard from './MetaCard';
 // ------------------------------------
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 import { moneyThousand, thousandSpace } from '../../utils/helpers/formatNumber';
+import { colors } from '../../utils/constants';
 import { createRenderer } from '../../RelayUtils';
 
 const styles = StyleSheet.create({
@@ -41,10 +42,19 @@ type Props = {
     theme: ThemeColorsData,
   },
   coin: Coin,
+  relay: RelayType,
+};
+
+type State = {
+  refreshing: boolean,
 };
 
 // TODO: Refactor code
-class MarketDetailsTab extends Component<void, Props, void> {
+class MarketDetailsTab extends Component<void, Props, State> {
+  state = {
+    refreshing: false,
+  };
+
   get _percent1hColor(): string {
     const _coin = idx(this.props, _ => _.coin);
     const _percentChang1h = idx(_coin, _ => _.percentChange1h) || '0';
@@ -78,14 +88,28 @@ class MarketDetailsTab extends Component<void, Props, void> {
     return this.props.screenProps.theme.green;
   }
 
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.relay.refetch({ coinId: this.props.coin.id }, null, null, {
+      force: true,
+    });
+    this.setState({ refreshing: false });
+  };
+
   render() {
     const { coin } = this.props;
     const { theme } = this.props.screenProps;
 
     const _marketCap = thousandSpace(idx(coin, _ => _.marketCapUsd) || '0');
-    const _percentChang1h = thousandSpace(idx(coin, _ => _.percentChange1h) || '0');
-    const _percentChang24h = thousandSpace(idx(coin, _ => _.percentChange24h) || '0');
-    const _percentChang7d = thousandSpace(idx(coin, _ => _.percentChange7d) || '0');
+    const _percentChang1h = thousandSpace(
+      idx(coin, _ => _.percentChange1h) || '0',
+    );
+    const _percentChang24h = thousandSpace(
+      idx(coin, _ => _.percentChange24h) || '0',
+    );
+    const _percentChang7d = thousandSpace(
+      idx(coin, _ => _.percentChange7d) || '0',
+    );
     const _price = moneyThousand(idx(coin, _ => _.priceUsd) || '0');
     const _priceBtc = thousandSpace(idx(coin, _ => _.priceBtc) || '0');
     const _totalSuply = thousandSpace(idx(coin, _ => _.totalSuply) || '0');
@@ -93,7 +117,16 @@ class MarketDetailsTab extends Component<void, Props, void> {
 
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
-        <ScrollView contentContainerStyle={styles.metaWrapper}>
+        <ScrollView
+          contentContainerStyle={styles.metaWrapper}
+          refreshControl={
+            <RefreshControl
+              onRefresh={this._onRefresh}
+              refreshing={this.state.refreshing}
+              tintColor={colors.primary}
+            />
+          }
+        >
           <MetaCard
             backgroundColor={theme.tabBarColor}
             textColor={theme.textColor}
@@ -148,7 +181,7 @@ class MarketDetailsTab extends Component<void, Props, void> {
   }
 }
 
-const FragmentContainer = createFragmentContainer(
+const FragmentContainer = createRefetchContainer(
   MarketDetailsTab,
   graphql`
     fragment MarketDetailsTab_coin on Crypto {
@@ -161,6 +194,13 @@ const FragmentContainer = createFragmentContainer(
       percentChange1h
       percentChange24h
       percentChange7d
+    }
+  `,
+  graphql`
+    query MarketDetailsTabRefetchQuery($coinId: ID!) {
+      coin: node(id: $coinId) {
+        ...MarketDetailsTab_coin
+      }
     }
   `,
 );

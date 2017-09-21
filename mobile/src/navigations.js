@@ -113,6 +113,21 @@ const SettingNavigator = StackNavigator({
   },
 });
 
+const CoinDetailsNavigator = StackNavigator(
+  {
+    CoinDetailsScreen: {
+      screen: CoinDetailsTabs,
+    }
+  },
+  {
+    headerMode: 'null',
+    // TODO: CHeck for this
+    cardStyle: {
+      backgroundColor: '#161C36',
+    },
+  }
+)
+
 const HomeNavigator = StackNavigator(
   {
     Home: {
@@ -129,7 +144,7 @@ const HomeNavigator = StackNavigator(
       }),
     },
     CoinDetailsScreen: {
-      screen: CoinDetailsTabs,
+      screen: CoinDetailsNavigator,
       navigationOptions: (props: NavProps) => ({
         headerTitle: props.navigation.state.params.name,
         headerBackTitle: null,
