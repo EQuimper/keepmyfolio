@@ -5,12 +5,21 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import idx from 'idx';
 import { graphql, createFragmentContainer } from 'react-relay';
 
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { MarketDetailsTab_coin as Coin } from './__generated__/MarketDetailsTab_coin.graphql';
 import type { Navigation, ThemeColorsData } from '../../types';
-
-import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
-import { createRenderer } from '../../RelayUtils';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import MetaCard from './MetaCard';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
+import { moneyThousand, thousandSpace } from '../../utils/helpers/formatNumber';
+import { createRenderer } from '../../RelayUtils';
 
 const styles = StyleSheet.create({
   metaWrapper: {
@@ -73,14 +82,14 @@ class MarketDetailsTab extends Component<void, Props, void> {
     const { coin } = this.props;
     const { theme } = this.props.screenProps;
 
-    const _marketCap = idx(coin, _ => _.marketCapUsd) || '0';
-    const _percentChang1h = idx(coin, _ => _.percentChange1h) || '0';
-    const _percentChang24h = idx(coin, _ => _.percentChange24h) || '0';
-    const _percentChang7d = idx(coin, _ => _.percentChange7d) || '0';
-    const _price = idx(coin, _ => _.priceUsd) || '0';
-    const _priceBtc = idx(coin, _ => _.priceBtc) || '0';
-    const _totalSuply = idx(coin, _ => _.totalSuply) || '0';
-    const _volume = idx(coin, _ => _.volumeUsd24h) || '0';
+    const _marketCap = thousandSpace(idx(coin, _ => _.marketCapUsd) || '0');
+    const _percentChang1h = thousandSpace(idx(coin, _ => _.percentChange1h) || '0');
+    const _percentChang24h = thousandSpace(idx(coin, _ => _.percentChange24h) || '0');
+    const _percentChang7d = thousandSpace(idx(coin, _ => _.percentChange7d) || '0');
+    const _price = moneyThousand(idx(coin, _ => _.priceUsd) || '0');
+    const _priceBtc = thousandSpace(idx(coin, _ => _.priceBtc) || '0');
+    const _totalSuply = thousandSpace(idx(coin, _ => _.totalSuply) || '0');
+    const _volume = thousandSpace(idx(coin, _ => _.volumeUsd24h) || '0');
 
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>

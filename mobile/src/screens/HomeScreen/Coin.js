@@ -16,6 +16,7 @@ import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
 import { CoinMarket } from '../../utils/api';
 import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
+import { moneyThousand } from '../../utils/helpers/formatNumber';
 
 const COIN_ICON_SIZE = 30;
 
@@ -157,7 +158,7 @@ class Coin extends PureComponent<void, Props, State> {
   }
 
   get _getPrice(): string {
-    return `$${parseFloat(this.props.coin.priceUsd).toFixed(2)}`;
+    return moneyThousand(this.props.coin.priceUsd);
   }
 
   _onNavigationPress = () => {
