@@ -8,7 +8,11 @@ import { persistStore } from 'redux-persist';
 
 import AppNavigation from './navigations';
 import store from './store';
-import { themes, persistWhitelist, subsetOfAppReducer } from './utils/constants';
+import {
+  themes,
+  persistWhitelist,
+  subsetOfAppReducer,
+} from './utils/constants';
 import Loading from './components/Loading';
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -31,14 +35,12 @@ class App extends PureComponent<void, {}, State> {
       {
         storage: AsyncStorage,
         whitelist: persistWhitelist,
-        transforms: [
-          subsetOfAppReducer
-        ]
+        transforms: [subsetOfAppReducer],
       },
       () => {
         this.setState({ isReady: true });
-      }
-    )
+      },
+    );
   }
 
   render() {

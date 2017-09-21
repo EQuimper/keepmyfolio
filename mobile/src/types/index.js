@@ -34,7 +34,12 @@ export type {
   NavigationAction,
   Action,
   AppState,
-  CryptosState
+  CryptosState,
 };
 
-export { ThemeColorsData, HoldingData, TimeSelect, DeviceInfoType } from './data';
+export {
+  ThemeColorsData,
+  HoldingData,
+  TimeSelect,
+  DeviceInfoType,
+} from './data';

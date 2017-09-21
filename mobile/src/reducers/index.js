@@ -9,5 +9,5 @@ import cryptos from './cryptos';
 export default combineReducers({
   nav,
   app,
-  cryptos
+  cryptos,
 });

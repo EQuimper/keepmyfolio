@@ -6,14 +6,12 @@ import { connect } from 'react-redux';
 
 import type { State as AppState, ThemeColorsData } from '../../types';
 
-const Root = styled.View`
-  flex: 1;
-`;
+const Root = styled.View`flex: 1;`;
 
 const Title = styled.Text``;
 
 type Props = {
-  theme: ThemeColorsData
+  theme: ThemeColorsData,
 };
 
 class NotificationScreen extends PureComponent<void, Props, void> {
@@ -27,8 +25,6 @@ class NotificationScreen extends PureComponent<void, Props, void> {
   }
 }
 
-export default connect(
-  (state: AppState) => ({
-    theme: state.app.theme,
-  })
-)(NotificationScreen);
+export default connect((state: AppState) => ({
+  theme: state.app.theme,
+}))(NotificationScreen);

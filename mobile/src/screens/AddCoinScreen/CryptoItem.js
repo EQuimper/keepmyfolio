@@ -18,9 +18,7 @@ const Root = styled.TouchableOpacity`
   flexDirection: row;
 `;
 
-const CryptoName = styled.Text`
-  marginLeft: 10;
-`;
+const CryptoName = styled.Text`marginLeft: 10;`;
 
 const IconWrapper = styled.View`
   justifyContent: center;
@@ -43,12 +41,15 @@ type Props = {
   coin: Coin,
   selectPress: (coin: Coin) => Coin,
   onSelectPress: (coin: Coin) => Coin,
-  theme: ThemeColorsData
+  theme: ThemeColorsData,
 };
 
-function CryptoItem ({ coin, selectPress, theme }: Props) {
+function CryptoItem({ coin, selectPress, theme }: Props) {
   return (
-    <Root onPress={selectPress} style={{ backgroundColor: theme.cardBackground }}>
+    <Root
+      onPress={selectPress}
+      style={{ backgroundColor: theme.cardBackground }}
+    >
       <IconWrapper>
         <CoinIcon source={{ uri: CoinMarket.getImage(coin.cryptoId, 32) }} />
       </IconWrapper>
@@ -60,7 +61,7 @@ function CryptoItem ({ coin, selectPress, theme }: Props) {
 }
 
 const CryptoItemEnhance = withHandlers({
-  selectPress: (props: Props) => () => props.onSelectPress(props.coin)
+  selectPress: (props: Props) => () => props.onSelectPress(props.coin),
 })(CryptoItem);
 
 export default createFragmentContainer(
@@ -71,5 +72,5 @@ export default createFragmentContainer(
       cryptoId
       priceUsd
     }
-  `
+  `,
 );

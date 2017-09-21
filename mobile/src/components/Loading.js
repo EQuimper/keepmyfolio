@@ -10,9 +10,7 @@ type Props = {
   size?: 'large' | 'small',
 };
 
-function Loading(
-  { color = colors.primary, size = 'large' }: Props = {},
-) {
+function Loading({ color = colors.primary, size = 'large' }: Props = {}) {
   return (
     <View style={styles.root}>
       <ActivityIndicator color={color} size={size} />
@@ -24,8 +22,8 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+    alignItems: 'center',
+  },
+});
 
 export default Loading;

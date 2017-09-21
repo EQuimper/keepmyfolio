@@ -11,14 +11,14 @@ type Props = {
 };
 
 type State = {
-  path: string
+  path: string,
 };
 
 const ANIMATION_DURATION = 300;
 
 class AnimShape extends Component<void, Props, State> {
   state = {
-    path: ''
+    path: '',
   };
 
   componentWillMount() {
@@ -37,7 +37,7 @@ class AnimShape extends Component<void, Props, State> {
     const graph = this.props.d();
 
     this.setState({
-      path: graph.path
+      path: graph.path,
     });
 
     if (!this._previousGraph) {
@@ -56,20 +56,17 @@ class AnimShape extends Component<void, Props, State> {
         LayoutAnimation.create(
           ANIMATION_DURATION,
           LayoutAnimation.Types.easeInEaseOut,
-          LayoutAnimation.Properties.opacity
-        )
+          LayoutAnimation.Properties.opacity,
+        ),
       );
 
       this.setState(
         {
-          path: Morph.Tween(
-            pathFrom,
-            pathTo
-          )
+          path: Morph.Tween(pathFrom, pathTo),
         },
         () => {
           this._animate();
-        }
+        },
       );
 
       this._previousGraph = graph;
@@ -78,7 +75,6 @@ class AnimShape extends Component<void, Props, State> {
 
   _animate(start) {
     this._animating = requestAnimationFrame(timestamp => {
-
       if (!start) {
         start = timestamp; // eslint-disable-line
       }
@@ -89,7 +85,7 @@ class AnimShape extends Component<void, Props, State> {
         this._animating = null;
 
         this.setState({
-          path: this._previousGraph.path
+          path: this._previousGraph.path,
         });
 
         return;

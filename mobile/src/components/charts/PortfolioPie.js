@@ -1,12 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 import styled from 'styled-components/native';
 import * as scale from 'd3-scale';
@@ -81,18 +76,18 @@ type Props = {
 class PortfolioPie extends Component<void, Props, State> {
   state = {
     highlightedIndex: 0,
-    data: []
+    data: [],
   };
 
   componentDidMount() {
-    this._sortData()
+    this._sortData();
   }
 
   _sortData = () => {
-    const newData =  [...data].sort((a, b) => b.number - a.number)
+    const newData = [...data].sort((a, b) => b.number - a.number);
 
-    this.setState({ data: newData })
-  }
+    this.setState({ data: newData });
+  };
 
   _value = (item: Item) => item.number;
 

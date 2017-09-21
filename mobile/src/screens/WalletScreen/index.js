@@ -13,7 +13,7 @@ import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGra
 
 type DataProps = Array<{
   date: number,
-  amount: number
+  amount: number,
 }>;
 
 const data: DataProps = [];
@@ -21,13 +21,13 @@ const data: DataProps = [];
 for (let i = 0; i < 25; i++) {
   data.push({
     date: 2000 + i,
-    amount: parseFloat((Math.random() * 100).toFixed(2))
+    amount: parseFloat((Math.random() * 100).toFixed(2)),
   });
 }
 
 type Props = {
   theme: ThemeColorsData,
-  darkTheme: boolean
+  darkTheme: boolean,
 };
 
 type State = {
@@ -42,13 +42,13 @@ class WalletScreen extends PureComponent<void, Props, State> {
     isNeg: true,
     graphHistoryData: data,
     selectedCryptoIndex: 0,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
   };
 
   get _getColor(): string {
     return getColorForWalletGraph(
       this.props.darkTheme,
-      this.state.selectedCryptoIndex
+      this.state.selectedCryptoIndex,
     );
   }
 
@@ -57,7 +57,7 @@ class WalletScreen extends PureComponent<void, Props, State> {
     for (let i = 0; i < 25; i++) {
       newData.push({
         date: 2000 + i,
-        amount: parseFloat((Math.random() * 100).toFixed(2))
+        amount: parseFloat((Math.random() * 100).toFixed(2)),
       });
     }
 
@@ -67,7 +67,7 @@ class WalletScreen extends PureComponent<void, Props, State> {
   _onSelectCrypto = (index: number) => {
     this.setState({
       selectedCryptoIndex: index,
-      graphHistoryData: this._shuffle()
+      graphHistoryData: this._shuffle(),
     });
   };
 
@@ -83,7 +83,12 @@ class WalletScreen extends PureComponent<void, Props, State> {
             totalGain={8.99}
             totalPercent={0.25}
           />
-          <View style={[styles.walletPieWrapper, { backgroundColor: theme.tabBarColor }]}>
+          <View
+            style={[
+              styles.walletPieWrapper,
+              { backgroundColor: theme.tabBarColor },
+            ]}
+          >
             <PortfolioPie
               color={this._getColor}
               darkTheme={this.props.darkTheme}
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollViewContentContainer: {
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   walletPieWrapper: {
     height: 250,
@@ -121,10 +126,10 @@ const styles = StyleSheet.create({
     height: 200,
     width: '100%',
     marginTop: 5,
-  }
-})
+  },
+});
 
 export default connect((state: AppState) => ({
   theme: state.app.theme,
-  darkTheme: state.app.darkTheme
+  darkTheme: state.app.darkTheme,
 }))(WalletScreen);

@@ -19,7 +19,12 @@ function MetaCard({ title, value, textColor, backgroundColor }: Props) {
         <Text style={[styles.title, { color: colors.lightGrey }]}>{title}</Text>
       </View>
       <View style={[styles.card, { backgroundColor }]}>
-        <Text numberOfLines={1} style={[styles.valueText, { color: textColor }]}>{value}</Text>
+        <Text
+          numberOfLines={1}
+          style={[styles.valueText, { color: textColor }]}
+        >
+          {value}
+        </Text>
       </View>
     </View>
   );

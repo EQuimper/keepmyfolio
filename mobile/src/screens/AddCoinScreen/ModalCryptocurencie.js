@@ -8,10 +8,7 @@ import { createPaginationContainer, graphql } from 'react-relay';
 import idx from 'idx';
 import invariant from 'invariant';
 
-import type {
-  RelayType,
-  ThemeColorsData,
-} from '../../types';
+import type { RelayType, ThemeColorsData } from '../../types';
 import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 
@@ -27,7 +24,7 @@ const Root = styled.View`
 `;
 
 const CloseButton = styled.TouchableOpacity.attrs({
-  hitSlops: { top: 20, left: 20, right: 20, bottom: 20 },
+  hitSlop: { top: 20, left: 20, right: 20, bottom: 20 },
 })`
   height: 50;
   width: 50;

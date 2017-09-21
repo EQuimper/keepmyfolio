@@ -1,16 +1,21 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components/native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 
-const Button = styled.TouchableOpacity.attrs({
-  hitSlop: { top: 20, bottom: 20, right: 20, left: 20 },
-})`
-  marginRight: ${props => (props.side === 'right' ? 15 : 0)};
-  marginLeft: ${props => (props.side === 'left' ? 15 : 0)};
-  justifyContent: center;
-  alignItems: center;
-`;
+const HIT_SLOP = {
+  top: 20,
+  bottom: 20,
+  right: 20,
+  left: 20,
+};
+
+const styles = StyleSheet.create({
+  root: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 type Props = {
   children: React.Element<*>,
@@ -25,9 +30,19 @@ export default function ButtonHeader({
   onPress,
   disabled,
 }: Props) {
+  const _style = {
+    marginRight: side === 'right' ? 15 : 0,
+    marginLeft: side === 'left' ? 15 : 0,
+  };
+
   return (
-    <Button onPress={onPress} disabled={disabled} side={side}>
+    <TouchableOpacity
+      disabled={disabled}
+      hitSlop={HIT_SLOP}
+      onPress={onPress}
+      style={[styles.root, _style]}
+    >
       {children}
-    </Button>
+    </TouchableOpacity>
   );
 }

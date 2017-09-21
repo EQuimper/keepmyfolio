@@ -16,11 +16,9 @@ type Props = {
 function AddButtonTab({ children, backgroundColor }: Props) {
   return (
     <View style={[styles.root, { backgroundColor }]}>
-      <View style={styles.addButton}>
-        {children}
-      </View>
+      <View style={styles.addButton}>{children}</View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -39,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 export default AddButtonTab;

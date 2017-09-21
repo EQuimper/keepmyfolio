@@ -36,7 +36,7 @@ class SettingScreen extends PureComponent<void, Props, void> {
     const _canOpen = await Linking.openURL(url);
 
     if (_canOpen) {
-      return Linking.openURL(url)
+      return Linking.openURL(url);
     }
   };
 

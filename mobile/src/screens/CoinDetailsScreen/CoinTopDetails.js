@@ -12,7 +12,7 @@ import { colors } from '../../utils/constants';
 import TimeButton from './TimeButton';
 import MetaCard from './MetaCard';
 
-const titleEls = ['1d', '7d', '1m', '6m', '1y'];
+const titleEls = ['1d', '7d', '1m', '6m', '1y', 'ALL'];
 
 const IMG_HEIGHT = 64;
 

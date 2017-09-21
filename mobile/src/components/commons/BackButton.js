@@ -9,7 +9,7 @@ import { colors } from '../../utils/constants';
 
 type Props = {
   goBack: Function,
-  goBackPress: Function
+  goBackPress: Function,
 };
 
 function BackButton({ goBackPress }: Props) {
@@ -21,5 +21,5 @@ function BackButton({ goBackPress }: Props) {
 }
 
 export default withHandlers({
-  goBackPress: (props: Props) => () => props.goBack(null)
+  goBackPress: (props: Props) => () => props.goBack(null),
 })(BackButton);

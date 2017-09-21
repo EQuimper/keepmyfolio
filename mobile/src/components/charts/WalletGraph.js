@@ -42,8 +42,8 @@ type State = {
 
 class WalletGraph extends Component<void, Props, State> {
   state = {
-    width: this.props.width
-  }
+    width: this.props.width,
+  };
 
   _yValue = (item: GraphEl) => -item.amount;
 
@@ -53,7 +53,7 @@ class WalletGraph extends Component<void, Props, State> {
     const area = d3.shape
       .area()
       .x((d, index) => this._xValue(d, index))
-      .y1((d) => this._yValue(d))
+      .y1(d => this._yValue(d))
       .curve(d3.shape.curveNatural)(this.props.data);
 
     return { path: area };

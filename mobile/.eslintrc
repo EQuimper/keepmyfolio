@@ -1,7 +1,9 @@
 {
   "extends": [
     "equimper",
-    "prettier"
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react"
   ],
   "plugins": [
     "react-native"

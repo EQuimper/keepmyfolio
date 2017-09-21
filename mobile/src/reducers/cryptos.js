@@ -7,7 +7,10 @@ const initialState: CryptosState = {
   transactionId: 0,
 };
 
-export default function cryptos(state: CryptosState = initialState, action: Action) {
+export default function cryptos(
+  state: CryptosState = initialState,
+  action: Action,
+) {
   switch (action.type) {
     case 'cryptos/ADD_NEW_HOLDING':
       return {
@@ -18,12 +21,12 @@ export default function cryptos(state: CryptosState = initialState, action: Acti
           [action.coin.id]: {
             ...state.entities[action.coin.id],
             [state.transactionId]: {
-              ...action.coin
-            }
-          }
-        }
-      }
+              ...action.coin,
+            },
+          },
+        },
+      };
     default:
       return state;
   }
-};
+}

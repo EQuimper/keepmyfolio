@@ -36,7 +36,7 @@ class CoinDetailsLine extends Component<DefaultProps, Props, State> {
   static defaultProps = {
     fillColor: colors.primaryLight,
     strokeColor: colors.primary,
-    strokeWidth: 8,
+    strokeWidth: 0.5,
   };
 
   state = {
@@ -104,7 +104,10 @@ class CoinDetailsLine extends Component<DefaultProps, Props, State> {
     const { theme, values, fillColor, strokeColor, strokeWidth } = this.props;
     const { width, height } = this.state;
     return (
-      <View style={[styles.root, { backgroundColor: theme.cardBackground }]} onLayout={this._onLayout}>
+      <View
+        style={[styles.root, { backgroundColor: theme.cardBackground }]}
+        onLayout={this._onLayout}
+      >
         <View style={styles.wrapper}>
           <Surface width={width} height={height}>
             <Group x={0} y={height}>
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'flex-end',
-  }
-})
+  },
+});
 
 export default CoinDetailsLine;

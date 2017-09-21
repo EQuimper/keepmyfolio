@@ -3,9 +3,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const Root = styled.View`
-  flex: 1;
-`;
+const Root = styled.View`flex: 1;`;
 
 const Heading1 = styled.Text``;
 
