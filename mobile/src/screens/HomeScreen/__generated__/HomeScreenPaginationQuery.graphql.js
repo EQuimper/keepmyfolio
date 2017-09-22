@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 882cd51753c964d4c47a0603f4248380
+ * @relayHash f7728cc4e44a80c6d4e8f7cbe3c69297
  */
 
 /* eslint-disable */
@@ -29,9 +29,9 @@ fragment HomeScreen_viewer on Viewer {
   cryptos(first: $count, after: $cursor) {
     edges {
       node {
+        __typename
         id
         ...Coin_coin
-        __typename
       }
       cursor
     }
@@ -167,14 +167,14 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "priceUsd",
+                        "name": "__typename",
                         "storageKey": null
                       },
                       {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "id",
+                        "name": "name",
                         "storageKey": null
                       },
                       {
@@ -202,7 +202,7 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "name",
+                        "name": "priceUsd",
                         "storageKey": null
                       },
                       {
@@ -237,7 +237,7 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "__typename",
+                        "name": "id",
                         "storageKey": null
                       }
                     ],
@@ -317,7 +317,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeScreenPaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        id\n        ...Coin_coin\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  id\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n  priceBtc\n  marketCapUsd\n  totalSuply\n  volumeUsd24h\n}\n"
+  "text": "query HomeScreenPaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        ...Coin_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  id\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n  priceBtc\n  marketCapUsd\n  totalSuply\n  volumeUsd24h\n}\n"
 };
 
 module.exports = batch;
