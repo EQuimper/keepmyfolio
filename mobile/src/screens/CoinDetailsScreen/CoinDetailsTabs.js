@@ -14,8 +14,8 @@ import { colors } from '../../utils/constants';
 
 const TabsConnected = connect((state: State) => ({
   style: {
-    backgroundColor: state.app.theme.tabBarColor,
-    borderTopColor: state.app.theme.tabBarColor,
+    backgroundColor: state.get('app').theme.tabBarColor,
+    borderTopColor: state.get('app').theme.tabBarColor,
     height: 50,
   },
 }))(TabBarTop);

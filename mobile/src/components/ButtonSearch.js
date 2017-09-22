@@ -33,7 +33,7 @@ function ButtonSearch({ onPress, isShow }: Props) {
 export default compose(
   connect(
     (state: State) => ({
-      isShow: state.app.isSearchBarShow,
+      isShow: state.get('app').isSearchBarShow,
     }),
     { toggleSearchBar },
   ),

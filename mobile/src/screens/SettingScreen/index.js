@@ -127,8 +127,8 @@ class SettingScreen extends PureComponent<void, Props, void> {
 
 export default connect(
   (state: State) => ({
-    darkTheme: state.app.darkTheme,
-    theme: state.app.theme,
+    darkTheme: state.get('app').darkTheme,
+    theme: state.get('app').theme,
   }),
   { toggleTheme },
 )(SettingScreen);

@@ -130,5 +130,5 @@ class SearchBar extends Component<void, Props, State> {
 }
 
 export default connect((state: AppState) => ({
-  isShow: state.app.isSearchBarShow,
+  isShow: state.get('app').isSearchBarShow,
 }))(SearchBar);

@@ -1,5 +1,6 @@
 // @flow
 
+import type { Record } from 'immutable';
 import type {
   NavigationState,
   NavigationAction,
@@ -18,11 +19,11 @@ export type Navigation = NavigationScreenProp<
   NavigationAction,
 >;
 
-export type State = {
+export type State = Record<{
   nav: NavigationState,
   app: AppState,
   cryptos: CryptosState,
-};
+}>;
 
 export type ThunkAction = (
   dispatch: (action: Action | ThunkAction) => void,

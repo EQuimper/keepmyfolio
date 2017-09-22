@@ -1,31 +1,33 @@
 // @flow
 
-import type { AppState, Action } from '../types';
+import { Record } from 'immutable';
+
+import type { AppState, Action, ThemeColorsData } from '../types';
 
 import { themes } from '../utils/constants';
 
-const initialState: AppState = {
+const StateRecord = Record({
   darkTheme: true,
   theme: themes.dark,
   isSearchBarShow: false,
-};
+});
 
 export default function appReducer(
-  state: AppState = initialState,
+  state: AppState = new StateRecord(),
   action: Action,
-) {
+): AppState {
   switch (action.type) {
-    case 'app/TOGGLE_THEME':
-      return {
-        ...state,
-        darkTheme: !state.darkTheme,
-        theme: themes[state.darkTheme ? 'light' : 'dark'],
-      };
-    case 'app/TOGGLE_SEARCH_BAR':
-      return {
-        ...state,
-        isSearchBarShow: !state.isSearchBarShow,
-      };
+    case 'app/TOGGLE_THEME': {
+      const _darkTheme: boolean = !state.get('darkTheme');
+      const _theme: ThemeColorsData = themes[_darkTheme ? 'dark' : 'light'];
+      return state.set('darkTheme', _darkTheme).set('theme', _theme);
+    }
+
+    case 'app/TOGGLE_SEARCH_BAR': {
+      const _isSearchBarShow: boolean = !state.get('isSearchBarShow');
+      return state.set('isSearchBarShow', _isSearchBarShow);
+    }
+
     default:
       return state;
   }

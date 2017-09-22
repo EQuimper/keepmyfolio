@@ -339,7 +339,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
 
 export default connect(
   (state: AppState) => ({
-    theme: state.app.theme,
+    theme: state.get('app').theme,
   }),
   { addNewHolding },
 )(AddCoinScreen);

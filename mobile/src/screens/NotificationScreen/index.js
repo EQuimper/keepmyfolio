@@ -26,5 +26,5 @@ class NotificationScreen extends PureComponent<void, Props, void> {
 }
 
 export default connect((state: AppState) => ({
-  theme: state.app.theme,
+  theme: state.get('app').theme,
 }))(NotificationScreen);

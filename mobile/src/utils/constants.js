@@ -1,6 +1,6 @@
 // @flow
 
-import { createBlacklistFilter } from 'redux-persist-transform-filter';
+import { createBlacklistFilter } from '@actra-development-oss/redux-persist-transform-filter-immutable';
 import DeviceInfo from 'react-native-device-info';
 
 import type { DeviceInfoType } from '../types';
