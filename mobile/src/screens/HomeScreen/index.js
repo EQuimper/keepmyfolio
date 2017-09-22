@@ -108,7 +108,7 @@ class HomeScreen extends PureComponent<void, Props, State> {
 }
 
 const HomeScreenConnected = connect((state: AppState) => ({
-  theme: state.app.theme,
+  theme: state.get('app').theme,
 }))(HomeScreen);
 
 const PaginationContainer = createPaginationContainer(

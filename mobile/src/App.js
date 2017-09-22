@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { UIManager, AsyncStorage } from 'react-native';
 import { ThemeProvider } from 'styled-components';
-import { persistStore } from 'redux-persist';
+import { persistStore } from 'redux-persist-immutable';
 
 import AppNavigation from './navigations';
 import store from './store';

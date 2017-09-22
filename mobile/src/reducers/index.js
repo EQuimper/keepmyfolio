@@ -1,6 +1,6 @@
 // @flow
 
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 
 import nav from './navigation';
 import app from './app';

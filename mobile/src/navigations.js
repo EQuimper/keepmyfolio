@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
 
 const TabBarBottomConnected = connect((state: State) => ({
   style: {
-    backgroundColor: state.app.theme.tabBarColor,
-    borderTopColor: state.app.theme.tabBarColor,
+    backgroundColor: state.get('app').theme.tabBarColor,
+    borderTopColor: state.get('app').theme.tabBarColor,
     height: 50,
   },
 }))(TabBarBottom);
@@ -318,9 +318,9 @@ class AppNavigator extends Component<void, Props, void> {
 }
 
 export default connect((state: State) => ({
-  nav: state.nav,
-  theme: state.app.theme,
-  darkTheme: state.app.darkTheme,
+  nav: state.get('nav'),
+  theme: state.get('app').theme,
+  darkTheme: state.get('app').darkTheme,
 }))(AppNavigator);
 
 export const router = AppMainNav.router;

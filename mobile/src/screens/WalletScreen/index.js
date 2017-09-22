@@ -137,6 +137,6 @@ class WalletScreen extends PureComponent<void, Props, State> {
 }
 
 export default connect((state: AppState) => ({
-  theme: state.app.theme,
-  darkTheme: state.app.darkTheme,
+  theme: state.get('app').theme,
+  darkTheme: state.get('app').darkTheme,
 }))(WalletScreen);
