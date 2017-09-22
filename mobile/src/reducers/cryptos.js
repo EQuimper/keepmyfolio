@@ -2,7 +2,7 @@
 
 import { Record, Map } from 'immutable';
 
-import type { Action, CryptosState } from '../types';
+import type { Action, CryptosState, HoldingData } from '../types';
 
 const StateRecord = Record({
   entities: new Map(),
@@ -17,11 +17,13 @@ export default function cryptos(
     case 'cryptos/ADD_NEW_HOLDING': {
       const _transactionId: number = state.get('transactionId') + 1;
 
-      const _newTransaction = { [state.get('transactionId')]: action.coin };
+      const _newTransaction: Map<string, HoldingData> = Map({
+        [state.get('transactionId')]: action.coin,
+      });
 
       const _entities = state
         .get('entities')
-        .mergeDeepIn(['entities', action.coin.id], _newTransaction);
+        .mergeDeepIn([action.coin.id], _newTransaction);
 
       return state
         .set('transactionId', _transactionId)
