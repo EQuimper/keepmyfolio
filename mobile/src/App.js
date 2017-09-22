@@ -3,17 +3,20 @@
 import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { UIManager, AsyncStorage } from 'react-native';
-import { ThemeProvider } from 'styled-components';
 import { persistStore } from 'redux-persist-immutable';
-
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import AppNavigation from './navigations';
+import Loading from './components/Loading';
+// ------------------------------------
+// UTILS
+// ------------------------------------
 import store from './store';
 import {
-  themes,
   persistWhitelist,
   subsetOfAppReducer,
 } from './utils/constants';
-import Loading from './components/Loading';
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -49,9 +52,7 @@ class App extends PureComponent<void, {}, State> {
     }
     return (
       <Provider store={store}>
-        <ThemeProvider theme={themes.dark}>
-          <AppNavigation />
-        </ThemeProvider>
+        <AppNavigation />
       </Provider>
     );
   }

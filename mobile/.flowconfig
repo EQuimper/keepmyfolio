@@ -1,7 +1,6 @@
 [ignore]
 ; We fork some components by platform
 .*/*[.]android.js
-.*/node_modules/styled-components/.*
 .*/node_modules/react-navigation/.*
 .*/node_modules/react-native-tab-view/.*
 .*/node_modules/art/.*

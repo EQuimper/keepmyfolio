@@ -1,14 +1,18 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import styled from 'styled-components/native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { State as AppState, ThemeColorsData } from '../../types';
 
-const Root = styled.View`flex: 1;`;
-
-const Title = styled.Text``;
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
 
 type Props = {
   theme: ThemeColorsData,
@@ -18,9 +22,9 @@ class NotificationScreen extends PureComponent<void, Props, void> {
   render() {
     const { theme } = this.props;
     return (
-      <Root style={{ backgroundColor: theme.cardBackground }}>
-        <Title style={{ color: theme.textColor }}>Hello world</Title>
-      </Root>
+      <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
+        <Text style={{ color: theme.textColor }}>Hello world</Text>
+      </View>
     );
   }
 }

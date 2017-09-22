@@ -3,7 +3,7 @@
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import React, { Component } from 'react';
-import styled from 'styled-components/native';
+import { StyleSheet, View } from 'react-native'
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 // ------------------------------------
 // TYPES
@@ -19,11 +19,13 @@ const d3 = {
   scale,
 };
 
-const Root = styled.View`
-  flex: 1;
-  justifyContent: center;
-  alignItems: center;
-`;
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
 
 type GraphEl = {
   amount: number,
@@ -69,13 +71,13 @@ class WalletGraph extends Component<void, Props, State> {
     const HEIGHT = this.state.width / 2;
 
     return (
-      <Root style={{ backgroundColor: theme.tabBarColor }}>
+      <View style={[styles.root, { backgroundColor: theme.tabBarColor }]}>
         <Surface height={HEIGHT} width={this.state.width}>
           <Group x={5} y={HEIGHT - 50}>
             <AnimShape color={this.props.color} d={this._createArea} />
           </Group>
         </Surface>
-      </Root>
+      </View>
     );
   }
 }

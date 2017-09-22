@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-  children: React.Element<*>,
   backgroundColor: string,
+  children: React.Element<*>,
 };
 
 function AddButtonTab({ children, backgroundColor }: Props) {

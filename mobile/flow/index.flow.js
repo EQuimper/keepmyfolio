@@ -16,10 +16,6 @@ declare module 'MaskedViewIOS' {
   declare module.exports: any
 }
 
-declare module 'styled-components/native' {
-  declare module.exports: any
-}
-
-declare module 'styled-components' {
+declare module 'art/morph/path' {
   declare module.exports: any
 }

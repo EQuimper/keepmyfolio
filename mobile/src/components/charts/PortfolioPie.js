@@ -3,8 +3,7 @@
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import React, { PureComponent } from 'react';
-import styled from 'styled-components/native';
-import { StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Dimensions, View, ScrollView } from 'react-native';
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 // ------------------------------------
 // COMPONENTS
@@ -25,36 +24,31 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: 'normal',
   },
-});
-
-const Root = styled.View`
-  flex: 1;
-  flexDirection: row;
-`;
-
-const Left = styled.View`
-  flex: 1;
-  justifyContent: center;
-  alignItems: center;
-`;
-
-const AssetTitleWrapper = styled.View`
-  height: 40;
-  justifyContent: center;
-  alignItems: center;
-`;
-
-const Right = styled.ScrollView.attrs({
+  root: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  assetTitleWrapper: {
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  left: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   contentContainerStyle: {
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingTop: 10,
     paddingBottom: 25,
   },
-})`
-  flex: 0.6;
-  paddingTop: 10;
-`;
+  scroll: {
+    flex: 0.6,
+    paddingTop: 10,
+  }
+});
 
 type Item = {
   number: number,
@@ -150,8 +144,8 @@ class PortfolioPie extends PureComponent<void, Props, State> {
     const y = PIE_WIDTH / 2 + 15;
 
     return (
-      <Root>
-        <Left>
+      <View style={styles.root}>
+        <View style={styles.left}>
           <Surface height={PIE_WIDTH + 30} width={PIE_WIDTH + 30}>
             <Group x={x} y={y}>
               {this.state.data.map((item, index) => (
@@ -163,8 +157,8 @@ class PortfolioPie extends PureComponent<void, Props, State> {
               ))}
             </Group>
           </Surface>
-        </Left>
-        <Right>
+        </View>
+        <ScrollView contentContainerStyle={styles.contentContainerStyle} style={styles.scroll}>
           {this.state.data.map((item, index) => {
             const fontWeight =
               this.state.highlightedIndex === index ? '700' : '400';
@@ -174,7 +168,7 @@ class PortfolioPie extends PureComponent<void, Props, State> {
                 key={index}
                 onPress={() => this._onPieItemSelected(index)}
               >
-                <AssetTitleWrapper>
+                <View style={styles.assetTitleWrapper}>
                   <Text
                     style={[
                       styles.label,
@@ -186,12 +180,12 @@ class PortfolioPie extends PureComponent<void, Props, State> {
                   >
                     {this._label(item)}: {this._value(item)}%
                   </Text>
-                </AssetTitleWrapper>
+                </View>
               </TouchableOpacity>
             );
           })}
-        </Right>
-      </Root>
+        </ScrollView>
+      </View>
     );
   }
 }

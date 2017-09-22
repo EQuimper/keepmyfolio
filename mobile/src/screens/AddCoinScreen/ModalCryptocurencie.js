@@ -30,6 +30,7 @@ import { createRenderer } from '../../RelayUtils';
 import { colors } from '../../utils/constants';
 
 const PAGE_SIZE = 10;
+
 const HIT_SLOP = {
   top: 20,
   left: 20,

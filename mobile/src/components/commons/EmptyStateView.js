@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components/native';
+import { StyleSheet, View, Text } from 'react-native';
 
-const Root = styled.View`flex: 1;`;
-
-const Heading1 = styled.Text``;
-
-const Heading2 = styled.Text``;
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  }
+});
 
 type Props = {
   title: string,
@@ -16,9 +16,9 @@ type Props = {
 
 export default function EmptyStateView({ title, subTitle }: Props) {
   return (
-    <Root>
-      <Heading1>{title}</Heading1>
-      <Heading2>{subTitle}</Heading2>
-    </Root>
+    <View style={styles.root}>
+      <Text>{title}</Text>
+      <Text>{subTitle}</Text>
+    </View>
   );
 }

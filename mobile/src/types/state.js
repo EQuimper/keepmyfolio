@@ -1,6 +1,6 @@
 // @flow
 
-import type { Record } from 'immutable';
+import type { Record, Map } from 'immutable';
 
 import type { HoldingData, ThemeColorsData } from './data';
 
@@ -11,6 +11,6 @@ export type AppState = Record<{
 }>;
 
 export type CryptosState = Record<{
-  entities: { [id: string]: HoldingData },
+  entities: Map<string, HoldingData>,
   transactionId: number,
 }>;

@@ -1,20 +1,30 @@
 // @flow
 
-import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withHandlers, compose } from 'recompose';
-
-import ButtonHeader from './commons/ButtonHeader';
-import { colors } from '../utils/constants';
-import { toggleSearchBar } from '../actions/app';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { State } from '../types';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
+import ButtonHeader from './commons/ButtonHeader';
+// ------------------------------------
+// ACTIONS
+// ------------------------------------
+import { toggleSearchBar } from '../actions/app';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { colors } from '../utils/constants';
 
 type Props = {
-  toggleSearchBar: typeof toggleSearchBar,
-  onPress: Function,
   isShow: boolean,
+  onPress: Function,
+  toggleSearchBar: typeof toggleSearchBar,
 };
 
 function ButtonSearch({ onPress, isShow }: Props) {

@@ -1,79 +1,94 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import styled from 'styled-components/native';
-import { Keyboard } from 'react-native';
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import invariant from 'invariant';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import format from 'date-fns/format';
 import { connect } from 'react-redux';
-
+// ------------------------------------
+// TYPES
+// ------------------------------------
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 import type {
   Navigation,
   ThemeColorsData,
   State as AppState,
 } from '../../types';
-
-import { colors } from '../../utils/constants';
+// ------------------------------------
+// COMPONENTS
+// ------------------------------------
 import ModalCryptocurencie from './ModalCryptocurencie';
+// ------------------------------------
+// ACTIONS
+// ------------------------------------
 import { addNewHolding } from '../../actions/cryptos';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { colors } from '../../utils/constants';
 
-const Root = styled.TouchableWithoutFeedback`flex: 1;`;
+const ICON_SIZE = 25;
+const ICON_COLOR = colors.white;
 
-const Wrapper = styled.View`flex: 1;`;
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  wrapper: {
+    flex: 1,
+  },
+  title: {
+    color: colors.white,
+    fontWeight: '600',
+    fontSize: 16,
+    marginLeft: 5,
+  },
+  card: {
+    height: 50,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  selectCrypto: {
+    flex: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  button: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  itemWrapper: {
+    height: 80,
+    justifyContent: 'space-around',
+    marginTop: 10,
+  },
+  input: {
+    flex: 1,
+    alignSelf: 'stretch',
+    paddingHorizontal: 5,
+  },
+});
 
-const Title = styled.Text`
-  color: #fff;
-  fontWeight: 600;
-  fontSize: 16;
-  marginLeft: 5;
-`;
-
-const Card = styled.View`
-  height: 50;
-  width: 100%;
-  justifyContent: center;
-`;
-
-const ItemWrapper = styled.View`
-  height: 80;
-  justifyContent: space-around;
-  marginTop: ${props => (props.first ? 0 : 10)};
-`;
-
-const SelectCrypto = styled.TouchableOpacity`
-  flex: 1;
-  alignSelf: stretch;
-  justifyContent: center;
-`;
-
-const ButtonWrapper = styled.View`
-  flexDirection: row;
-  alignItems: center;
-  justifyContent: space-around;
-`;
-
-const Button = styled.TouchableOpacity`
-  height: 50;
-  width: 50;
-  borderRadius: 25;
-  backgroundColor: ${props => props.color};
-  justifyContent: center;
-  alignItems: center;
-  marginTop: 20;
-`;
-
-const Input = styled.TextInput.attrs({
-  placeholderTextColor: colors.lightGrey,
-  selectionColor: colors.primary,
-})`
-  flex: 1;
-  alignSelf: stretch;
-  paddingHorizontal: 5;
-`;
-
+// TODO: USE FORMATTER
 function calculAmountPay(
   priceInMarket: string,
   price: string,
@@ -118,18 +133,23 @@ const initialState: State = {
   dateBuy: new Date(),
 };
 
+// TODO: MAKE MODAL IN ROUTES
 class AddCoinScreen extends PureComponent<void, Props, State> {
   state = initialState;
 
   get _getCryptoName() {
     if (!this.state.selectedCrypto) {
-      return <Title style={{ color: colors.lightGrey }}>Choose a crypto</Title>;
+      return (
+        <Text style={[styles.title, { color: colors.lightGrey }]}>
+          Choose a crypto
+        </Text>
+      );
     }
 
     return (
-      <Title style={{ color: this.props.theme.textColor }}>
+      <Text style={[styles.title, { color: this.props.theme.textColor }]}>
         {this.state.selectedCrypto.name}
-      </Title>
+      </Text>
     );
   }
 
@@ -251,78 +271,98 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
 
   render() {
     const { theme } = this.props;
+    const _firstItem = { marginTop: 0 };
     return (
-      <Root
+      <TouchableWithoutFeedback
         onPress={this._onOutsidePress}
-        style={{ backgroundColor: theme.cardBackground }}
+        style={[styles.root, { backgroundColor: theme.cardBackground }]}
       >
-        <Wrapper style={{ backgroundColor: theme.cardBackground }}>
-          <ItemWrapper first>
-            <Title style={{ color: theme.textColor }}>Cryptocurencie</Title>
-            <Card style={{ backgroundColor: theme.tabBarColor }}>
-              <SelectCrypto onPress={this._onModalCryptoPress}>
+        <View
+          style={[styles.wrapper, { backgroundColor: theme.cardBackground }]}
+        >
+          <View style={[styles.itemWrapper, _firstItem]}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Cryptocurencie
+            </Text>
+            <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
+              <TouchableOpacity
+                onPress={this._onModalCryptoPress}
+                style={styles.selectCrypto}
+              >
                 {this._getCryptoName}
-              </SelectCrypto>
-            </Card>
-          </ItemWrapper>
-          <ItemWrapper>
-            <Title style={{ color: theme.textColor }}>Price Pay</Title>
-            <Card style={{ backgroundColor: theme.tabBarColor }}>
-              <Input
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.itemWrapper}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Price Pay
+            </Text>
+            <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
+              <TextInput
                 editable={this._getDisabled}
                 keyboardType="numeric"
                 onChangeText={this._onPriceChange}
                 placeholder="0.00"
-                style={{ color: theme.textColor }}
+                placeholderTextColor={colors.lightGrey}
+                selectionColor={colors.primary}
+                style={[styles.input, { color: theme.textColor }]}
                 value={this._getPrice}
               />
-            </Card>
-          </ItemWrapper>
-          <ItemWrapper>
-            <Title style={{ color: theme.textColor }}>Total</Title>
-            <Card style={{ backgroundColor: theme.tabBarColor }}>
-              <Input
+            </View>
+          </View>
+          <View style={styles.itemWrapper}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Total
+            </Text>
+            <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
+              <TextInput
                 editable={this._getDisabled}
                 keyboardType="numeric"
                 onChangeText={this._onTotalCoinChange}
                 placeholder="0"
-                style={{ color: theme.textColor }}
+                placeholderTextColor={colors.lightGrey}
+                selectionColor={colors.primary}
+                style={[styles.input, { color: theme.textColor }]}
                 value={this.state.totalAmountOfCrypto}
               />
-            </Card>
-          </ItemWrapper>
-          <ItemWrapper>
-            <Title style={{ color: theme.textColor }}>Date Buy</Title>
-            <Card style={{ backgroundColor: theme.tabBarColor }}>
-              <Title style={{ color: theme.textColor }}>
+            </View>
+          </View>
+          <View style={styles.itemWrapper}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Date Buy
+            </Text>
+            <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
+              <Text style={[styles.title, { color: theme.textColor }]}>
                 {format(this.state.dateBuy, 'DD MMMM YYYY')}
-              </Title>
-            </Card>
-          </ItemWrapper>
-          <ItemWrapper>
-            <Title style={{ color: theme.textColor }}>Total amount pay $</Title>
-            <Card style={{ backgroundColor: theme.tabBarColor }}>
-              <Title style={{ color: theme.textColor }}>
+              </Text>
+            </View>
+          </View>
+          <View style={styles.itemWrapper}>
+            <Text style={[styles.title, { color: theme.textColor }]}>
+              Total amount pay $
+            </Text>
+            <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
+              <Text style={[styles.title, { color: theme.textColor }]}>
                 {this._getTotalAmountPay}
-              </Title>
-            </Card>
-          </ItemWrapper>
-          <ButtonWrapper>
-            <Button
-              color={colors.red}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <TouchableOpacity
               disabled={!this._getDisabled}
               onPress={this._onCancelPress}
+              style={[styles.button, { backgroundColor: colors.red }]}
             >
-              <FontAwesome color="#fff" name="close" size={25} />
-            </Button>
-            <Button
-              color={colors.green}
+              <FontAwesome color={ICON_COLOR} name="close" size={ICON_SIZE} />
+            </TouchableOpacity>
+            <TouchableOpacity
               disabled={!this._getDisabled}
               onPress={this._onSubmitPress}
+              style={[styles.button, { backgroundColor: colors.green }]}
             >
-              <Entypo color="#fff" name="check" size={25} />
-            </Button>
-          </ButtonWrapper>
+              <Entypo color={ICON_COLOR} name="check" size={ICON_SIZE} />
+            </TouchableOpacity>
+          </View>
           {this.state.showModalCrypto && (
             <ModalCryptocurencie
               onCloseButtonPress={this._onModalCryptoPress}
@@ -331,8 +371,8 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
               theme={this.props.theme}
             />
           )}
-        </Wrapper>
-      </Root>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
