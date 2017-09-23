@@ -25,6 +25,7 @@ import type {
 // ------------------------------------
 import AddCoinScreen from './screens/AddCoinScreen';
 import CoinDetailsTabs from './screens/CoinDetailsScreen/CoinDetailsTabs';
+import WalletTabs from './screens/WalletScreen/WalletTabs';
 import HomeScreen from './screens/HomeScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import SettingScreen from './screens/SettingScreen';
@@ -83,7 +84,7 @@ const AddCoinNavigator = StackNavigator({
 
 const WalletNavigator = StackNavigator({
   Wallet: {
-    screen: WalletScreen,
+    screen: WalletTabs,
     navigationOptions: (props: NavProps) => ({
       headerTitle: 'My Wallet',
       headerTitleStyle: {
@@ -94,6 +95,12 @@ const WalletNavigator = StackNavigator({
       },
       // headerRight: <ButtonSearch />
     }),
+  },
+}, {
+  cardStyle: {
+    backgroundColor: '#161C36',
+    // backgroundColor: 'transparent',
+    // shadowColor: 'transparent'
   },
 });
 

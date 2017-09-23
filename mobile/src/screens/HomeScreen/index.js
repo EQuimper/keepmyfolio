@@ -6,6 +6,7 @@ import invariant from 'invariant';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { createPaginationContainer, graphql } from 'react-relay';
+import { Map } from 'immutable';
 // ------------------------------------
 // TYPES
 // ------------------------------------
@@ -14,6 +15,7 @@ import type {
   RelayType,
   State as AppState,
   ThemeColorsData,
+  HoldingData
 } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
 // ------------------------------------
@@ -47,6 +49,7 @@ type Props = {
   relay: RelayType,
   theme: ThemeColorsData,
   viewer: Viewer,
+  assetsEntitites: Map<string, HoldingData>
 };
 
 type State = {
@@ -58,13 +61,22 @@ class HomeScreen extends PureComponent<void, Props, State> {
     refreshing: false,
   };
 
-  _renderItem = ({ item }) => (
-    <Coin
-      coin={item}
-      navigation={this.props.navigation}
-      theme={this.props.theme}
-    />
-  );
+  _renderItem = ({ item }) => {
+    const _cryptoId = idx(item, _ => _.cryptoId);
+
+    invariant(_cryptoId, 'Crypto Id cannot be null');
+
+    const entities: ?HoldingData = this.props.assetsEntitites.get(_cryptoId);
+
+    return (
+      <Coin
+        coin={item}
+        entities={entities}
+        navigation={this.props.navigation}
+        theme={this.props.theme}
+      />
+    );
+  }
 
   _onEndReached = () => {
     if (this.props.relay.hasMore() && !this.props.relay.isLoading()) {
@@ -109,6 +121,7 @@ class HomeScreen extends PureComponent<void, Props, State> {
 
 const HomeScreenConnected = connect((state: AppState) => ({
   theme: state.get('app').theme,
+  assetsEntitites: state.get('cryptos').entities
 }))(HomeScreen);
 
 const PaginationContainer = createPaginationContainer(
@@ -120,6 +133,7 @@ const PaginationContainer = createPaginationContainer(
         edges {
           node {
             id
+            cryptoId
             ...Coin_coin
           }
         }

@@ -13,6 +13,7 @@ export type HomeScreen_viewer = {|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
         +id: string;
+        +cryptoId: ?string;
       |};
     |}>;
   |};
@@ -77,6 +78,13 @@ const fragment /*: ConcreteFragment*/ = {
                   "alias": null,
                   "args": null,
                   "name": "id",
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "cryptoId",
                   "storageKey": null
                 },
                 {

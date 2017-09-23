@@ -26,9 +26,9 @@ type Props = {
 };
 
 function TimeButton({ title, titleColor, isActive, onSelectPress }: Props) {
-  const backgroundColor: string = isActive
+  const backgroundColor: ?string = isActive
     ? colors.primaryLight
-    : 'transparent';
+    : undefined;
   return (
     <TouchableOpacity
       disabled={isActive}

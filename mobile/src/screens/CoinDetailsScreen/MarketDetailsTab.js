@@ -55,7 +55,7 @@ class MarketDetailsTab extends Component<void, Props, State> {
     refreshing: false,
   };
 
-  get _percent1hColor(): string {
+  _percent1hColor(): string {
     const _coin = idx(this.props, _ => _.coin);
     const _percentChang1h = idx(_coin, _ => _.percentChange1h) || '0';
 
@@ -66,7 +66,7 @@ class MarketDetailsTab extends Component<void, Props, State> {
     return this.props.screenProps.theme.green;
   }
 
-  get _percent24hColor(): string {
+  _percent24hColor(): string {
     const _coin = idx(this.props, _ => _.coin);
     const _percentChang24h = idx(_coin, _ => _.percentChange24h) || '0';
 
@@ -77,7 +77,7 @@ class MarketDetailsTab extends Component<void, Props, State> {
     return this.props.screenProps.theme.green;
   }
 
-  get _percent7dColor(): string {
+  _percent7dColor(): string {
     const _coin = idx(this.props, _ => _.coin);
     const _percentChang7d = idx(_coin, _ => _.percentChange7d) || '0';
 
@@ -159,19 +159,19 @@ class MarketDetailsTab extends Component<void, Props, State> {
           />
           <MetaCard
             backgroundColor={theme.tabBarColor}
-            textColor={this._percent1hColor}
+            textColor={this._percent1hColor()}
             title="% CHANGE 1H"
             value={_percentChang1h}
           />
           <MetaCard
             backgroundColor={theme.tabBarColor}
-            textColor={this._percent24hColor}
+            textColor={this._percent24hColor()}
             title="% CHANGE 24H"
             value={_percentChang24h}
           />
           <MetaCard
             backgroundColor={theme.tabBarColor}
-            textColor={this._percent7dColor}
+            textColor={this._percent7dColor()}
             title="% CHANGE 7D"
             value={_percentChang7d}
           />

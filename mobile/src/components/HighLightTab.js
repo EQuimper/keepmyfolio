@@ -33,7 +33,6 @@ function HighLightTab({ children, focused }: Props) {
 
   return (
     <View
-      footerHeight={footerHeight}
       style={[
         styles.root,
         { borderBottomColor: colors.primary, borderBottomWidth: footerHeight },

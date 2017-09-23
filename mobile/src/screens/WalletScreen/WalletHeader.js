@@ -53,7 +53,7 @@ function WalletHeader({
     <View style={[styles.root, { backgroundColor: theme.tabBarColor }]}>
       <View style={styles.tableEl}>
         <Text style={[styles.title, { color: theme.lightGrey }]}>
-          Total Assets
+          Total Dollars
         </Text>
         <Text style={[styles.amount, { color: theme.textColor }]}>
           {totalAssets}

@@ -15,6 +15,7 @@ export const colors = {
   lightGrey: '#B4B4B4',
   white: '#ffffff',
   transparent: 'transparent',
+  darkBlue: '#161C36',
 };
 
 /**
@@ -24,7 +25,7 @@ export const themes = {
   dark: {
     ...colors,
     tabBarColor: '#192543',
-    cardBackground: '#161C36',
+    cardBackground: colors.darkBlue,
     headerTitleColor: colors.white,
     textColor: colors.white,
     thumbTintColor: colors.white,
@@ -49,7 +50,7 @@ export const subsetOfAppReducer = createBlacklistFilter('app', [
 /**
  * List of reducer we persist with redux-persist
  */
-export const persistWhitelist = ['app'];
+export const persistWhitelist = ['app', 'cryptos'];
 
 /**
  * Object of each key the app use in the asyncStorage

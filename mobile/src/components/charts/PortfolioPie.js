@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   assetTitleWrapper: {
-    height: 40,
+    height: 35,
     justifyContent: 'center',
     alignItems: 'center',
   },

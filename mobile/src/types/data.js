@@ -3,6 +3,7 @@
 export type ThemeColorsData = {
   cardBackground: string,
   darkGray: string,
+  darkBlue: string,
   green: string,
   greyOutline: string,
   headerTitleColor: string,

@@ -5,10 +5,11 @@ import idx from 'idx';
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Map } from 'immutable';
 // ------------------------------------
 // TYPES
 // ------------------------------------
-import type { Navigation, ThemeColorsData } from '../../types';
+import type { Navigation, ThemeColorsData, HoldingData } from '../../types';
 import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
 // ------------------------------------
 // UTILS
@@ -73,12 +74,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function getIfNeg(props): boolean {
-  const percentChange1h = idx(props, _ => _.coin.percentChange1h) || 'null';
-
-  return getIfPercentNegative(percentChange1h);
-}
-
 type IconProps = {
   color?: string,
   name?: string,
@@ -89,6 +84,7 @@ type Props = {
   coin: CoinData,
   navigation: Navigation,
   theme: ThemeColorsData,
+  entities?: Map<string, HoldingData>,
 };
 
 type State = {
@@ -97,10 +93,16 @@ type State = {
 
 class Coin extends PureComponent<void, Props, State> {
   state = {
-    isNeg: getIfNeg(this.props),
+    isNeg: this._getIfNeg(),
   };
 
-  get _getPercentChange1h(): any {
+  _getIfNeg(): boolean {
+    const _percentChange1h = idx(this.props, _ => _.coin.percentChange1h) || '0';
+
+    return getIfPercentNegative(_percentChange1h);
+  }
+
+  _getPercentChange1h(): any {
     let str: string;
     const style = {};
 
@@ -117,11 +119,11 @@ class Coin extends PureComponent<void, Props, State> {
     return <Text style={style}>{str}</Text>;
   }
 
-  get _getImage(): string {
+  _getImage(): string {
     return CoinMarket.getImage(idx(this.props, _ => _.coin.cryptoId), 32);
   }
 
-  get _getIconPercent() {
+  _getIconPercent() {
     if (this.props.coin.percentChange1h == null) {
       return null;
     }
@@ -141,7 +143,40 @@ class Coin extends PureComponent<void, Props, State> {
     return <Ionicons {...props} />;
   }
 
-  get _getIconArrow() {
+  // TODO: USE RESELECT
+  _getHolding(): number {
+    if (this.props.entities == null) {
+      return 0;
+    }
+
+    const totalAmount: number = this.props.entities.reduce(
+      (prev, current) => prev + parseFloat(current.amountOfCoin),
+      0,
+    );
+
+    return totalAmount;
+  }
+
+  // TODO: USE RESELECT
+  _getTotal(): string {
+    const coin = idx(this.props, _ => _.coin);
+    const priceUsd = idx(coin, _ => _.priceUsd);
+
+    return moneyThousand(this._getHolding() * parseFloat(priceUsd));
+  }
+
+  // TODO: USE RESELECT
+  _getAmountChange(): string {
+    const coin = idx(this.props, _ => _.coin);
+    const percentChange = idx(coin, _ => _.percentChange1h);
+    const priceUsd = idx(coin, _ => _.priceUsd);
+
+    const totalDollarUserHave: number = this._getHolding() * parseFloat(priceUsd);
+
+    return moneyThousand((totalDollarUserHave * parseFloat(percentChange)) / 100);
+  }
+
+  _getIconArrow() {
     const props: IconProps = {
       size: 25,
     };
@@ -157,14 +192,14 @@ class Coin extends PureComponent<void, Props, State> {
     return <Ionicons {...props} />;
   }
 
-  get _getPrice(): string {
+  _getPrice(): string {
     return moneyThousand(this.props.coin.priceUsd);
   }
 
   _onNavigationPress = () => {
     this.props.navigation.navigate('CoinDetailsScreen', {
       coinId: this.props.coin.id,
-      name: this.props.coin.name
+      name: this.props.coin.name,
     });
   };
 
@@ -184,7 +219,7 @@ class Coin extends PureComponent<void, Props, State> {
           <Image
             resizeMode="contain"
             source={{
-              uri: this._getImage,
+              uri: this._getImage(),
             }}
             style={styles.coinIcon}
           />
@@ -192,40 +227,45 @@ class Coin extends PureComponent<void, Props, State> {
             {this.props.coin.symbol}
           </Text>
         </View>
-        <View style={styles.contentWrapper}>
-          <View style={styles.totalWrapper}>
-            <Text style={[styles.totalText, { color: theme.textColor }]}>
-              <Text style={[styles.totalText, { color: colors.lightGrey }]}>
-                Total:
-              </Text>{' '}
-              $100.00{' '}
+        {this.props.entities ? (
+          <View style={styles.contentWrapper}>
+            <View style={styles.totalWrapper}>
+              <Text style={[styles.totalText, { color: theme.textColor }]}>
+                <Text style={[styles.totalText, { color: colors.lightGrey }]}>
+                  Total:
+                </Text>{' '}
+                ${this._getTotal()}{' '}
+              </Text>
+              {this._getIconArrow()}
+            </View>
+            <Text
+              style={[
+                styles.totalText,
+                { color: this.state.isNeg ? colors.red : colors.green },
+              ]}
+            >
+              ${this._getAmountChange()}
             </Text>
-            {this._getIconArrow}
           </View>
-          <Text
-            style={[
-              styles.totalText,
-              { color: this.state.isNeg ? colors.red : colors.green },
-            ]}
-          >
-            $7.60
-          </Text>
-        </View>
+        ) : (
+          <View style={styles.contentWrapper} />
+        )}
+
         <View style={styles.metaWrapper}>
-          {this._getIconPercent}
-          {this._getPercentChange1h}
+          {this._getIconPercent()}
+          {this._getPercentChange1h()}
         </View>
         <Text style={[styles.holdingText, { color: theme.textColor }]}>
           <Text style={[styles.holdingText, { color: colors.lightGrey }]}>
             Holdings:
           </Text>{' '}
-          {(20.0).toFixed(2)}
+          {this._getHolding()}
         </Text>
         <Text style={[styles.priceUsdText, { color: theme.textColor }]}>
           <Text style={[styles.priceUsdText, { color: colors.lightGrey }]}>
             Price:
           </Text>{' '}
-          {this._getPrice}
+          {this._getPrice()}
         </Text>
       </TouchableOpacity>
     );
