@@ -137,7 +137,7 @@ const initialState: State = {
 class AddCoinScreen extends PureComponent<void, Props, State> {
   state = initialState;
 
-  get _getCryptoName() {
+  _getCryptoName() {
     if (!this.state.selectedCrypto) {
       return (
         <Text style={[styles.title, { color: colors.lightGrey }]}>
@@ -153,7 +153,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
     );
   }
 
-  get _getPrice(): string {
+  _getPrice(): string {
     if (!this.state.selectedCrypto) {
       return '';
     }
@@ -167,7 +167,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
     return this.state.selectedCrypto.priceUsd;
   }
 
-  get _getDisabled(): boolean {
+  _getDisabled(): boolean {
     if (!this.state.selectedCrypto) {
       return false;
     }
@@ -175,7 +175,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
     return true;
   }
 
-  get _getTotalAmountPay(): string {
+  _getTotalAmountPay(): string {
     const { selectedCrypto, totalAmountOfCrypto, price } = this.state;
     if (!selectedCrypto || !totalAmountOfCrypto) {
       return '0';
@@ -289,7 +289,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
                 onPress={this._onModalCryptoPress}
                 style={styles.selectCrypto}
               >
-                {this._getCryptoName}
+                {this._getCryptoName()}
               </TouchableOpacity>
             </View>
           </View>
@@ -299,14 +299,14 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
             </Text>
             <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
               <TextInput
-                editable={this._getDisabled}
+                editable={this._getDisabled()}
                 keyboardType="numeric"
                 onChangeText={this._onPriceChange}
                 placeholder="0.00"
                 placeholderTextColor={colors.lightGrey}
                 selectionColor={colors.primary}
                 style={[styles.input, { color: theme.textColor }]}
-                value={this._getPrice}
+                value={this._getPrice()}
               />
             </View>
           </View>
@@ -316,7 +316,7 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
             </Text>
             <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
               <TextInput
-                editable={this._getDisabled}
+                editable={this._getDisabled()}
                 keyboardType="numeric"
                 onChangeText={this._onTotalCoinChange}
                 placeholder="0"
@@ -343,20 +343,20 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
             </Text>
             <View style={[styles.card, { backgroundColor: theme.tabBarColor }]}>
               <Text style={[styles.title, { color: theme.textColor }]}>
-                {this._getTotalAmountPay}
+                {this._getTotalAmountPay()}
               </Text>
             </View>
           </View>
           <View style={styles.buttonWrapper}>
             <TouchableOpacity
-              disabled={!this._getDisabled}
+              disabled={!this._getDisabled()}
               onPress={this._onCancelPress}
               style={[styles.button, { backgroundColor: colors.red }]}
             >
               <FontAwesome color={ICON_COLOR} name="close" size={ICON_SIZE} />
             </TouchableOpacity>
             <TouchableOpacity
-              disabled={!this._getDisabled}
+              disabled={!this._getDisabled()}
               onPress={this._onSubmitPress}
               style={[styles.button, { backgroundColor: colors.green }]}
             >

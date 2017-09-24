@@ -9,11 +9,7 @@ import { autoRehydrate } from 'redux-persist-immutable';
 import rootReducer from '../reducers';
 import logger from './middlewares/logger';
 
-const middlewares = [thunk];
-
-if (__DEV__) {
-  middlewares.push(logger);
-}
+const middlewares = __DEV__ ? [thunk, logger] : [thunk];
 
 const initialState = new Map();
 
