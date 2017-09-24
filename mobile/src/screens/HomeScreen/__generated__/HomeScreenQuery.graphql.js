@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ed395dd0b7810667100b41ed633407e6
+ * @relayHash 65306d5d3bda348cc0b9eb031917465b
  */
 
 /* eslint-disable */
@@ -31,7 +31,6 @@ fragment HomeScreen_viewer on Viewer {
       node {
         __typename
         id
-        cryptoId
         ...Coin_coin
       }
       cursor
@@ -175,14 +174,14 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "cryptoId",
+                        "name": "name",
                         "storageKey": null
                       },
                       {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "name",
+                        "name": "cryptoId",
                         "storageKey": null
                       },
                       {
@@ -318,7 +317,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query HomeScreenQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        cryptoId\n        ...Coin_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  id\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n  priceBtc\n  marketCapUsd\n  totalSuply\n  volumeUsd24h\n}\n"
+  "text": "query HomeScreenQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...HomeScreen_viewer\n  }\n}\n\nfragment HomeScreen_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        ...Coin_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment Coin_coin on Crypto {\n  id\n  name\n  cryptoId\n  percentChange1h\n  symbol\n  priceUsd\n  priceBtc\n  marketCapUsd\n  totalSuply\n  volumeUsd24h\n}\n"
 };
 
 module.exports = batch;

@@ -6,6 +6,7 @@ import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Map } from 'immutable';
+import { connect } from 'react-redux';
 // ------------------------------------
 // TYPES
 // ------------------------------------
@@ -18,6 +19,7 @@ import { CoinMarket } from '../../utils/api';
 import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 import { moneyThousand } from '../../utils/helpers/formatNumber';
+import * as selectors from '../../selectors/cryptos';
 
 const COIN_ICON_SIZE = 30;
 
@@ -85,19 +87,15 @@ type Props = {
   navigation: Navigation,
   theme: ThemeColorsData,
   entities?: Map<string, HoldingData>,
+  holding: number,
+  total: ?string,
+  amountChange: ?string,
 };
 
-type State = {
-  isNeg: boolean,
-};
-
-class Coin extends PureComponent<void, Props, State> {
-  state = {
-    isNeg: this._getIfNeg(),
-  };
-
+class Coin extends PureComponent<void, Props, void> {
   _getIfNeg(): boolean {
-    const _percentChange1h = idx(this.props, _ => _.coin.percentChange1h) || '0';
+    const _percentChange1h =
+      idx(this.props, _ => _.coin.percentChange1h) || '0';
 
     return getIfPercentNegative(_percentChange1h);
   }
@@ -106,7 +104,7 @@ class Coin extends PureComponent<void, Props, State> {
     let str: string;
     const style = {};
 
-    const color: string = this.state.isNeg ? colors.red : colors.green;
+    const color: string = this._getIfNeg() ? colors.red : colors.green;
 
     if (this.props.coin.percentChange1h == null) {
       str = 'No Value :(';
@@ -132,7 +130,7 @@ class Coin extends PureComponent<void, Props, State> {
       size: 25,
     };
 
-    if (this.state.isNeg) {
+    if (this._getIfNeg()) {
       props.name = 'ios-trending-down';
       props.color = colors.red;
     } else {
@@ -143,45 +141,12 @@ class Coin extends PureComponent<void, Props, State> {
     return <Ionicons {...props} />;
   }
 
-  // TODO: USE RESELECT
-  _getHolding(): number {
-    if (this.props.entities == null) {
-      return 0;
-    }
-
-    const totalAmount: number = this.props.entities.reduce(
-      (prev, current) => prev + parseFloat(current.amountOfCoin),
-      0,
-    );
-
-    return totalAmount;
-  }
-
-  // TODO: USE RESELECT
-  _getTotal(): string {
-    const coin = idx(this.props, _ => _.coin);
-    const priceUsd = idx(coin, _ => _.priceUsd);
-
-    return moneyThousand(this._getHolding() * parseFloat(priceUsd));
-  }
-
-  // TODO: USE RESELECT
-  _getAmountChange(): string {
-    const coin = idx(this.props, _ => _.coin);
-    const percentChange = idx(coin, _ => _.percentChange1h);
-    const priceUsd = idx(coin, _ => _.priceUsd);
-
-    const totalDollarUserHave: number = this._getHolding() * parseFloat(priceUsd);
-
-    return moneyThousand((totalDollarUserHave * parseFloat(percentChange)) / 100);
-  }
-
   _getIconArrow() {
     const props: IconProps = {
       size: 25,
     };
 
-    if (this.state.isNeg) {
+    if (this._getIfNeg()) {
       props.name = 'ios-arrow-round-down';
       props.color = colors.red;
     } else {
@@ -234,17 +199,17 @@ class Coin extends PureComponent<void, Props, State> {
                 <Text style={[styles.totalText, { color: colors.lightGrey }]}>
                   Total:
                 </Text>{' '}
-                ${this._getTotal()}{' '}
+                ${this.props.total}{' '}
               </Text>
               {this._getIconArrow()}
             </View>
             <Text
               style={[
                 styles.totalText,
-                { color: this.state.isNeg ? colors.red : colors.green },
+                { color: this._getIfNeg() ? colors.red : colors.green },
               ]}
             >
-              ${this._getAmountChange()}
+              ${this.props.amountChange}
             </Text>
           </View>
         ) : (
@@ -259,7 +224,7 @@ class Coin extends PureComponent<void, Props, State> {
           <Text style={[styles.holdingText, { color: colors.lightGrey }]}>
             Holdings:
           </Text>{' '}
-          {this._getHolding()}
+          {this.props.holding}
         </Text>
         <Text style={[styles.priceUsdText, { color: theme.textColor }]}>
           <Text style={[styles.priceUsdText, { color: colors.lightGrey }]}>
@@ -272,8 +237,15 @@ class Coin extends PureComponent<void, Props, State> {
   }
 }
 
+const CoinConnected = connect((state, props) => ({
+  entities: selectors.getAsset(state, props),
+  holding: selectors.getHolding(state, props),
+  total: selectors.getTotal(state, props),
+  amountChange: selectors.getAmountChange(state, props)
+}))(Coin);
+
 export default createFragmentContainer(
-  Coin,
+  CoinConnected,
   graphql`
     fragment Coin_coin on Crypto {
       id
