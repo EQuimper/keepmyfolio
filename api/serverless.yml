@@ -3,20 +3,37 @@ service: crypto
 provider:
   name: aws
   runtime: nodejs6.10
+  cfLogs: true
+  environment:
+    NODE_ENV: ${self:custom.stage}
 
-stage: staging
 region: us-east-1
 
 plugins:
   - serverless-offline
+  - serverless-prune-plugin
+
+package:
+  artifact: ./keepmyfolio-api.zip
 
 custom:
+  prune:
+    automatic: true
+    number: 3
+
+  stage: ${opt:stage, self:provider.stage}
+
   serverless-offline:
     babelOptions:
       presets: ["env"]
 
-  handlersDir:
-    dist/handlers
+  handlersDir: ${self:custom.${self:custom.stage}.handlersDir}
+  development:
+    handlersDir: dist/handlers
+  staging:
+    handlersDir: handlers
+  production:
+    handlersDir: handlers
 
 functions:
   graphql:

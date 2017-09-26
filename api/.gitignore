@@ -5,3 +5,5 @@ jspm_packages
 # Serverless directories
 .serverless
 dist/
+
+keepmyfolio-api.zip
