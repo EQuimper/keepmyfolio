@@ -11,34 +11,32 @@ const getAssetsEntities = (state: State, props) =>
 
 export const getAsset = createCachedSelector(
   [getAssetsEntities],
-  asset => asset
+  asset => asset,
 )((state, props) => props.coin.id);
 
 const getPrice = (state: State, props) => parseFloat(props.coin.priceUsd);
-const getPercentChange1h = (state: State, props) => parseFloat(props.coin.percentChange1h);
+const getPercentChange1h = (state: State, props) =>
+  parseFloat(props.coin.percentChange1h);
 
-export const getHolding = createCachedSelector([getAssetsEntities], entities => {
-  console.log('====================================');
-  console.log('getHolding');
-  console.log('====================================');
-  if (entities == null) {
-    return 0;
-  }
+export const getHolding = createCachedSelector(
+  [getAssetsEntities],
+  entities => {
+    if (entities == null) {
+      return 0;
+    }
 
-  const totalAmount: number = entities.reduce(
-    (prev, current) => prev + parseFloat(current.amountOfCoin),
-    0,
-  );
+    const totalAmount: number = entities.reduce(
+      (prev, current) => prev + parseFloat(current.amountOfCoin),
+      0,
+    );
 
-  return totalAmount;
-})((state, props) => props.coin.id);
+    return totalAmount;
+  },
+)((state, props) => props.coin.id);
 
 export const getTotal = createCachedSelector(
   [getHolding, getPrice],
   (holding, price) => {
-    console.log('====================================');
-    console.log('getTotal');
-    console.log('====================================');
     if (!holding) {
       return null;
     }
@@ -51,15 +49,18 @@ export const getAmountChange = createCachedSelector(
   [getHolding, getPrice, getPercentChange1h],
   (holding, price, percentChange) => {
     console.log('====================================');
-    console.log('getAmountChange');
+    console.log('PERCENT', percentChange);
     console.log('====================================');
     if (!holding) {
+      return null;
+    }
+
+    if (Math.abs(percentChange) === 0) {
       return null;
     }
 
     const totalDollarUserHave: number = holding * price;
 
     return moneyThousand(totalDollarUserHave * percentChange / 100);
-  }
+  },
 )((state, props) => props.coin.id);
-

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e458e5214fe21899ed8bdea61231bb0c
+ * @relayHash 93d5b5391175876747f601481340bbeb
  */
 
 /* eslint-disable */
@@ -9,29 +9,30 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type ModalCryptocurencieQueryResponse = {|
+export type WalletAssetsQueryResponse = {|
   +viewer: ?{| |};
 |};
 */
 
 
 /*
-query ModalCryptocurencieQuery(
+query WalletAssetsQuery(
   $count: Int!
   $cursor: String
 ) {
   viewer {
-    ...ModalCryptocurencie_viewer
+    ...WalletAssets_viewer
   }
 }
 
-fragment ModalCryptocurencie_viewer on Viewer {
+fragment WalletAssets_viewer on Viewer {
   cryptos(first: $count, after: $cursor) {
     edges {
       node {
         __typename
         id
-        ...CryptoItem_coin
+        priceUsd
+        cryptoId
       }
       cursor
     }
@@ -40,13 +41,6 @@ fragment ModalCryptocurencie_viewer on Viewer {
       hasNextPage
     }
   }
-}
-
-fragment CryptoItem_coin on Crypto {
-  name
-  id
-  cryptoId
-  priceUsd
 }
 */
 
@@ -68,7 +62,7 @@ const batch /*: ConcreteBatch*/ = {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ModalCryptocurencieQuery",
+    "name": "WalletAssetsQuery",
     "selections": [
       {
         "kind": "LinkedField",
@@ -80,7 +74,7 @@ const batch /*: ConcreteBatch*/ = {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "ModalCryptocurencie_viewer",
+            "name": "WalletAssets_viewer",
             "args": null
           }
         ],
@@ -92,7 +86,7 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "ModalCryptocurencieQuery",
+  "name": "WalletAssetsQuery",
   "query": {
     "argumentDefinitions": [
       {
@@ -109,7 +103,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ],
     "kind": "Root",
-    "name": "ModalCryptocurencieQuery",
+    "name": "WalletAssetsQuery",
     "operation": "query",
     "selections": [
       {
@@ -175,7 +169,7 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "name",
+                        "name": "priceUsd",
                         "storageKey": null
                       },
                       {
@@ -183,13 +177,6 @@ const batch /*: ConcreteBatch*/ = {
                         "alias": null,
                         "args": null,
                         "name": "cryptoId",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "priceUsd",
                         "storageKey": null
                       }
                     ],
@@ -269,7 +256,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query ModalCryptocurencieQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...ModalCryptocurencie_viewer\n  }\n}\n\nfragment ModalCryptocurencie_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        ...CryptoItem_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment CryptoItem_coin on Crypto {\n  name\n  id\n  cryptoId\n  priceUsd\n}\n"
+  "text": "query WalletAssetsQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...WalletAssets_viewer\n  }\n}\n\nfragment WalletAssets_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        priceUsd\n        cryptoId\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

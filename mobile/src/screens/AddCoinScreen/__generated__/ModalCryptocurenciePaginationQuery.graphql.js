@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 85fdf42a256cd19ba590a0e42fced733
+ * @relayHash eaca1b8c2e78a83f8fd67e35df508015
  */
 
 /* eslint-disable */
@@ -44,6 +44,7 @@ fragment ModalCryptocurencie_viewer on Viewer {
 
 fragment CryptoItem_coin on Crypto {
   name
+  id
   cryptoId
   priceUsd
 }
@@ -268,7 +269,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query ModalCryptocurenciePaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...ModalCryptocurencie_viewer\n  }\n}\n\nfragment ModalCryptocurencie_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        ...CryptoItem_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment CryptoItem_coin on Crypto {\n  name\n  cryptoId\n  priceUsd\n}\n"
+  "text": "query ModalCryptocurenciePaginationQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...ModalCryptocurencie_viewer\n  }\n}\n\nfragment ModalCryptocurencie_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        ...CryptoItem_coin\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment CryptoItem_coin on Crypto {\n  name\n  id\n  cryptoId\n  priceUsd\n}\n"
 };
 
 module.exports = batch;

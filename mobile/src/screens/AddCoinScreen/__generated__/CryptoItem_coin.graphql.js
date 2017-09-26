@@ -10,6 +10,7 @@
 import type {ConcreteFragment} from 'relay-runtime';
 export type CryptoItem_coin = {|
   +name: string;
+  +id: string;
   +cryptoId: ?string;
   +priceUsd: ?string;
 |};
@@ -27,6 +28,13 @@ const fragment /*: ConcreteFragment*/ = {
       "alias": null,
       "args": null,
       "name": "name",
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "args": null,
+      "name": "id",
       "storageKey": null
     },
     {

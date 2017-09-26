@@ -80,6 +80,7 @@ export default createFragmentContainer(
   graphql`
     fragment CryptoItem_coin on Crypto {
       name
+      id
       cryptoId
       priceUsd
     }

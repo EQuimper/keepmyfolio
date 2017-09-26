@@ -12,21 +12,27 @@ const StateRecord = Record({
   isSearchBarShow: false,
 });
 
+function toggleTheme(state) {
+  const _darkTheme: boolean = !state.get('darkTheme');
+  const _theme: ThemeColorsData = themes[_darkTheme ? 'dark' : 'light'];
+  return state.set('darkTheme', _darkTheme).set('theme', _theme);
+}
+
+function toggleSearchBar(state) {
+  const _isSearchBarShow: boolean = !state.get('isSearchBarShow');
+  return state.set('isSearchBarShow', _isSearchBarShow);
+}
+
 export default function appReducer(
   state: AppState = new StateRecord(),
   action: Action,
 ): AppState {
   switch (action.type) {
-    case 'app/TOGGLE_THEME': {
-      const _darkTheme: boolean = !state.get('darkTheme');
-      const _theme: ThemeColorsData = themes[_darkTheme ? 'dark' : 'light'];
-      return state.set('darkTheme', _darkTheme).set('theme', _theme);
-    }
+    case 'app/TOGGLE_THEME':
+      return toggleTheme(state);
 
-    case 'app/TOGGLE_SEARCH_BAR': {
-      const _isSearchBarShow: boolean = !state.get('isSearchBarShow');
-      return state.set('isSearchBarShow', _isSearchBarShow);
-    }
+    case 'app/TOGGLE_SEARCH_BAR':
+      return toggleSearchBar(state);
 
     default:
       return state;

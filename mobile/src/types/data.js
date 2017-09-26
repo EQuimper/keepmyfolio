@@ -22,9 +22,10 @@ export type HoldingData = {
   amountOfCoin: string,
   dateBuy: Date,
   id: any,
-  name: any,
+  name: string,
   priceByCoin: string,
   priceTotalPay: string,
+  cryptoId: any,
 };
 
 export type TimeSelect = '1d' | '7d' | '1m' | '6m' | '1y' | 'ALL';

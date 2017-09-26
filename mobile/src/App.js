@@ -26,7 +26,6 @@ type State = {
   isReady: boolean,
 };
 
-// TODO: Remove themeprovider
 class App extends PureComponent<void, {}, State> {
   state = {
     isReady: false,

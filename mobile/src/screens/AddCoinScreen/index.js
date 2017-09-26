@@ -261,7 +261,8 @@ class AddCoinScreen extends PureComponent<void, Props, State> {
       amountOfCoin: totalAmountOfCrypto,
       name: selectedCrypto.name,
       dateBuy,
-      id: selectedCrypto.cryptoId,
+      id: selectedCrypto.id,
+      cryptoId: selectedCrypto.cryptoId
     };
 
     this.props.addNewHolding(coin);

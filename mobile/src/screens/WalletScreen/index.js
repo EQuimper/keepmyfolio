@@ -17,6 +17,7 @@ import WalletHeader from './WalletHeader';
 // UTILS
 // ------------------------------------
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
+import { getWalletTotalAmount } from '../../selectors/wallet';
 
 const styles = StyleSheet.create({
   root: {
@@ -105,7 +106,7 @@ class WalletScreen extends PureComponent<void, Props, State> {
           <WalletHeader
             isNeg={this.state.isNeg}
             theme={theme}
-            totalAssets={10256.34}
+            totalAssets={'10256.34'}
             totalGain={8.99}
             totalPercent={0.25}
           />
@@ -139,4 +140,5 @@ class WalletScreen extends PureComponent<void, Props, State> {
 export default connect((state: AppState) => ({
   theme: state.get('app').theme,
   darkTheme: state.get('app').darkTheme,
+  walletTotalAmount: getWalletTotalAmount(state)
 }))(WalletScreen);

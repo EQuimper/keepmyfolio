@@ -32,7 +32,6 @@ export function thousandSpace(value: any): string {
   })
 }
 
-// TODO: WRITE TEST;
 export function toMoney(value: any): string {
   let num: number;
 

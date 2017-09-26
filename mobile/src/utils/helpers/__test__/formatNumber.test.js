@@ -28,6 +28,7 @@ describe('#toMoney', () => {
   it('should return 2 number after the decimals', () => {
     expect(toMoney('3727.67')).toBe('3727.67');
     expect(toMoney('84727.6799')).toBe('84727.68');
+    expect(toMoney('2138.899999')).toBe('2138.90');
   });
 
   it('should return an error if no value provided', () => {

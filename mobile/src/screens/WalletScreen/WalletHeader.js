@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 type Props = {
   theme: ThemeColorsData,
   isNeg: boolean,
-  totalAssets: number,
+  totalAssets: string,
   totalGain: number,
   totalPercent: number,
 };

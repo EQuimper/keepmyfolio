@@ -2,6 +2,8 @@
 
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { createFragmentContainer, graphql } from 'react-relay';
 // ------------------------------------
 // TYPES
 // ------------------------------------
@@ -11,6 +13,11 @@ import type { ThemeColorsData } from '../../types';
 // ------------------------------------
 import WalletHeader from './WalletHeader';
 import AssetItem from './AssetItem';
+// ------------------------------------
+// UTILS
+// ------------------------------------
+import { getWalletTotalAmount } from '../../selectors/wallet';
+import { createRenderer } from '../../RelayUtils';
 
 const styles = StyleSheet.create({
   root: {
@@ -22,6 +29,7 @@ type Props = {
   screenProps: {
     theme: ThemeColorsData,
   },
+  totalAmount: string,
 };
 
 type State = {
@@ -35,21 +43,56 @@ class WalletAssets extends PureComponent<void, Props, State> {
 
   render() {
     const { theme } = this.props.screenProps;
+    const { totalAmount } = this.props;
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
         <WalletHeader
           isNeg={this.state.isNeg}
           theme={theme}
-          totalAssets={10256.34}
+          totalAssets={totalAmount}
           totalGain={8.99}
           totalPercent={0.25}
         />
-        <AssetItem></AssetItem>
-        <AssetItem></AssetItem>
-        <AssetItem></AssetItem>
+        <AssetItem />
+        <AssetItem />
+        <AssetItem />
       </View>
     );
   }
 }
 
-export default WalletAssets;
+const WalletAssetsConnected = connect((state, props) => ({
+  totalAmount: getWalletTotalAmount(state, props),
+}))(WalletAssets);
+
+const FragmentContainer = createFragmentContainer(
+  WalletAssetsConnected,
+  graphql`
+    fragment WalletAssets_viewer on Viewer {
+      cryptos(first: $count, after: $cursor)
+        @connection(key: "ModalCryptocurencie_cryptos") {
+        edges {
+          node {
+            id
+            priceUsd
+            cryptoId
+          }
+        }
+      }
+    }
+  `,
+);
+
+export default createRenderer(FragmentContainer, {
+  query: graphql`
+    query WalletAssetsQuery($count: Int!, $cursor: String) {
+      viewer {
+        ...WalletAssets_viewer
+      }
+    }
+  `,
+  queriesParams: () => ({
+    count: 100,
+    cursor: null,
+  }),
+});
