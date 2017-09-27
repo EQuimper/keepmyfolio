@@ -11,11 +11,11 @@ import invariant from 'invariant';
  * @returns {string}
  * @example 99 999.9999
  */
-export function thousandSpace(value: any): string {
+export function thousandSpace(value: ?string): string {
   let numStr: string;
   const regex = /(\d+)(\d{3})/;
 
-  invariant(value, 'Value is required');
+  invariant(value != null, 'Value is required');
 
   if (typeof value === 'number') {
     numStr = String(value);
@@ -32,10 +32,10 @@ export function thousandSpace(value: any): string {
   })
 }
 
-export function toMoney(value: any): string {
+export function toMoney(value: ?string): string {
   let num: number;
 
-  invariant(value, 'Value is required');
+  invariant(value != null, 'Value is required');
 
   if (typeof value === 'number') {
     num = value;
@@ -57,8 +57,8 @@ export function toMoney(value: any): string {
  * @returns {string}
  * @example 99 999.99
  */
-export function moneyThousand(value: any): string {
-  invariant(value, 'Value is required');
+export function moneyThousand(value: ?string): string {
+  invariant(value != null, 'Value is required');
 
   const _money = toMoney(value);
 

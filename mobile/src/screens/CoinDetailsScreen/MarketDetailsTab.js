@@ -100,20 +100,14 @@ class MarketDetailsTab extends Component<void, Props, State> {
     const { coin } = this.props;
     const { theme } = this.props.screenProps;
 
-    const _marketCap = thousandSpace(idx(coin, _ => _.marketCapUsd) || '0');
-    const _percentChang1h = thousandSpace(
-      idx(coin, _ => _.percentChange1h) || '0',
-    );
-    const _percentChang24h = thousandSpace(
-      idx(coin, _ => _.percentChange24h) || '0',
-    );
-    const _percentChang7d = thousandSpace(
-      idx(coin, _ => _.percentChange7d) || '0',
-    );
-    const _price = moneyThousand(idx(coin, _ => _.priceUsd) || '0');
-    const _priceBtc = thousandSpace(idx(coin, _ => _.priceBtc) || '0');
-    const _totalSuply = thousandSpace(idx(coin, _ => _.totalSuply) || '0');
-    const _volume = thousandSpace(idx(coin, _ => _.volumeUsd24h) || '0');
+    const _marketCap = thousandSpace(coin.marketCapUsd);
+    const _percentChang1h = thousandSpace(coin.percentChange1h);
+    const _percentChang24h = thousandSpace(coin.percentChange24h);
+    const _percentChang7d = thousandSpace(coin.percentChange7d);
+    const _price = moneyThousand(coin.priceUsd);
+    const _priceBtc = thousandSpace(coin.priceBtc);
+    const _totalSuply = thousandSpace(coin.totalSuply);
+    const _volume = thousandSpace(coin.volumeUsd24h);
 
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>

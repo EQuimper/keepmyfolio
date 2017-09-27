@@ -42,7 +42,7 @@ class App extends PureComponent<void, {}, State> {
       () => {
         this.setState({ isReady: true });
       },
-    );
+    ).purge();
   }
 
   render() {
