@@ -10,14 +10,7 @@
     ]
   ],
   "plugins": [
-    [
-      "transform-flow-strip-types"
-    ],
-    [
-      "transform-object-rest-spread",
-      {
-        "useBuiltIns": true
-      }
-    ]
+    "transform-object-rest-spread",
+    "transform-flow-strip-types"
   ]
 }

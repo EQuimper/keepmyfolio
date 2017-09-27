@@ -7,3 +7,9 @@
 ## Production
 
 `yarn deploy --stage production`
+
+# LOGS
+
+```
+serverless logs -f graphql
+```

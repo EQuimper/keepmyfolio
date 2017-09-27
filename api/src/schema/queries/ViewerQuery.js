@@ -5,8 +5,6 @@ import {
 } from 'graphql';
 import { cryptosField } from './CryptoQuery';
 
-require('babel-polyfill');
-
 const ViewerType = new GraphQLObjectType({
   name: 'Viewer',
   fields: () => ({

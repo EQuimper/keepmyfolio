@@ -28,7 +28,7 @@ export default function createHandler(next: Middleware) {
         headers,
         body: isProd
           ? JSON.stringify({ error: 'Internal server error' })
-          : JSON.stringify({ error })
+          : JSON.stringify({ error: error.message })
       });
     }
   };

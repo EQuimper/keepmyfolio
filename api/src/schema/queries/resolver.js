@@ -5,8 +5,6 @@ import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 
 import type { Context } from '../../types';
 
-require('babel-polyfill');
-
 type IdFetcher = (
   type: string,
   id: string,

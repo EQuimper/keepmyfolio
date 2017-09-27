@@ -1,13 +1,31 @@
-service: crypto
+service: keepmyfolio-api
 
 provider:
   name: aws
   runtime: nodejs6.10
   cfLogs: true
+  stage: staging
+  region: us-east-1
   environment:
     NODE_ENV: ${self:custom.stage}
+  vpc:
+    securityGroupIds:
+      - sg-3770904b
+    subnetIds:
+      - subnet-6ddfb740
+      - subnet-e8e66f8d
+      - subnet-20de8769
+      - subnet-4d14a641
+      - subnet-43234318
 
-region: us-east-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "ec2:CreateNetworkInterface"
+        - "ec2:DescribeNetworkInterfaces"
+        - "ec2:DetachNetworkInterface"
+        - "ec2:DeleteNetworkInterface"
+      Resource: "*"
 
 plugins:
   - serverless-offline
@@ -38,6 +56,9 @@ custom:
 functions:
   graphql:
     handler: ${self:custom.handlersDir}/graphql.graphqlHandler
+    DependsOn: IamPolicyLambdaExecution
+    memorySize: 1536
+    timeout: 30
     events:
       - http:
           path: graphql

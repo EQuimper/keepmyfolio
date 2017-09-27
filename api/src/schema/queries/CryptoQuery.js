@@ -18,8 +18,6 @@ import type { Context } from '../../types';
 import { nodeInterface, addResolver } from './resolver';
 import { getCryptos } from '../../services/CoinMarket';
 
-require('babel-polyfill');
-
 const CryptoType = new GraphQLObjectType({
   name: 'Crypto',
   description: 'A cryptocurencie coin',
