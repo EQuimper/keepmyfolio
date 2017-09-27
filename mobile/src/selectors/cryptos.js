@@ -48,9 +48,6 @@ export const getTotal = createCachedSelector(
 export const getAmountChange = createCachedSelector(
   [getHolding, getPrice, getPercentChange1h],
   (holding, price, percentChange) => {
-    console.log('====================================');
-    console.log('PERCENT', percentChange);
-    console.log('====================================');
     if (!holding) {
       return null;
     }

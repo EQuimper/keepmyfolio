@@ -15,6 +15,7 @@ export type WalletAssets_viewer = {|
         +id: string;
         +priceUsd: ?string;
         +cryptoId: ?string;
+        +percentChange24h: ?string;
       |};
     |}>;
   |};
@@ -93,6 +94,13 @@ const fragment /*: ConcreteFragment*/ = {
                   "alias": null,
                   "args": null,
                   "name": "cryptoId",
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "percentChange24h",
                   "storageKey": null
                 },
                 {

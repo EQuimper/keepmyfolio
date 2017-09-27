@@ -30,6 +30,7 @@ type Props = {
     theme: ThemeColorsData,
   },
   totalAmount: string,
+  totalPercent: string,
 };
 
 type State = {
@@ -43,7 +44,7 @@ class WalletAssets extends PureComponent<void, Props, State> {
 
   render() {
     const { theme } = this.props.screenProps;
-    const { totalAmount } = this.props;
+    const { totalAmount, totalPercent } = this.props;
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
         <WalletHeader
@@ -51,7 +52,7 @@ class WalletAssets extends PureComponent<void, Props, State> {
           theme={theme}
           totalAssets={totalAmount}
           totalGain={8.99}
-          totalPercent={0.25}
+          totalPercent={totalPercent}
         />
         <AssetItem />
         <AssetItem />
@@ -62,7 +63,8 @@ class WalletAssets extends PureComponent<void, Props, State> {
 }
 
 const WalletAssetsConnected = connect((state, props) => ({
-  totalAmount: getWalletTotalAmount(state, props),
+  totalAmount: getWalletTotalAmount(state, props).totalAmount,
+  totalPercent: getWalletTotalAmount(state, props).totalPercentChange
 }))(WalletAssets);
 
 const FragmentContainer = createFragmentContainer(
@@ -76,6 +78,7 @@ const FragmentContainer = createFragmentContainer(
             id
             priceUsd
             cryptoId
+            percentChange24h
           }
         }
       }

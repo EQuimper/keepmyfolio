@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 93d5b5391175876747f601481340bbeb
+ * @relayHash e5d20cdb7834938642fe3dec4d2511f8
  */
 
 /* eslint-disable */
@@ -33,6 +33,7 @@ fragment WalletAssets_viewer on Viewer {
         id
         priceUsd
         cryptoId
+        percentChange24h
       }
       cursor
     }
@@ -178,6 +179,13 @@ const batch /*: ConcreteBatch*/ = {
                         "args": null,
                         "name": "cryptoId",
                         "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "percentChange24h",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -256,7 +264,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query WalletAssetsQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...WalletAssets_viewer\n  }\n}\n\nfragment WalletAssets_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        priceUsd\n        cryptoId\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+  "text": "query WalletAssetsQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...WalletAssets_viewer\n  }\n}\n\nfragment WalletAssets_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        priceUsd\n        cryptoId\n        percentChange24h\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

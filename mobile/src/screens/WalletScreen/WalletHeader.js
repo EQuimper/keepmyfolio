@@ -39,7 +39,7 @@ type Props = {
   isNeg: boolean,
   totalAssets: string,
   totalGain: number,
-  totalPercent: number,
+  totalPercent: string,
 };
 
 function WalletHeader({
