@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  noHolding: {
+    color: colors.lightGrey,
+  }
 });
 
 type IconProps = {
@@ -213,7 +216,9 @@ class Coin extends PureComponent<void, Props, void> {
             </Text>
           </View>
         ) : (
-          <View style={styles.contentWrapper} />
+          <View style={styles.contentWrapper}>
+            <Text style={styles.noHolding}>No holding</Text>
+          </View>
         )}
 
         <View style={styles.metaWrapper}>

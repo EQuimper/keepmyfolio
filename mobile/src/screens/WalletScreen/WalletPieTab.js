@@ -3,10 +3,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, StyleSheet, View } from 'react-native';
+import { createFragmentContainer, graphql } from 'react-relay';
 // ------------------------------------
 // TYPES
 // ------------------------------------
 import type { State as AppState, ThemeColorsData } from '../../types';
+import type { WalletPieTab_viewer as Viewer } from './__generated__/WalletPieTab_viewer.graphql';
 // ------------------------------------
 // COMPONENTS
 // ------------------------------------
@@ -17,6 +19,8 @@ import WalletHeader from './WalletHeader';
 // UTILS
 // ------------------------------------
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
+import { createRenderer } from '../../RelayUtils';
+import { getWalletTotalAmount, getPieData } from '../../selectors/wallet';
 
 const styles = StyleSheet.create({
   root: {
@@ -52,10 +56,14 @@ for (let i = 0; i < 25; i++) {
 type Props = {
   theme: ThemeColorsData,
   darkTheme: boolean,
+  totalAmount: string,
+  totalPercent: string,
+  totalAmountChange: string,
+  viewer: Viewer,
+  pieData: Array<{ name: string, percent: string }>,
 };
 
 type State = {
-  isNeg: boolean,
   graphHistoryData: DataProps,
   selectedCryptoIndex: number,
   width: number,
@@ -63,7 +71,6 @@ type State = {
 
 class WalletPieTab extends PureComponent<void, Props, State> {
   state = {
-    isNeg: true,
     graphHistoryData: data,
     selectedCryptoIndex: 0,
     width: Dimensions.get('window').width,
@@ -97,15 +104,14 @@ class WalletPieTab extends PureComponent<void, Props, State> {
   };
 
   render() {
-    const { theme } = this.props;
+    const { theme, totalAmount, totalPercent, pieData, totalAmountChange } = this.props;
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
         <WalletHeader
-          isNeg={this.state.isNeg}
           theme={theme}
-          totalAssets={10256.34}
-          totalGain={8.99}
-          totalPercent={0.25}
+          totalAssets={totalAmount}
+          totalGain={totalAmountChange}
+          totalPercent={totalPercent}
         />
         <View
           style={[
@@ -116,6 +122,7 @@ class WalletPieTab extends PureComponent<void, Props, State> {
           <PortfolioPie
             color={this._getColor()}
             darkTheme={this.props.darkTheme}
+            data={pieData}
             onSelectCrypto={this._onSelectCrypto}
           />
         </View>
@@ -133,7 +140,54 @@ class WalletPieTab extends PureComponent<void, Props, State> {
   }
 }
 
-export default connect((state: AppState) => ({
-  theme: state.get('app').theme,
-  darkTheme: state.get('app').darkTheme,
-}))(WalletPieTab);
+const makeMapStateToProps = () => {
+  const _getWalletTotalAmount = getWalletTotalAmount();
+  const _getPieData = getPieData();
+
+  const mapStateToProps = (state, props) => ({
+    theme: state.get('app').theme,
+    darkTheme: state.get('app').darkTheme,
+    pieData: _getPieData(state, props),
+    totalAmount: _getWalletTotalAmount(state, props).totalAmount,
+    totalPercent: _getWalletTotalAmount(state, props).totalPercentChange,
+    totalAmountChange: _getWalletTotalAmount(state, props).totalAmountChange,
+  })
+
+  return mapStateToProps;
+}
+
+const WalletPieConnected = connect(makeMapStateToProps)(WalletPieTab);
+
+const FragmentContainer = createFragmentContainer(
+  WalletPieConnected,
+  graphql`
+    fragment WalletPieTab_viewer on Viewer {
+      cryptos(first: $count, after: $cursor)
+        @connection(key: "WalletPieTab_cryptos") {
+        edges {
+          node {
+            id
+            priceUsd
+            cryptoId
+            symbol
+            percentChange24h
+          }
+        }
+      }
+    }
+  `,
+);
+
+export default createRenderer(FragmentContainer, {
+  query: graphql`
+    query WalletPieTabQuery($count: Int!, $cursor: String) {
+      viewer {
+        ...WalletPieTab_viewer
+      }
+    }
+  `,
+  queriesParams: () => ({
+    count: 100,
+    cursor: null,
+  }),
+});

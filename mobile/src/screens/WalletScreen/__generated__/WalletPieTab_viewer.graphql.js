@@ -8,7 +8,7 @@
 
 /*::
 import type {ConcreteFragment} from 'relay-runtime';
-export type WalletAssets_viewer = {|
+export type WalletPieTab_viewer = {|
   +cryptos: ?{|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
@@ -50,14 +50,14 @@ const fragment /*: ConcreteFragment*/ = {
       }
     ]
   },
-  "name": "WalletAssets_viewer",
+  "name": "WalletPieTab_viewer",
   "selections": [
     {
       "kind": "LinkedField",
       "alias": "cryptos",
       "args": null,
       "concreteType": "CryptosConnection",
-      "name": "__ModalCryptocurencie_cryptos_connection",
+      "name": "__WalletPieTab_cryptos_connection",
       "plural": false,
       "selections": [
         {

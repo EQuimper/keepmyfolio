@@ -1,6 +1,6 @@
 // @flow
 
 export default {
-  environment: 'production',
-  baseUrl: 'https://v0idk7zieb.execute-api.us-east-1.amazonaws.com/staging/graphql'
+  environment: 'staging',
+  baseUrl: 'http://192.168.1.66:3000/graphql'
 }

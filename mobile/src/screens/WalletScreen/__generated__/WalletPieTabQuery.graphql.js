@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 512d58b0b2e5c57828dce2fae1b0232f
+ * @relayHash 75c3348d142b70ab776baa805d215aa1
  */
 
 /* eslint-disable */
@@ -9,23 +9,23 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type WalletAssetsQueryResponse = {|
+export type WalletPieTabQueryResponse = {|
   +viewer: ?{| |};
 |};
 */
 
 
 /*
-query WalletAssetsQuery(
+query WalletPieTabQuery(
   $count: Int!
   $cursor: String
 ) {
   viewer {
-    ...WalletAssets_viewer
+    ...WalletPieTab_viewer
   }
 }
 
-fragment WalletAssets_viewer on Viewer {
+fragment WalletPieTab_viewer on Viewer {
   cryptos(first: $count, after: $cursor) {
     edges {
       node {
@@ -64,7 +64,7 @@ const batch /*: ConcreteBatch*/ = {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "WalletAssetsQuery",
+    "name": "WalletPieTabQuery",
     "selections": [
       {
         "kind": "LinkedField",
@@ -76,7 +76,7 @@ const batch /*: ConcreteBatch*/ = {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "WalletAssets_viewer",
+            "name": "WalletPieTab_viewer",
             "args": null
           }
         ],
@@ -88,7 +88,7 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "WalletAssetsQuery",
+  "name": "WalletPieTabQuery",
   "query": {
     "argumentDefinitions": [
       {
@@ -105,7 +105,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ],
     "kind": "Root",
-    "name": "WalletAssetsQuery",
+    "name": "WalletPieTabQuery",
     "operation": "query",
     "selections": [
       {
@@ -255,7 +255,7 @@ const batch /*: ConcreteBatch*/ = {
             ],
             "handle": "connection",
             "name": "cryptos",
-            "key": "ModalCryptocurencie_cryptos",
+            "key": "WalletPieTab_cryptos",
             "filters": null
           }
         ],
@@ -272,7 +272,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query WalletAssetsQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...WalletAssets_viewer\n  }\n}\n\nfragment WalletAssets_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        priceUsd\n        cryptoId\n        symbol\n        percentChange24h\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+  "text": "query WalletPieTabQuery(\n  $count: Int!\n  $cursor: String\n) {\n  viewer {\n    ...WalletPieTab_viewer\n  }\n}\n\nfragment WalletPieTab_viewer on Viewer {\n  cryptos(first: $count, after: $cursor) {\n    edges {\n      node {\n        __typename\n        id\n        priceUsd\n        cryptoId\n        symbol\n        percentChange24h\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
 };
 
 module.exports = batch;

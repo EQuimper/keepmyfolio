@@ -11,12 +11,13 @@
     "lint": "eslint ./src",
     "deploy": "babel-node ./deploy.js",
     "update-schema": "babel-node ./scripts/updateSchema.js",
-    "dev": "cross-env NODE_ENV=development sls offline -o 0.0.0.0 -P 3000"
+    "dev": "cross-env NODE_ENV=development sls offline -s development -o 0.0.0.0 -P 3000"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "eslint": "^4.6.1",

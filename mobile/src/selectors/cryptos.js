@@ -41,7 +41,7 @@ export const getTotal = createCachedSelector(
       return null;
     }
 
-    return moneyThousand(holding * price);
+    return moneyThousand(String(holding * price));
   },
 )((state, props) => props.coin.id);
 
@@ -58,6 +58,6 @@ export const getAmountChange = createCachedSelector(
 
     const totalDollarUserHave: number = holding * price;
 
-    return moneyThousand(totalDollarUserHave * percentChange / 100);
+    return moneyThousand(String(totalDollarUserHave * percentChange / 100));
   },
 )((state, props) => props.coin.id);

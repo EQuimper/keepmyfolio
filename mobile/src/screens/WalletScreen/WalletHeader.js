@@ -10,6 +10,7 @@ import type { ThemeColorsData } from '../../types';
 // UTILS
 // ------------------------------------
 import { colors } from '../../utils/constants';
+import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 
 const styles = StyleSheet.create({
   root: {
@@ -36,19 +37,25 @@ const styles = StyleSheet.create({
 
 type Props = {
   theme: ThemeColorsData,
-  isNeg: boolean,
   totalAssets: string,
-  totalGain: number,
+  totalGain: string,
   totalPercent: string,
 };
 
 function WalletHeader({
   theme,
-  isNeg,
   totalAssets,
   totalGain,
   totalPercent,
 }: Props) {
+  let color: string;
+
+  if (totalPercent === '0.00') {
+    color = colors.lightGrey;
+  } else {
+    color = getIfPercentNegative(totalPercent) ? colors.red : colors.green
+  }
+
   return (
     <View style={[styles.root, { backgroundColor: theme.tabBarColor }]}>
       <View style={styles.tableEl}>
@@ -62,7 +69,7 @@ function WalletHeader({
       <View style={styles.tableEl}>
         <Text style={[styles.title, { color: theme.lightGrey }]}>Gain $</Text>
         <Text
-          style={[styles.amount, { color: isNeg ? colors.red : colors.green }]}
+          style={[styles.amount, { color }]}
         >
           {totalGain}
         </Text>
@@ -70,7 +77,7 @@ function WalletHeader({
       <View style={styles.tableEl}>
         <Text style={[styles.title, { color: theme.lightGrey }]}>Gain %</Text>
         <Text
-          style={[styles.amount, { color: isNeg ? colors.red : colors.green }]}
+          style={[styles.amount, { color }]}
         >
           {totalPercent}
         </Text>

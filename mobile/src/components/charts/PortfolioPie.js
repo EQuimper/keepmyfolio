@@ -3,7 +3,14 @@
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, TouchableOpacity, Dimensions, View, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  View,
+  ScrollView,
+} from 'react-native';
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 // ------------------------------------
 // COMPONENTS
@@ -13,6 +20,7 @@ import AnimShape from './AnimShape';
 // UTILS
 // ------------------------------------
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
+import { colors } from '../../utils/constants';
 
 const { width: WIDTH } = Dimensions.get('window');
 
@@ -47,56 +55,34 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 0.6,
     paddingTop: 10,
-  }
+  },
 });
 
 type Item = {
-  number: number,
+  percent: string,
   name: string,
 };
-
-type Data = Array<Item>;
-
-const data: Data = [
-  { number: 8, name: 'BTC' },
-  { number: 7, name: 'ETH' },
-  { number: 12, name: 'MIOTA' },
-  { number: 23, name: 'NEO' },
-  { number: 42, name: 'OMG' },
-  { number: 4, name: 'XRP' },
-  { number: 4, name: 'TenX' },
-];
 
 const PIE_WIDTH = WIDTH / 2 - 10;
 
 type State = {
   highlightedIndex: number,
-  data: Data,
 };
 
 type Props = {
   darkTheme: boolean,
   onSelectCrypto: (index: number) => void,
   color: string,
+  data: Array<{ name: string, percent: string }>,
 };
 
 class PortfolioPie extends PureComponent<void, Props, State> {
   state = {
     highlightedIndex: 0,
-    data: [],
+    data: this.props.data,
   };
 
-  componentDidMount() {
-    this._sortData();
-  }
-
-  _sortData = () => {
-    const newData = [...data].sort((a, b) => b.number - a.number);
-
-    this.setState({ data: newData });
-  };
-
-  _value = (item: Item) => item.number;
+  _value = (item: Item) => item.percent;
 
   _label = (item: Item) => item.name;
 
@@ -104,7 +90,7 @@ class PortfolioPie extends PureComponent<void, Props, State> {
     getColorForWalletGraph(this.props.darkTheme, index);
 
   _createPieChart = (index: number) => {
-    const arcs = d3.shape.pie().value(this._value)(this.state.data);
+    const arcs = d3.shape.pie().value(this._value)(this.props.data);
 
     const hightlightedArc = d3.shape
       .arc()
@@ -131,35 +117,74 @@ class PortfolioPie extends PureComponent<void, Props, State> {
     };
   };
 
+  _createEmptyPieChart = () => {
+    const arcs = d3.shape.pie().value(100)([100]);
+
+    const arc = d3.shape
+      .arc()
+      .outerRadius(PIE_WIDTH / 2)
+      .padAngle(0.05)
+      .innerRadius(30);
+
+    const arcData = arcs[0];
+
+    const path = arc(arcData)
+
+    return {
+      path,
+      color: colors.lightGrey,
+    };
+  }
+
   _onPieItemSelected = (index: number) => {
     this.setState({
-      ...this.state,
+      // ...this.state,
       highlightedIndex: index,
     });
     this.props.onSelectCrypto(index);
   };
 
+  _animShape = (item, index) => (
+    // TODO: REcompose it
+    <AnimShape
+      color={this._color(index)}
+      d={() => this._createPieChart(index)}
+      key={`pie_shape_${index}`}
+    />
+  );
+
   render() {
     const x = PIE_WIDTH / 2 + 15;
     const y = PIE_WIDTH / 2 + 15;
+
+    // TODO: Design an empty pie
+
+    const { data } = this.props;
 
     return (
       <View style={styles.root}>
         <View style={styles.left}>
           <Surface height={PIE_WIDTH + 30} width={PIE_WIDTH + 30}>
-            <Group x={x} y={y}>
-              {this.state.data.map((item, index) => (
+            {data.length === 0 ? (
+              <Group x={x} y={y}>
                 <AnimShape
-                  color={this._color(index)}
-                  d={() => this._createPieChart(index)}
-                  key={`pie_shape_${index}`}
+                  color={colors.lightGrey}
+                  d={this._createEmptyPieChart}
+                  key={`pie_shape_1`}
                 />
-              ))}
-            </Group>
+              </Group>
+            ) : (
+              <Group x={x} y={y}>
+                {data.map(this._animShape)}
+              </Group>
+            )}
           </Surface>
         </View>
-        <ScrollView contentContainerStyle={styles.contentContainerStyle} style={styles.scroll}>
-          {this.state.data.map((item, index) => {
+        <ScrollView
+          contentContainerStyle={styles.contentContainerStyle}
+          style={styles.scroll}
+        >
+          {data.map((item, index) => {
             const fontWeight =
               this.state.highlightedIndex === index ? '700' : '400';
             return (

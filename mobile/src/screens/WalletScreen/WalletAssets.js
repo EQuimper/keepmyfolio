@@ -2,8 +2,8 @@
 
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { connect } from 'react-redux';
 // ------------------------------------
 // TYPES
 // ------------------------------------
@@ -14,10 +14,14 @@ import type { ThemeColorsData } from '../../types';
 import WalletHeader from './WalletHeader';
 import AssetItem from './AssetItem';
 // ------------------------------------
+// TYPES
+// ------------------------------------
+import type { WalletAssets_viewer as Viewer } from './__generated__/WalletAssets_viewer.graphql';
+// ------------------------------------
 // UTILS
 // ------------------------------------
-import { getWalletTotalAmount } from '../../selectors/wallet';
 import { createRenderer } from '../../RelayUtils';
+import { getWalletTotalAmount } from '../../selectors/wallet';
 
 const styles = StyleSheet.create({
   root: {
@@ -31,27 +35,21 @@ type Props = {
   },
   totalAmount: string,
   totalPercent: string,
+  totalAmountChange: string,
+  viewer: Viewer,
 };
 
-type State = {
-  isNeg: boolean,
-};
-
-class WalletAssets extends PureComponent<void, Props, State> {
-  state = {
-    isNeg: false,
-  };
-
+class WalletAssets extends PureComponent<void, Props, void> {
   render() {
     const { theme } = this.props.screenProps;
-    const { totalAmount, totalPercent } = this.props;
+    const { viewer, totalAmount, totalPercent, totalAmountChange } = this.props;
     return (
       <View style={[styles.root, { backgroundColor: theme.cardBackground }]}>
         <WalletHeader
-          isNeg={this.state.isNeg}
+          cryptos={viewer.cryptos}
           theme={theme}
           totalAssets={totalAmount}
-          totalGain={8.99}
+          totalGain={totalAmountChange}
           totalPercent={totalPercent}
         />
         <AssetItem />
@@ -62,10 +60,19 @@ class WalletAssets extends PureComponent<void, Props, State> {
   }
 }
 
-const WalletAssetsConnected = connect((state, props) => ({
-  totalAmount: getWalletTotalAmount(state, props).totalAmount,
-  totalPercent: getWalletTotalAmount(state, props).totalPercentChange
-}))(WalletAssets);
+const makeMapStateToProps = () => {
+  const _getWalletTotalAmount = getWalletTotalAmount();
+
+  const mapStateToProps = (state, props) => ({
+    totalAmount: _getWalletTotalAmount(state, props).totalAmount,
+    totalPercent: _getWalletTotalAmount(state, props).totalPercentChange,
+    totalAmountChange: _getWalletTotalAmount(state, props).totalAmountChange,
+  });
+
+  return mapStateToProps;
+};
+
+const WalletAssetsConnected = connect(makeMapStateToProps)(WalletAssets);
 
 const FragmentContainer = createFragmentContainer(
   WalletAssetsConnected,
@@ -78,6 +85,7 @@ const FragmentContainer = createFragmentContainer(
             id
             priceUsd
             cryptoId
+            symbol
             percentChange24h
           }
         }

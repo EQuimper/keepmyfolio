@@ -78,6 +78,8 @@ class HomeScreen extends PureComponent<void, Props, State> {
     this.setState({ refreshing: false });
   };
 
+  _separator = () => <View style={styles.separator} />
+
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
     invariant(edges, 'Edges cannot be null');
@@ -87,7 +89,7 @@ class HomeScreen extends PureComponent<void, Props, State> {
       >
         <SearchBar theme={this.props.theme} />
         <FlatList
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={this._separator}
           contentContainerStyle={styles.contentContainerList}
           data={edges.map(e => idx(e, _ => _.node))}
           keyExtractor={item => item.id}
