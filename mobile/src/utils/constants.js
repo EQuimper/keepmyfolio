@@ -3,6 +3,9 @@
 import { createBlacklistFilter } from '@actra-development-oss/redux-persist-transform-filter-immutable';
 import DeviceInfo from 'react-native-device-info';
 
+/**
+ * TYPES
+ */
 import type { DeviceInfoType } from '../types';
 
 export const colors = {

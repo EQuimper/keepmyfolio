@@ -4,14 +4,16 @@ import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { withHandlers } from 'recompose';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 import type { ThemeColorsData } from '../../types';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { CoinMarket } from '../../utils/api';
 
 const IMAGE_SIZE = 30;

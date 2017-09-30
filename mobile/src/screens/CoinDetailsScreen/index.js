@@ -3,18 +3,20 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type {
   State as AppState,
   ThemeColorsData,
   TimeSelect,
 } from '../../types';
 import type { Coin_coin as Coin } from '../HomeScreen/__generated__/Coin_coin.graphql';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import CoinDetailsTabs from './CoinDetailsTabs';
 
 const styles = StyleSheet.create({
@@ -37,6 +39,7 @@ type Props = {
 type State = {
   timeSelect: TimeSelect,
 };
+
 // TODO: Remove this unused component or keep it for passing theme
 class CoinDetailsScreen extends PureComponent<void, Props, State> {
   state = {

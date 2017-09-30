@@ -3,9 +3,10 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State as AppState, ThemeColorsData } from '../../types';
 
 const styles = StyleSheet.create({

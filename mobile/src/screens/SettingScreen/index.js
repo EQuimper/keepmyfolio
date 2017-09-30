@@ -10,13 +10,15 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State, ThemeColorsData } from '../../types';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors, properties, deviceInfo } from '../../utils/constants';
 import { toggleTheme } from '../../actions/app';
 

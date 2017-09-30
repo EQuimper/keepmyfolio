@@ -7,14 +7,16 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { Navigation, ThemeColorsData, HoldingData } from '../../types';
 import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { CoinMarket } from '../../utils/api';
 import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';

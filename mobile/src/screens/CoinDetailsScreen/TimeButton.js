@@ -3,9 +3,10 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { withHandlers } from 'recompose';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 
 const styles = StyleSheet.create({

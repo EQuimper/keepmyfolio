@@ -4,14 +4,16 @@ import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { UIManager, AsyncStorage } from 'react-native';
 import { persistStore } from 'redux-persist-immutable';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import AppNavigation from './navigations';
 import Loading from './components/Loading';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import store from './store';
 import {
   persistWhitelist,

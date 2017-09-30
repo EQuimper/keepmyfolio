@@ -5,18 +5,20 @@ import { StyleSheet, ScrollView, View, RefreshControl } from 'react-native';
 import idx from 'idx';
 import { graphql, createRefetchContainer } from 'react-relay';
 
-// ------------------------------------
-// TYPES
-// ------------------------------------
+/**
+ * TYPES
+ */
 import type { MarketDetailsTab_coin as Coin } from './__generated__/MarketDetailsTab_coin.graphql';
 import type { Navigation, ThemeColorsData, RelayType } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import MetaCard from './MetaCard';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 import { moneyThousand, thousandSpace } from '../../utils/helpers/formatNumber';
 import { colors } from '../../utils/constants';

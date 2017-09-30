@@ -1,25 +1,29 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { ThemeColorsData } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import WalletHeader from './WalletHeader';
 import AssetItem from './AssetItem';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { WalletAssets_viewer as Viewer } from './__generated__/WalletAssets_viewer.graphql';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { createRenderer } from '../../RelayUtils';
 import { getWalletTotalAmount } from '../../selectors/wallet';
 

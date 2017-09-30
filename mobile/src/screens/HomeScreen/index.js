@@ -6,9 +6,10 @@ import invariant from 'invariant';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { createPaginationContainer, graphql } from 'react-relay';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type {
   Navigation,
   RelayType,
@@ -16,14 +17,16 @@ import type {
   ThemeColorsData,
 } from '../../types';
 import type { HomeScreen_viewer as Viewer } from './__generated__/HomeScreen_viewer.graphql';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import SearchBar from '../../components/SearchBar';
 import Coin from './Coin';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { createRenderer } from '../../RelayUtils';
 import { colors } from '../../utils/constants';
 

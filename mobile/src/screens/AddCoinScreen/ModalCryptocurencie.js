@@ -13,19 +13,22 @@ import {
   Text,
 } from 'react-native';
 import { createPaginationContainer, graphql } from 'react-relay';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 import type { ModalCryptocurencie_viewer as Viewer } from './__generated__/ModalCryptocurencie_viewer.graphql';
 import type { RelayType, ThemeColorsData } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import CryptoItem from './CryptoItem';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { createRenderer } from '../../RelayUtils';
 import { colors } from '../../utils/constants';
 

@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { ThemeColorsData } from '../../types';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 

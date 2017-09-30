@@ -3,11 +3,20 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-// import type { Coin_coin as Coin } from '../HomeScreen/__generated__/Coin_coin.graphql';
+/**
+ * TYPES
+ */
 import type { ThemeColorsData, TimeSelect } from '../../types';
 
-import { colors } from '../../utils/constants';
+/**
+ * COMPONENTS
+ */
 import TimeButton from './TimeButton';
+
+/**
+ * UTILS
+ */
+import { colors } from '../../utils/constants';
 
 const titleEls = ['1d', '7d', '1m', '6m', '1y', 'ALL'];
 

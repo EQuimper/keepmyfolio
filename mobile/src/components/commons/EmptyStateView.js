@@ -3,26 +3,33 @@
 // TODO: MAKE IT BETTER
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { connect } from 'react-redux';
+// ------------------------------------
+// TYPES
+// ------------------------------------
+import type { State, ThemeColorsData } from '../../types';
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  text: {
-    color: '#fff'
-  }
 });
 
 type Props = {
   title: string,
   subTitle: string,
+  theme: ThemeColorsData
 };
 
-export default function EmptyStateView({ title, subTitle }: Props) {
+function EmptyStateView({ title, subTitle, theme }: Props) {
   return (
     <View style={styles.root}>
-      <Text style={styles.text}>{title}</Text>
-      <Text style={styles.text}>{subTitle}</Text>
+      <Text style={{ color: theme.textColor }}>{title}</Text>
+      <Text style={{ color: theme.textColor }}>{subTitle}</Text>
     </View>
   );
 }
+
+export default connect((state: State) => ({
+  theme: state.get('app').theme
+}))(EmptyStateView);

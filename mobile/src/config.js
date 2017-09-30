@@ -2,5 +2,6 @@
 
 export default {
   environment: 'staging',
-  baseUrl: 'http://192.168.1.66:3000/graphql'
+  // baseUrl: 'http://192.168.1.66:3000/graphql'
+  baseUrl: 'http://localhost:3000/graphql'
 }

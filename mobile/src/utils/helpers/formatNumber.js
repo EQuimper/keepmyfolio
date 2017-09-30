@@ -7,6 +7,7 @@ import invariant from 'invariant';
 /**
  * Reformat a number for give space between thousand
  *
+ * @export
  * @param {*} value
  * @returns {string}
  * @example 99 999.9999
@@ -32,6 +33,16 @@ export function thousandSpace(value: ?string): string {
   })
 }
 
+/**
+ * Format a string to an money value
+ * with 2 decimals at the end
+ *
+ * @export
+ * @param null value
+ * @param {any} string
+ * @returns {string}
+ * @example 99.99
+ */
 export function toMoney(value: ?string): string {
   let num: number;
 

@@ -3,8 +3,14 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
+/**
+ * TYPES
+ */
 import type { Navigation, ThemeColorsData, TimeSelect } from '../../types';
 
+/**
+ * COMPONENTS
+ */
 import CoinDetailsLine from '../../components/charts/CoinDetailsLine';
 import CoinTopDetails from './CoinTopDetails';
 

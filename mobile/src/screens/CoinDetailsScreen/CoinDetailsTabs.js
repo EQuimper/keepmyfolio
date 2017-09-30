@@ -5,18 +5,21 @@ import { connect } from 'react-redux';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import MarketDetailsTab from './MarketDetailsTab';
 import LineGraphDetails from './LineGraphDetails';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 
 const TabsConnected = connect((state: State) => ({

@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 
 const styles = StyleSheet.create({

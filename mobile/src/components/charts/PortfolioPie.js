@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingLeft: 10,
   },
   contentContainerStyle: {
     justifyContent: 'space-around',
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
   scroll: {
-    flex: 0.6,
+    flex: 0.5,
     paddingTop: 10,
   },
 });
@@ -128,30 +129,31 @@ class PortfolioPie extends PureComponent<void, Props, State> {
 
     const arcData = arcs[0];
 
-    const path = arc(arcData)
+    const path = arc(arcData);
 
     return {
       path,
       color: colors.lightGrey,
     };
-  }
+  };
 
   _onPieItemSelected = (index: number) => {
     this.setState({
-      // ...this.state,
       highlightedIndex: index,
     });
     this.props.onSelectCrypto(index);
   };
 
-  _animShape = (item, index) => (
-    // TODO: REcompose it
-    <AnimShape
-      color={this._color(index)}
-      d={() => this._createPieChart(index)}
-      key={`pie_shape_${index}`}
-    />
-  );
+  _animShape = (item, index) => {
+    const _createPieChart = () => this._createPieChart(index);
+    return (
+      <AnimShape
+        color={this._color(index)}
+        d={_createPieChart}
+        key={`pie_shape_${index}`}
+      />
+    );
+  };
 
   render() {
     const x = PIE_WIDTH / 2 + 15;

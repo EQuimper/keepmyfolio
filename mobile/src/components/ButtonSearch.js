@@ -4,21 +4,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withHandlers, compose } from 'recompose';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State } from '../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import ButtonHeader from './commons/ButtonHeader';
-// ------------------------------------
-// ACTIONS
-// ------------------------------------
+
+/**
+ * ACTIONS
+ */
 import { toggleSearchBar } from '../actions/app';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../utils/constants';
 
 type Props = {

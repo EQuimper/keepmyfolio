@@ -144,7 +144,7 @@ const makeMapStateToProps = () => {
   const _getWalletTotalAmount = getWalletTotalAmount();
   const _getPieData = getPieData();
 
-  const mapStateToProps = (state, props) => ({
+  const mapStateToProps = (state: AppState, props) => ({
     theme: state.get('app').theme,
     darkTheme: state.get('app').darkTheme,
     pieData: _getPieData(state, props),

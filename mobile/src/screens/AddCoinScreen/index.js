@@ -15,26 +15,30 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 import format from 'date-fns/format';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { CryptoItem_coin as Coin } from './__generated__/CryptoItem_coin.graphql';
 import type {
   Navigation,
   ThemeColorsData,
   State as AppState,
 } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import ModalCryptocurencie from './ModalCryptocurencie';
-// ------------------------------------
-// ACTIONS
-// ------------------------------------
+
+/**
+ * ACTIONS
+ */
 import { addNewHolding } from '../../actions/cryptos';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 
 const ICON_SIZE = 25;
