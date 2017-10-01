@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cryptos Reducer #addNewHolding() should add a holding 1`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+    },
+  },
+  "transactionId": 1,
+}
+`;
+
+exports[`Cryptos Reducer #addNewHolding() should add an existing type of coin a new holding 1`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+    },
+  },
+  "transactionId": 1,
+}
+`;
+
+exports[`Cryptos Reducer #addNewHolding() should add an existing type of coin a new holding 2`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+      "1": Immutable.Map {
+        "amountOfCoin": "1",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "4325.7",
+      },
+    },
+  },
+  "transactionId": 2,
+}
+`;
+
+exports[`Cryptos Reducer #addNewHolding() should add new coin on top of the old state 1`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+    },
+  },
+  "transactionId": 1,
+}
+`;
+
+exports[`Cryptos Reducer #addNewHolding() should add new coin on top of the old state 2`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+      "1": Immutable.Map {
+        "amountOfCoin": "1",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "4325.7",
+      },
+    },
+  },
+  "transactionId": 2,
+}
+`;
+
+exports[`Cryptos Reducer #addNewHolding() should add new coin on top of the old state 3`] = `
+Immutable.Record {
+  "entities": Immutable.Map {
+    "bitcoin": Immutable.Map {
+      "0": Immutable.Map {
+        "amountOfCoin": "2",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "8651.40",
+      },
+      "1": Immutable.Map {
+        "amountOfCoin": "1",
+        "cryptoId": "bitcoin",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOmJpdGNvaW4=",
+        "name": "Bitcoin",
+        "priceByCoin": "4325.7",
+        "priceTotalPay": "4325.7",
+      },
+    },
+    "neo": Immutable.Map {
+      "2": Immutable.Map {
+        "amountOfCoin": "20",
+        "cryptoId": "neo",
+        "dateBuy": 2017-09-30T16:49:28.000Z,
+        "id": "Q3J5cHRvOm5lbw==",
+        "name": "NEO",
+        "priceByCoin": "32.2396",
+        "priceTotalPay": "644.79",
+      },
+    },
+  },
+  "transactionId": 3,
+}
+`;

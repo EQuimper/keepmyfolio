@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { List } from 'immutable';
 // ------------------------------------
 // TYPES
 // ------------------------------------
@@ -60,7 +61,7 @@ type Props = {
   totalPercent: string,
   totalAmountChange: string,
   viewer: Viewer,
-  pieData: Array<{ name: string, percent: string }>,
+  pieData: List<{ name: string, percent: string }>,
 };
 
 type State = {

@@ -1,12 +1,12 @@
 // @flow
 
-import { Record, Map } from 'immutable';
+import { Record, Map, fromJS } from 'immutable';
 
 import type { Action, CryptosState, HoldingData } from '../types';
 
 // TODO: Make sure the transaction it's a map
 
-const StateRecord = Record({
+export const StateRecord = Record({
   entities: new Map(),
   transactionId: 0,
 });
@@ -17,7 +17,7 @@ function addNewHolding(state, action) {
   // const mapObj = Map(state.get('transactionId'), action.coin)
 
   const _newTransaction: Map<string, HoldingData> = Map({
-    [state.get('transactionId')]: action.coin,
+    [state.get('transactionId')]: fromJS(action.coin),
   });
 
   const _entities = state

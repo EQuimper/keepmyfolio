@@ -1,6 +1,8 @@
 // @flow
 
 import { createSelector } from 'reselect';
+import { Map, List, fromJS } from 'immutable';
+import invariant from 'invariant';
 
 import type { State } from '../types';
 
@@ -19,25 +21,28 @@ export const getWalletTotalAmount = () =>
     let pastAmount: number = 0;
     let difference: number = 0;
 
-    // TODO: Make sure the transaction it's a map
     // TODO: Get price for each coin at this moment
     entities.map(coin => {
-      const firstCoinId: string = coin.first().id;
+      invariant(Map.isMap(coin), 'Each coin need to be a map');
+
+      const firstCoinId: string = coin.first().get('id');
 
       const node = cryptos.find(item => item.node.id === firstCoinId).node;
 
       coin.map(transaction => {
         const price: number = parseFloat(
-          cryptos.find(item => item.node.id === transaction.id).node.priceUsd,
+          cryptos.find(item => item.node.id === transaction.get('id')).node
+            .priceUsd,
         );
 
         const totalAmountChange =
           parseFloat(node.percentChange24h) * price / 100;
 
-        pastAmount +=
-          parseFloat(transaction.amountOfCoin) * (price - totalAmountChange);
+        const amountOfCoin = transaction.get('amountOfCoin');
 
-        const totalPrice = parseFloat(transaction.amountOfCoin) * price;
+        pastAmount += parseFloat(amountOfCoin) * (price - totalAmountChange);
+
+        const totalPrice = parseFloat(amountOfCoin) * price;
 
         return (totalAmount += totalPrice);
       });
@@ -47,14 +52,15 @@ export const getWalletTotalAmount = () =>
 
     difference = totalAmount - pastAmount;
 
-    const totalPercentChange = ((difference / totalAmount) || 0) * 100;
+    const totalPercentChange = (difference / totalAmount || 0) * 100;
 
     return {
       totalAmount: moneyThousand(String(totalAmount)),
       totalPercentChange: totalPercentChange.toFixed(2),
       totalAmountChange: difference.toFixed(2),
     };
-  });
+  }
+);
 
 export const getPieData = () =>
   createSelector([getCryptosEntities, getCryptos], (entities, cryptos) => {
@@ -62,19 +68,20 @@ export const getPieData = () =>
     console.log('getPieData CALL');
     console.log('====================================');
     let totalAmount: number = 0;
-    const pieData: Array<{ name: string, amount: string }> = [];
+    let pieData: List<Map<string, { name: string, amount: string }>> = new List();
 
-    // TODO: Make sure the transaction it's a map
     // TODO: Get price for each coin at this moment
-    entities.map(coin => {
-      const firstCoinId: string = coin.first().id;
+    entities.map(coin => {;
+      invariant(Map.isMap(coin), 'Each coin need to be a map');
+
+      const firstCoinId: string = coin.first().get('id');
 
       const node = cryptos.find(item => item.node.id === firstCoinId).node;
 
       const pieItem = coin.reduce((prev, current) => {
-        const price = cryptos.find(item => item.node.id === current.id).node
+        const price = cryptos.find(item => item.node.id === current.get('id')).node
           .priceUsd;
-        const itemTotal = parseFloat(current.amountOfCoin) * parseFloat(price);
+        const itemTotal = parseFloat(current.get('amountOfCoin')) * parseFloat(price);
         const newObj = {
           name: node.symbol,
           amount: ((parseFloat(prev.amount) || 0) + itemTotal).toFixed(2),
@@ -83,13 +90,13 @@ export const getPieData = () =>
         return newObj;
       }, {});
 
-      pieData.push(pieItem);
+      pieData = pieData.push(fromJS(pieItem));
 
       coin.map(transaction => {
-        const price = cryptos.find(item => item.node.id === transaction.id).node
+        const price = cryptos.find(item => item.node.id === transaction.get('id')).node
           .priceUsd;
 
-        const totalPrice = parseFloat(transaction.amountOfCoin) * price;
+        const totalPrice = parseFloat(transaction.get('amountOfCoin')) * price;
         return (totalAmount += totalPrice);
       });
 

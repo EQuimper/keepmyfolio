@@ -7,3 +7,5 @@ jspm_packages
 dist/
 
 keepmyfolio-api.zip
+
+.idea/

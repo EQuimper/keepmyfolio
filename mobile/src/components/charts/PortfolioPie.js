@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
+import { List, Map } from 'immutable';
 // ------------------------------------
 // COMPONENTS
 // ------------------------------------
@@ -59,10 +60,10 @@ const styles = StyleSheet.create({
   },
 });
 
-type Item = {
+type Item = Map<string, {
   percent: string,
   name: string,
-};
+}>;
 
 const PIE_WIDTH = WIDTH / 2 - 10;
 
@@ -74,7 +75,7 @@ type Props = {
   darkTheme: boolean,
   onSelectCrypto: (index: number) => void,
   color: string,
-  data: Array<{ name: string, percent: string }>,
+  data: List<Map<string, { name: string, percent: string }>>,
 };
 
 class PortfolioPie extends PureComponent<void, Props, State> {
@@ -83,15 +84,16 @@ class PortfolioPie extends PureComponent<void, Props, State> {
     data: this.props.data,
   };
 
-  _value = (item: Item) => item.percent;
+  _value = (item: Item) => item.get('percent');
 
-  _label = (item: Item) => item.name;
+  _label = (item: Item) => item.get('name');
 
   _color = (index: number) =>
     getColorForWalletGraph(this.props.darkTheme, index);
 
   _createPieChart = (index: number) => {
-    const arcs = d3.shape.pie().value(this._value)(this.props.data);
+    // TODO: Here I need to have an array to make it work, look for a way with list
+    const arcs = d3.shape.pie().value(this._value)(this.props.data.toArray());
 
     const hightlightedArc = d3.shape
       .arc()
@@ -167,7 +169,7 @@ class PortfolioPie extends PureComponent<void, Props, State> {
       <View style={styles.root}>
         <View style={styles.left}>
           <Surface height={PIE_WIDTH + 30} width={PIE_WIDTH + 30}>
-            {data.length === 0 ? (
+            {data.size === 0 ? (
               <Group x={x} y={y}>
                 <AnimShape
                   color={colors.lightGrey}

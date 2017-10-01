@@ -1,13 +1,14 @@
 // @flow
 
 import invariant from 'invariant';
+import { List, fromJS, Map } from 'immutable';
 
-type Data = Array<{
+type Data = List<Map<string, {
   name: string,
   amount: string
-}>;
+}>>;
 
-type ReturnData = Array<{
+type ReturnData = List<{
   name: string,
   percent: string,
 }>;
@@ -43,18 +44,21 @@ function getPercent(total: ?(string | number), amount: ?(string | number)): numb
 }
 
 // TODO: Wrote test for this one
-// TODO: MAKE IT IMMUTABLE
 export function getPiePercent(data: Data, total: string): ReturnData {
-  const arr = data.reduce((prev, current) => {
+  invariant(List.isList(data), 'You must provided a Immutable.List');
+  const arr: Array<Object> = data.reduce((prev, current) => {
     const newArr = [...prev, {
-      name: current.name,
-      percent: getPercent(total, current.amount).toFixed(2)
+      name: current.get('name'),
+      // $FlowFixMe
+      percent: getPercent(total, current.get('amount')).toFixed(2)
     }]
 
     return newArr;
   }, []);
 
+
+
   const arrSorted = [...arr].sort((a, b) => parseFloat(b.percent) - parseFloat(a.percent));
 
-  return arrSorted;
+  return fromJS(arrSorted);
 }

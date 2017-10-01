@@ -1,6 +1,7 @@
 // @flow
 
 import createCachedSelector from 're-reselect';
+import { Map } from 'immutable';
 
 import type { State } from '../types';
 
@@ -20,13 +21,13 @@ const getPercentChange1h = (state: State, props) =>
 
 export const getHolding = createCachedSelector(
   [getAssetsEntities],
-  entities => {
+  (entities: Map<string, Map<string, any>>) => {
     if (entities == null) {
       return 0;
     }
 
     const totalAmount: number = entities.reduce(
-      (prev, current) => prev + parseFloat(current.amountOfCoin),
+      (prev, current) => prev + parseFloat(current.get('amountOfCoin')),
       0,
     );
 
@@ -36,7 +37,7 @@ export const getHolding = createCachedSelector(
 
 export const getTotal = createCachedSelector(
   [getHolding, getPrice],
-  (holding, price) => {
+  (holding: ?number, price: number) => {
     if (!holding) {
       return null;
     }
@@ -47,7 +48,7 @@ export const getTotal = createCachedSelector(
 
 export const getAmountChange = createCachedSelector(
   [getHolding, getPrice, getPercentChange1h],
-  (holding, price, percentChange) => {
+  (holding: ?number, price: number, percentChange: number) => {
     if (!holding) {
       return null;
     }
