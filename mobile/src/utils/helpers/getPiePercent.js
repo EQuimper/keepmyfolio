@@ -3,19 +3,27 @@
 import invariant from 'invariant';
 import { List, fromJS, Map } from 'immutable';
 
-type Data = List<Map<string, {
-  name: string,
-  amount: string
-}>>;
+type Data = List<
+  Map<
+    string,
+    {
+      name: string,
+      amount: string,
+    },
+  >,
+>;
 
-type ReturnData = List<{
+type ReturnData = List<Map< string, {
   name: string,
   percent: string,
-}>;
+}>>;
 
 // TODO: Find solution for eslint
 // TODO: Wrote test for this one
-function getPercent(total: ?(string | number), amount: ?(string | number)): number {
+export function getPercent(
+  total: ?(string | number),
+  amount: ?(string | number),
+): number {
   invariant(total != null, 'Total value is required');
   invariant(!isNaN(total), 'Total need to resolve to a number'); // eslint-disable-line
   invariant(amount != null, 'Amount value is required');
@@ -25,7 +33,7 @@ function getPercent(total: ?(string | number), amount: ?(string | number)): numb
   let _amount: number;
 
   if (typeof total === 'number') {
-    _total = total
+    _total = total;
   } else if (typeof total === 'string') {
     _total = parseFloat(total);
   } else {
@@ -33,32 +41,34 @@ function getPercent(total: ?(string | number), amount: ?(string | number)): numb
   }
 
   if (typeof amount === 'number') {
-    _amount = amount
+    _amount = amount;
   } else if (typeof amount === 'string') {
     _amount = parseFloat(amount);
   } else {
-    _amount = 0
+    _amount = 0;
   }
 
-  return (_amount / _total) * 100;
+  return _amount / _total * 100;
 }
 
-// TODO: Wrote test for this one
 export function getPiePercent(data: Data, total: string): ReturnData {
   invariant(List.isList(data), 'You must provided a Immutable.List');
   const arr: Array<Object> = data.reduce((prev, current) => {
-    const newArr = [...prev, {
-      name: current.get('name'),
-      // $FlowFixMe
-      percent: getPercent(total, current.get('amount')).toFixed(2)
-    }]
+    const newArr = [
+      ...prev,
+      {
+        name: current.get('name'),
+        // $FlowFixMe
+        percent: getPercent(total, current.get('amount')).toFixed(2),
+      },
+    ];
 
     return newArr;
   }, []);
 
-
-
-  const arrSorted = [...arr].sort((a, b) => parseFloat(b.percent) - parseFloat(a.percent));
+  const arrSorted = [...arr].sort(
+    (a, b) => parseFloat(b.percent) - parseFloat(a.percent),
+  );
 
   return fromJS(arrSorted);
 }
