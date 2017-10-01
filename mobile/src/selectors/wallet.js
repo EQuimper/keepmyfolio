@@ -6,7 +6,7 @@ import invariant from 'invariant';
 
 import type { State } from '../types';
 
-import { moneyThousand } from '../utils/helpers/formatNumber';
+import { moneyThousand } from '../utils/helpers/numbers';
 import { getPiePercent } from '../utils/helpers/getPiePercent';
 
 const getCryptosEntities = (state: State) => state.get('cryptos').entities;
@@ -14,9 +14,6 @@ const getCryptos = (_, props) => props.viewer.cryptos.edges;
 
 export const getWalletTotalAmount = () =>
   createSelector([getCryptosEntities, getCryptos], (entities, cryptos) => {
-    console.log('====================================');
-    console.log('getWalletTotalAmount CALL');
-    console.log('====================================');
     let totalAmount: number = 0;
     let pastAmount: number = 0;
     let difference: number = 0;
@@ -64,9 +61,6 @@ export const getWalletTotalAmount = () =>
 
 export const getPieData = () =>
   createSelector([getCryptosEntities, getCryptos], (entities, cryptos) => {
-    console.log('====================================');
-    console.log('getPieData CALL');
-    console.log('====================================');
     let totalAmount: number = 0;
     let pieData: List<Map<string, { name: string, amount: string }>> = new List();
 

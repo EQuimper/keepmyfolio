@@ -2,9 +2,29 @@
 
 import invariant from 'invariant';
 
-import { isNumeric } from './numbers';
-
 // TODO: Reformat this code
+
+/**
+ * Return true if the value is a
+ * number or can be parse to a number
+ *
+ * @export
+ * @param {*} value
+ * @returns {boolean}
+ */
+export function isNumeric(value: any): boolean {
+  invariant(value != null, 'isNumeric need a value to work');
+
+  if (typeof value === 'number') {
+    return true
+  }
+
+  if (typeof value === 'string' && !isNaN(value)) { // eslint-disable-line
+    return true;
+  }
+
+  return false;
+}
 
 /**
  * Reformat a number for give space between thousand

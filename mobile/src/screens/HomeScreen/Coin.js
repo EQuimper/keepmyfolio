@@ -20,7 +20,7 @@ import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
 import { CoinMarket } from '../../utils/api';
 import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
-import { moneyThousand } from '../../utils/helpers/formatNumber';
+import { moneyThousand } from '../../utils/helpers/numbers';
 import * as selectors from '../../selectors/cryptos';
 
 const COIN_ICON_SIZE = 30;

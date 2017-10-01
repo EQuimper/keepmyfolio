@@ -1,6 +1,6 @@
 // @noflow
 
-import { thousandSpace, toMoney, moneyThousand } from '../formatNumber';
+import { thousandSpace, toMoney, moneyThousand, isNumeric } from '../numbers';
 
 describe('#thousandSpace()', () => {
   it('should return space between thousand', () => {
@@ -33,6 +33,14 @@ describe('#toMoney', () => {
     expect(toMoney(0)).toBe('0.00');
   });
 
+  it('should return an error if value cannot be parse to a number', () => {
+    function call() {
+      toMoney('hello world');
+    }
+
+    expect(call).toThrowError('Cannot parse number');
+  });
+
   it('should return an error if no value provided', () => {
     function call() {
       toMoney();
@@ -55,5 +63,32 @@ describe('#moneyThousand()', () => {
     }
 
     expect(call).toThrowError('Value is required');
+  });
+});
+
+describe('#isNumeric()', () => {
+  it('should throw error if value not provided', () => {
+    function call() {
+      isNumeric();
+    }
+
+    expect(call).toThrowError('isNumeric need a value to work');
+  });
+
+  it('should return true if value is a number', () => {
+    expect(isNumeric(2)).toBe(true);
+    expect(isNumeric(5677.54)).toBe(true);
+    expect(isNumeric(9999)).toBe(true);
+  });
+
+  it('should return true if value is a string but can be parse to a number', () => {
+    expect(isNumeric('2')).toBe(true);
+    expect(isNumeric('5677.54')).toBe(true);
+    expect(isNumeric('9999')).toBe(true);
+  });
+
+  it('should return false if value is something else than a string or number', () => {
+    expect(isNumeric([1, 2])).toBe(false);
+    expect(isNumeric({ name: 'hello' })).toBe(false);
   });
 });

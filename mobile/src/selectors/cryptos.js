@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 
 import type { State } from '../types';
 
-import { moneyThousand } from '../utils/helpers/formatNumber';
+import { moneyThousand } from '../utils/helpers/numbers';
 
 const getAssetsEntities = (state: State, props) =>
   state.get('cryptos').entities.get(props.coin.cryptoId);

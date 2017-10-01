@@ -20,7 +20,7 @@ import MetaCard from './MetaCard';
  * UTILS
  */
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
-import { moneyThousand, thousandSpace } from '../../utils/helpers/formatNumber';
+import { moneyThousand, thousandSpace } from '../../utils/helpers/numbers';
 import { colors } from '../../utils/constants';
 import { createRenderer } from '../../RelayUtils';
 
