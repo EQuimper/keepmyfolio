@@ -87,6 +87,12 @@ describe('#isNumeric()', () => {
     expect(isNumeric('9999')).toBe(true);
   });
 
+  it('should return false if value is a string but cannot be parse to a number', () => {
+    expect(isNumeric('hello')).toBe(false);
+    expect(isNumeric('wow')).toBe(false);
+    expect(isNumeric('hahahah')).toBe(false);
+  });
+
   it('should return false if value is something else than a string or number', () => {
     expect(isNumeric([1, 2])).toBe(false);
     expect(isNumeric({ name: 'hello' })).toBe(false);
