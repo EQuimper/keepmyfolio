@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../utils/constants';
 
 const styles = StyleSheet.create({

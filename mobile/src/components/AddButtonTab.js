@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../utils/constants';
 
 const ADD_BUTTON_SIZE = 50;

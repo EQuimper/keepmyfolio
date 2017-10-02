@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighLightTab Components should have a borderBottomWidth of 0 if focused is false 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "borderRadius": 1,
+        "flex": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "borderBottomColor": "#00C0FF",
+        "borderBottomWidth": 0,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`HighLightTab Components should have a borderBottomWidth of 1 if focused 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "borderRadius": 1,
+        "flex": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "borderBottomColor": "#00C0FF",
+        "borderBottomWidth": 1,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`HighLightTab Components should renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "borderRadius": 1,
+        "flex": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "borderBottomColor": "#00C0FF",
+        "borderBottomWidth": 1,
+      },
+    ]
+  }
+/>
+`;

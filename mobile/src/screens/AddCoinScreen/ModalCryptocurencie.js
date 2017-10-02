@@ -86,6 +86,7 @@ type Props = {
   viewer: Viewer,
 };
 
+// TODO: Add this to react-navigation not just modal
 class ModalCryptocurencie extends PureComponent<void, Props, void> {
   _onCloseButtonPress = () => this.props.onCloseButtonPress();
 

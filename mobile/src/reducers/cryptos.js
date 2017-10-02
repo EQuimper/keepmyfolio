@@ -2,9 +2,10 @@
 
 import { Record, Map, fromJS } from 'immutable';
 
+/**
+ * TYPES
+ */
 import type { Action, CryptosState, HoldingData } from '../types';
-
-// TODO: Make sure the transaction it's a map
 
 export const StateRecord = Record({
   entities: new Map(),
@@ -13,8 +14,6 @@ export const StateRecord = Record({
 
 function addNewHolding(state, action) {
   const _transactionId: number = state.get('transactionId') + 1;
-
-  // const mapObj = Map(state.get('transactionId'), action.coin)
 
   const _newTransaction: Map<string, HoldingData> = Map({
     [state.get('transactionId')]: fromJS(action.coin),

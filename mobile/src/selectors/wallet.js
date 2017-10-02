@@ -19,6 +19,7 @@ export const getWalletTotalAmount = () =>
     let difference: number = 0;
 
     // TODO: Get price for each coin at this moment
+    // TODO: BUG WITH PERCENT 0.00
     entities.map(coin => {
       invariant(Map.isMap(coin), 'Each coin need to be a map');
 

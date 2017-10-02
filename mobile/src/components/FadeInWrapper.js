@@ -1,5 +1,4 @@
 // @flow
-// Used to fade in content after loading.
 
 import React, { PureComponent } from 'react';
 import { Animated, StyleSheet } from 'react-native';

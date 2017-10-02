@@ -53,11 +53,11 @@ export const getAmountChange = createCachedSelector(
       return null;
     }
 
-    if (Math.abs(percentChange) === 0) {
-      return null;
-    }
-
     const totalDollarUserHave: number = holding * price;
+
+    if (Math.abs(percentChange) === 0) {
+      return moneyThousand(String(totalDollarUserHave));
+    }
 
     return moneyThousand(String(totalDollarUserHave * percentChange / 100));
   },

@@ -2,8 +2,14 @@
 
 import { Record } from 'immutable';
 
+/**
+ * TYPES
+ */
 import type { AppState, Action, ThemeColorsData } from '../types';
 
+/**
+ * UTILS
+ */
 import { themes } from '../utils/constants';
 
 export const StateRecord = Record({

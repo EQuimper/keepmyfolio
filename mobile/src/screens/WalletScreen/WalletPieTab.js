@@ -4,21 +4,24 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { List } from 'immutable';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+import { List, Map } from 'immutable';
+
+/**
+ * TYPES
+ */
 import type { State as AppState, ThemeColorsData } from '../../types';
 import type { WalletPieTab_viewer as Viewer } from './__generated__/WalletPieTab_viewer.graphql';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import PortfolioPie from '../../components/charts/PortfolioPie';
 import WalletGraph from '../../components/charts/WalletGraph';
 import WalletHeader from './WalletHeader';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { getColorForWalletGraph } from '../../utils/helpers/getColorForWalletGraph';
 import { createRenderer } from '../../RelayUtils';
 import { getWalletTotalAmount, getPieData } from '../../selectors/wallet';
@@ -61,7 +64,7 @@ type Props = {
   totalPercent: string,
   totalAmountChange: string,
   viewer: Viewer,
-  pieData: List<{ name: string, percent: string }>,
+  pieData: List<Map<string, { name: string, percent: string }>>,
 };
 
 type State = {

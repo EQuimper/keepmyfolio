@@ -2,6 +2,9 @@
 
 import { router } from '../navigations';
 
+/**
+ * TYPES
+ */
 import type { NavigationState, NavigationAction } from '../types';
 
 export default function navigationReducer(

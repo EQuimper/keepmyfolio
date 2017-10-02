@@ -25,8 +25,10 @@ class AnimShape extends Component<void, Props, State> {
     this._computeNextState(this.props);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    this._computeNextState(nextProps);
+  componentWillReceiveProps(nextProps: Props, props: Props) {
+    if (nextProps !== props) {
+      this._computeNextState(nextProps);
+    }
   }
 
   _previousGraph: any;
