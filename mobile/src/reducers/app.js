@@ -6,7 +6,7 @@ import type { AppState, Action, ThemeColorsData } from '../types';
 
 import { themes } from '../utils/constants';
 
-const StateRecord = Record({
+export const StateRecord = Record({
   darkTheme: true,
   theme: themes.dark,
   isSearchBarShow: false,

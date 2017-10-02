@@ -66,6 +66,9 @@
     "relay-compiler": "^1.3.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./scripts/jestSetup.js"
+    ]
   }
 }

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Reducer #toggleSearchBar() should toggle the searchBar to false if the state was true 1`] = `
+Immutable.Record {
+  "darkTheme": true,
+  "theme": Object {
+    "cardBackground": "#161C36",
+    "darkBlue": "#161C36",
+    "darkGray": "#31393C",
+    "green": "#4ADF86",
+    "greyOutline": "#bbbbbb",
+    "headerTitleColor": "#ffffff",
+    "lightGrey": "#B4B4B4",
+    "primary": "#00C0FF",
+    "primaryLight": "rgba(0, 192, 255, 0.15)",
+    "red": "#F8333C",
+    "tabBarColor": "#192543",
+    "textColor": "#ffffff",
+    "thumbTintColor": "#ffffff",
+    "transparent": "transparent",
+    "white": "#ffffff",
+  },
+  "isSearchBarShow": false,
+}
+`;
+
+exports[`App Reducer #toggleSearchBar() should toggle the searchBar to true if the state was false 1`] = `
+Immutable.Record {
+  "darkTheme": true,
+  "theme": Object {
+    "cardBackground": "#161C36",
+    "darkBlue": "#161C36",
+    "darkGray": "#31393C",
+    "green": "#4ADF86",
+    "greyOutline": "#bbbbbb",
+    "headerTitleColor": "#ffffff",
+    "lightGrey": "#B4B4B4",
+    "primary": "#00C0FF",
+    "primaryLight": "rgba(0, 192, 255, 0.15)",
+    "red": "#F8333C",
+    "tabBarColor": "#192543",
+    "textColor": "#ffffff",
+    "thumbTintColor": "#ffffff",
+    "transparent": "transparent",
+    "white": "#ffffff",
+  },
+  "isSearchBarShow": true,
+}
+`;
+
+exports[`App Reducer #toggleTheme() should put darkTheme to false if was true before and theme to light one 1`] = `
+Immutable.Record {
+  "darkTheme": false,
+  "theme": Object {
+    "cardBackground": "#ffffff",
+    "darkBlue": "#161C36",
+    "darkGray": "#31393C",
+    "green": "#4ADF86",
+    "greyOutline": "#bbbbbb",
+    "headerTitleColor": "#31393C",
+    "lightGrey": "#B4B4B4",
+    "primary": "#00C0FF",
+    "primaryLight": "rgba(0, 192, 255, 0.15)",
+    "red": "#F8333C",
+    "tabBarColor": "#F3F3F3",
+    "textColor": "#31393C",
+    "thumbTintColor": "#31393C",
+    "transparent": "transparent",
+    "white": "#ffffff",
+  },
+  "isSearchBarShow": false,
+}
+`;
+
+exports[`App Reducer #toggleTheme() should put darkTheme to true if was false before and theme to dark one 1`] = `
+Immutable.Record {
+  "darkTheme": true,
+  "theme": Object {
+    "cardBackground": "#161C36",
+    "darkBlue": "#161C36",
+    "darkGray": "#31393C",
+    "green": "#4ADF86",
+    "greyOutline": "#bbbbbb",
+    "headerTitleColor": "#ffffff",
+    "lightGrey": "#B4B4B4",
+    "primary": "#00C0FF",
+    "primaryLight": "rgba(0, 192, 255, 0.15)",
+    "red": "#F8333C",
+    "tabBarColor": "#192543",
+    "textColor": "#ffffff",
+    "thumbTintColor": "#ffffff",
+    "transparent": "transparent",
+    "white": "#ffffff",
+  },
+  "isSearchBarShow": false,
+}
+`;
+
+exports[`App Reducer Initial State should return the initialState on default 1`] = `
+Immutable.Record {
+  "darkTheme": true,
+  "theme": Object {
+    "cardBackground": "#161C36",
+    "darkBlue": "#161C36",
+    "darkGray": "#31393C",
+    "green": "#4ADF86",
+    "greyOutline": "#bbbbbb",
+    "headerTitleColor": "#ffffff",
+    "lightGrey": "#B4B4B4",
+    "primary": "#00C0FF",
+    "primaryLight": "rgba(0, 192, 255, 0.15)",
+    "red": "#F8333C",
+    "tabBarColor": "#192543",
+    "textColor": "#ffffff",
+    "thumbTintColor": "#ffffff",
+    "transparent": "transparent",
+    "white": "#ffffff",
+  },
+  "isSearchBarShow": false,
+}
+`;

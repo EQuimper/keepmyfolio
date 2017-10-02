@@ -4,6 +4,14 @@ import { addNewHolding } from '../../actions/cryptos';
 import reducer, { StateRecord } from '../cryptos';
 
 describe('Cryptos Reducer', () => {
+  describe('Initial State', () => {
+    it('should return the initialState on default', () => {
+      const state = new StateRecord();
+
+      expect(reducer(state, { type: 'INITIAL' })).toMatchSnapshot();
+    });
+  });
+
   describe('#addNewHolding()', () => {
     const holding1 = {
       amountOfCoin: '2',

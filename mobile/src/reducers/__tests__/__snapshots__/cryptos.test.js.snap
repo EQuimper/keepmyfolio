@@ -151,3 +151,10 @@ Immutable.Record {
   "transactionId": 3,
 }
 `;
+
+exports[`Cryptos Reducer Initial State should return the initialState on default 1`] = `
+Immutable.Record {
+  "entities": Immutable.Map {},
+  "transactionId": 0,
+}
+`;
