@@ -6,14 +6,16 @@ import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { Environment, RecordSource, Store } from 'relay-runtime';
 import { QueryRenderer } from 'react-relay';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import EmptyStateView from './components/commons/EmptyStateView';
 import Loading from './components/Loading';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import network from './network';
 
 const styles = StyleSheet.create({

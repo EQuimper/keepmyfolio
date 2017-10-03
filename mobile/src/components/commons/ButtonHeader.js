@@ -3,12 +3,10 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
-const HIT_SLOP = {
-  top: 20,
-  bottom: 20,
-  right: 20,
-  left: 20,
-};
+/**
+ * UTILS
+ */
+import { metrics } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   root: {
@@ -38,7 +36,7 @@ export default function ButtonHeader({
   return (
     <TouchableOpacity
       disabled={disabled}
-      hitSlop={HIT_SLOP}
+      hitSlop={metrics.hitSlop(20)}
       onPress={onPress}
       style={[styles.root, _style]}
     >

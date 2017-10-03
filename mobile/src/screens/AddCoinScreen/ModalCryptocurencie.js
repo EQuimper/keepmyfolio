@@ -30,16 +30,9 @@ import CryptoItem from './CryptoItem';
  * UTILS
  */
 import { createRenderer } from '../../RelayUtils';
-import { colors } from '../../utils/constants';
+import { colors, metrics } from '../../utils/constants';
 
 const PAGE_SIZE = 10;
-
-const HIT_SLOP = {
-  top: 20,
-  left: 20,
-  right: 20,
-  bottom: 20,
-};
 
 const styles = StyleSheet.create({
   contentWrapper: {
@@ -120,7 +113,7 @@ class ModalCryptocurencie extends PureComponent<void, Props, void> {
       >
         <View style={[styles.wrapper, { backgroundColor: theme.tabBarColor }]}>
           <TouchableOpacity
-            hitSlop={HIT_SLOP}
+            hitSlop={metrics.hitSlop(20)}
             onPress={this._onCloseButtonPress}
             style={styles.closeBtn}
           >

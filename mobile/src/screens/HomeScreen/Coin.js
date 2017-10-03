@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import idx from 'idx';
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Map } from 'immutable';
@@ -15,10 +15,15 @@ import type { Navigation, ThemeColorsData, HoldingData } from '../../types';
 import type { Coin_coin as CoinData } from './__generated__/Coin_coin.graphql';
 
 /**
+ * COMPONENTS
+ */
+import { Text, NameText } from '../../components/commons/Typographie';
+
+/**
  * UTILS
  */
 import { CoinMarket } from '../../utils/api';
-import { colors } from '../../utils/constants';
+import { colors, metrics } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 import { moneyThousand } from '../../utils/helpers/numbers';
 import * as selectors from '../../selectors/cryptos';
@@ -59,8 +64,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 14,
-    fontWeight: '500',
     marginTop: 5,
     textAlign: 'center',
   },
@@ -69,16 +72,13 @@ const styles = StyleSheet.create({
     flex: 0.4,
     justifyContent: 'center',
   },
-  totalText: {
-    fontSize: 15,
-  },
   totalWrapper: {
     alignItems: 'center',
     flexDirection: 'row',
   },
   noHolding: {
     color: colors.lightGrey,
-  }
+  },
 });
 
 type IconProps = {
@@ -200,19 +200,13 @@ class Coin extends PureComponent<void, Props, void> {
         {this.props.entities ? (
           <View style={styles.contentWrapper}>
             <View style={styles.totalWrapper}>
-              <Text style={[styles.totalText, { color: theme.textColor }]}>
-                <Text style={[styles.totalText, { color: colors.lightGrey }]}>
-                  Total:
-                </Text>{' '}
-                ${this.props.total}{' '}
+              <Text style={{ color: theme.textColor }}>
+                <NameText style={{ color: colors.lightGrey }}>Total:</NameText> ${this.props.total}{' '}
               </Text>
               {this._getIconArrow()}
             </View>
             <Text
-              style={[
-                styles.totalText,
-                { color: this._getIfNeg() ? colors.red : colors.green },
-              ]}
+              style={{ color: this._getIfNeg() ? colors.red : colors.green }}
             >
               ${this.props.amountChange}
             </Text>
@@ -228,15 +222,15 @@ class Coin extends PureComponent<void, Props, void> {
           {this._getPercentChange1h()}
         </View>
         <Text style={[styles.holdingText, { color: theme.textColor }]}>
-          <Text style={[styles.holdingText, { color: colors.lightGrey }]}>
+          <NameText style={[styles.holdingText, { color: colors.lightGrey }]}>
             Holdings:
-          </Text>{' '}
+          </NameText>{' '}
           {this.props.holding}
         </Text>
         <Text style={[styles.priceUsdText, { color: theme.textColor }]}>
-          <Text style={[styles.priceUsdText, { color: colors.lightGrey }]}>
+          <NameText style={[styles.priceUsdText, { color: colors.lightGrey }]}>
             Price:
-          </Text>{' '}
+          </NameText>{' '}
           {this._getPrice()}
         </Text>
       </TouchableOpacity>
@@ -248,7 +242,7 @@ const CoinConnected = connect((state, props) => ({
   entities: selectors.getAsset(state, props),
   holding: selectors.getHolding(state, props),
   total: selectors.getTotal(state, props),
-  amountChange: selectors.getAmountChange(state, props)
+  amountChange: selectors.getAmountChange(state, props),
 }))(Coin);
 
 export default createFragmentContainer(

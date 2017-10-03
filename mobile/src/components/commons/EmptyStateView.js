@@ -2,12 +2,18 @@
 
 // TODO: MAKE IT BETTER
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State, ThemeColorsData } from '../../types';
+
+/**
+ * COMPONENTS
+ */
+import { Text } from '../commons/Typographie';
 
 const styles = StyleSheet.create({
   root: {

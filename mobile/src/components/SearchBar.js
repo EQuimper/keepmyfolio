@@ -5,7 +5,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  Platform,
   LayoutAnimation,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,12 +15,8 @@ import { connect } from 'react-redux';
  */
 import type { ThemeColorsData, State as AppState } from '../types';
 
-/**
- * UTILS
- */
-import { colors } from '../utils/constants';
-
 const ANIMATION_MS = 300;
+const ICON_SIZE = 25;
 
 const styles = StyleSheet.create({
   root: {
@@ -114,14 +109,14 @@ class SearchBar extends Component<void, Props, State> {
           style={[styles.wrapper, { backgroundColor: theme.cardBackground }]}
         >
           <View style={styles.iconWrapper}>
-            <Ionicons color={theme.textColor} name="ios-search" size={25} />
+            <Ionicons color={theme.textColor} name="ios-search" size={ICON_SIZE} />
           </View>
           <TextInput
             autoCorrect={false}
             autoFocus={this.state.isFocused}
             onChangeText={this._onChangeText}
             returnKeyType="search"
-            selectionColor={Platform.OS === 'ios' ? colors.primary : undefined}
+            selectionColor={theme.selectionColor}
             style={[styles.input, { color: theme.textColor }]}
             underlineColorAndroid="transparent"
           />

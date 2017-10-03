@@ -278,8 +278,6 @@ const AppMainNav = StackNavigator(
     initialRouteName: 'Tabs',
     cardStyle: {
       backgroundColor: '#161C36',
-      // backgroundColor: 'transparent',
-      // shadowColor: 'transparent'
     },
   },
 );

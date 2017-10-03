@@ -5,18 +5,21 @@ import { connect } from 'react-redux';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { State } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import WalletPieTab from './WalletPieTab';
 import WalletAssets from './WalletAssets';
-// ------------------------------------
-// UTILS
-// ------------------------------------
+
+/**
+ * UTILS
+ */
 import { colors } from '../../utils/constants';
 
 const ICON_SIZE = 30;

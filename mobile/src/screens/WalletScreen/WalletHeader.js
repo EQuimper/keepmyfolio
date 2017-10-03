@@ -1,12 +1,17 @@
 // @flow
 
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 /**
  * TYPES
  */
 import type { ThemeColorsData } from '../../types';
+
+/**
+ * COMPONENTS
+ */
+import { NameText, Text } from '../../components/commons/Typographie';
 
 /**
  * UTILS
@@ -21,14 +26,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 10,
     width: '100%',
-  },
-  title: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: '600',
   },
   tableEl: {
     flex: 1,
@@ -61,25 +58,25 @@ function WalletHeader({
   return (
     <View style={[styles.root, { backgroundColor: theme.tabBarColor }]}>
       <View style={styles.tableEl}>
-        <Text style={[styles.title, { color: theme.lightGrey }]}>
+        <NameText style={{ color: theme.lightGrey }}>
           Total Dollars
-        </Text>
-        <Text style={[styles.amount, { color: theme.textColor }]}>
+        </NameText>
+        <Text style={{ color: theme.textColor }}>
           {totalAssets}
         </Text>
       </View>
       <View style={styles.tableEl}>
-        <Text style={[styles.title, { color: theme.lightGrey }]}>Gain $</Text>
+        <NameText style={{ color: theme.lightGrey }}>Gain $</NameText>
         <Text
-          style={[styles.amount, { color }]}
+          style={{ color }}
         >
           {totalGain}
         </Text>
       </View>
       <View style={styles.tableEl}>
-        <Text style={[styles.title, { color: theme.lightGrey }]}>Gain %</Text>
+        <NameText style={{ color: theme.lightGrey }}>Gain %</NameText>
         <Text
-          style={[styles.amount, { color }]}
+          style={{ color }}
         >
           {totalPercent}
         </Text>

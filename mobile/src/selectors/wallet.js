@@ -4,8 +4,14 @@ import { createSelector } from 'reselect';
 import { Map, List, fromJS } from 'immutable';
 import invariant from 'invariant';
 
+/**
+ * TYPES
+ */
 import type { State } from '../types';
 
+/**
+ * UTILS
+ */
 import { moneyThousand } from '../utils/helpers/numbers';
 import { getPiePercent } from '../utils/helpers/getPiePercent';
 
@@ -19,7 +25,6 @@ export const getWalletTotalAmount = () =>
     let difference: number = 0;
 
     // TODO: Get price for each coin at this moment
-    // TODO: BUG WITH PERCENT 0.00
     entities.map(coin => {
       invariant(Map.isMap(coin), 'Each coin need to be a map');
 

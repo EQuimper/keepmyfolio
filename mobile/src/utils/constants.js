@@ -1,5 +1,6 @@
 // @flow
 
+import { Platform } from 'react-native';
 import { createBlacklistFilter } from '@actra-development-oss/redux-persist-transform-filter-immutable';
 import DeviceInfo from 'react-native-device-info';
 
@@ -8,6 +9,11 @@ import DeviceInfo from 'react-native-device-info';
  */
 import type { DeviceInfoType } from '../types';
 
+import { makeHitSlop } from './helpers/makeHitSlop';
+
+/**
+ * Basic app colors
+ */
 export const colors = {
   red: '#F8333C',
   green: '#4ADF86',
@@ -19,6 +25,8 @@ export const colors = {
   white: '#ffffff',
   transparent: 'transparent',
   darkBlue: '#161C36',
+  black: '#000',
+  selectionColor: Platform.OS === 'ios' ? '#00C0FF' : undefined
 };
 
 /**
@@ -44,7 +52,7 @@ export const themes = {
 };
 
 /**
- * Remove some keey from the app reducer
+ * Remove some key from the app reducer
  */
 export const subsetOfAppReducer = createBlacklistFilter('app', [
   'isSearchBarShow',
@@ -75,7 +83,7 @@ export const pieChartColors = {
  */
 export const properties = {
   feedbackEmail: {
-    email: 'quimperemanuel@gmail.comn',
+    email: 'quimperemanuel@gmail.com',
     subject: 'KeepMyFolio feedback',
   },
 };
@@ -86,3 +94,28 @@ export const properties = {
 export const deviceInfo: DeviceInfoType = {
   isEmulator: DeviceInfo.isEmulator(),
 };
+
+/**
+ * Basic metrics of the app
+ */
+export const metrics = {
+  hitSlop: makeHitSlop,
+  shadow: {
+    basic: {
+      shadowOffset: {
+        width: 2,
+        height: 0
+      },
+      shadowOpacity: 0.2,
+      shadowColor: colors.black,
+      shadowRadius: 6
+    }
+  }
+};
+
+/**
+ * Fonts of the app
+ */
+export const fonts = {
+
+}

@@ -1,12 +1,17 @@
 // @flow
 
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+/**
+ * COMPONENTS
+ */
+import { Text, NameText } from '../../components/commons/Typographie';
 
 /**
  * UTILS
  */
-import { colors } from '../../utils/constants';
+import { colors, metrics } from '../../utils/constants';
 
 const styles = StyleSheet.create({
   root: {
@@ -15,13 +20,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 15,
-  },
-  valueText: {
-    fontSize: 15,
-    fontWeight: '500',
   },
   titleWrapper: {
     flex: 0.4,
@@ -35,6 +33,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
+    ...metrics.shadow.basic
   },
 });
 
@@ -49,12 +48,12 @@ function MetaCard({ title, value, textColor, backgroundColor }: Props) {
   return (
     <View style={styles.root}>
       <View style={styles.titleWrapper}>
-        <Text style={[styles.title, { color: colors.lightGrey }]}>{title}</Text>
+        <NameText style={{ color: colors.lightGrey }}>{title}</NameText>
       </View>
       <View style={[styles.card, { backgroundColor }]}>
         <Text
           numberOfLines={1}
-          style={[styles.valueText, { color: textColor }]}
+          style={{ color: textColor }}
         >
           {value}
         </Text>

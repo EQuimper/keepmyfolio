@@ -5,13 +5,15 @@ import * as shape from 'd3-shape';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native'
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
-// ------------------------------------
-// TYPES
-// ------------------------------------
+
+/**
+ * TYPES
+ */
 import type { ThemeColorsData } from '../../types';
-// ------------------------------------
-// COMPONENTS
-// ------------------------------------
+
+/**
+ * COMPONENTS
+ */
 import AnimShape from './AnimShape';
 
 const d3 = {

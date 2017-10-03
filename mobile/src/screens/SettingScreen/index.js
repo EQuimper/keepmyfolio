@@ -100,7 +100,6 @@ class SettingScreen extends PureComponent<void, Props, void> {
             <Switch
               onTintColor={colors.primary}
               onValueChange={this._handleValueChange}
-              thumbTintColor={this.props.theme.thumbTintColor}
               tintColor={colors.primary}
               value={this.props.darkTheme}
             />
