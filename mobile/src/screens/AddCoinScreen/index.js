@@ -138,7 +138,7 @@ const initialState: State = {
 };
 
 // TODO: MAKE MODAL IN ROUTES
-class AddCoinScreen extends PureComponent<void, Props, State> {
+class AddCoinScreen extends PureComponent<Props, State> {
   state = initialState;
 
   _getCryptoName() {

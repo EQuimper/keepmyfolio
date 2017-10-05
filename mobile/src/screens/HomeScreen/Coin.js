@@ -23,7 +23,7 @@ import { Text, NameText } from '../../components/commons/Typographie';
  * UTILS
  */
 import { CoinMarket } from '../../utils/api';
-import { colors, metrics } from '../../utils/constants';
+import { colors } from '../../utils/constants';
 import { getIfPercentNegative } from '../../utils/helpers/getIfPercentNegative';
 import { moneyThousand } from '../../utils/helpers/numbers';
 import * as selectors from '../../selectors/cryptos';
@@ -97,7 +97,7 @@ type Props = {
   amountChange: ?string,
 };
 
-class Coin extends PureComponent<void, Props, void> {
+class Coin extends PureComponent<Props, void> {
   _getIfNeg(): boolean {
     const _percentChange1h =
       idx(this.props, _ => _.coin.percentChange1h) || '0';

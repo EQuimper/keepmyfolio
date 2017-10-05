@@ -65,7 +65,7 @@ type Props = {
   theme: ThemeColorsData,
 };
 
-class AssetItem extends PureComponent<void, Props, void> {
+class AssetItem extends PureComponent<Props, {}> {
   state = {  }
   render() {
     const { theme } = this.props;

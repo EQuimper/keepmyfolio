@@ -78,7 +78,7 @@ type Props = {
   data: List<Map<string, { name: string, percent: string }>>,
 };
 
-class PortfolioPie extends PureComponent<void, Props, State> {
+class PortfolioPie extends PureComponent<Props, State> {
   state = {
     highlightedIndex: 0,
     data: this.props.data,

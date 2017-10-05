@@ -19,7 +19,7 @@ type Props = {
   theme: ThemeColorsData,
 };
 
-class NotificationScreen extends PureComponent<void, Props, void> {
+class NotificationScreen extends PureComponent<Props, void> {
   render() {
     const { theme } = this.props;
     return (

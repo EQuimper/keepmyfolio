@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 /**
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 type Props = {
   backgroundColor: string,
-  children: React.Element<*>,
+  children: React.Node,
 };
 
 function AddButtonTab({ children, backgroundColor }: Props) {

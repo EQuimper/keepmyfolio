@@ -66,7 +66,7 @@ type Props = {
   viewer: Viewer,
 };
 
-class WalletAssets extends PureComponent<void, Props, void> {
+class WalletAssets extends PureComponent<Props, {}> {
   state = {};
   render() {
     const { theme } = this.props.screenProps;

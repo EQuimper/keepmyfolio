@@ -291,7 +291,7 @@ type Props = {
   darkTheme: boolean,
 };
 
-class AppNavigator extends Component<void, Props, void> {
+class AppNavigator extends Component<Props, void> {
   get _getBarStyle(): BarStyleProps {
     if (this.props.darkTheme) {
       return 'light-content';

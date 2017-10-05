@@ -28,18 +28,15 @@ const styles = StyleSheet.create({
   },
 });
 
-type DefaultProps = {
-  fillColor: string,
-  strokeColor: string,
-  strokeWidth: number,
-};
-
 type Props = {
   fillColor: string,
   strokeColor: string,
   strokeWidth: number,
   theme: ThemeColorsData,
   values: Array<number>,
+  fillColor: string,
+  strokeColor: string,
+  strokeWidth: number,
 };
 
 type State = {
@@ -47,7 +44,7 @@ type State = {
   width: number,
 };
 
-class CoinDetailsLine extends Component<DefaultProps, Props, State> {
+class CoinDetailsLine extends Component<Props, State> {
   static defaultProps = {
     fillColor: colors.primaryLight,
     strokeColor: colors.primary,

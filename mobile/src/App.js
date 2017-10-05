@@ -28,7 +28,7 @@ type State = {
   isReady: boolean,
 };
 
-class App extends PureComponent<void, {}, State> {
+class App extends PureComponent<{}, State> {
   state = {
     isReady: false,
   };

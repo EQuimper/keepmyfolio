@@ -2,7 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import EventEmitter from 'event-emitter';
-import React from 'react';
+import * as React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { Environment, RecordSource, Store } from 'relay-runtime';
 import { QueryRenderer } from 'react-relay';
@@ -35,9 +35,9 @@ type Config = {
   queries?: { [name: string]: any },
   queriesParams?: ?(props: Object) => Object,
   query?: any,
-  renderFailure?: (error: Error, retry?: () => void) => ?React.Element<*>,
-  renderFetched?: (props: Object) => ?React.Element<*>,
-  renderLoading?: () => ?React.Element<*>,
+  renderFailure?: (error: Error, retry?: () => void) => ?React.Node,
+  renderFetched?: (props: Object) => ?React.Node,
+  renderLoading?: () => ?React.Node,
 };
 
 const handlerProvider = null;
@@ -77,7 +77,6 @@ function createRendererInternal(Component: any, config: Config): any {
 
   // Used to fade in content after loading.
   class FadeInWrapper extends React.Component<
-    void,
     {
       enabled: boolean,
     },
@@ -109,7 +108,6 @@ function createRendererInternal(Component: any, config: Config): any {
   }
 
   class RelayRendererWrapper extends React.Component<
-    void,
     Object,
     { params: Object, relayEnvironment: any, hasError: boolean },
   > {

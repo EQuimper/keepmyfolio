@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 /**
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-  children: React.Element<*>,
+  children: React.Node,
   focused: boolean,
 };
 

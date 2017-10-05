@@ -73,7 +73,7 @@ type State = {
   width: number,
 };
 
-class WalletPieTab extends PureComponent<void, Props, State> {
+class WalletPieTab extends PureComponent<Props, State> {
   state = {
     graphHistoryData: data,
     selectedCryptoIndex: 0,

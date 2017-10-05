@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
 /**
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-  children: React.Element<*>,
+  children: React.Node,
   side: 'right' | 'left',
   disabled?: boolean,
   onPress: Function,

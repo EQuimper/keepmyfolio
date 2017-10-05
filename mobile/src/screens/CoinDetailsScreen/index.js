@@ -41,7 +41,7 @@ type State = {
 };
 
 // TODO: Remove this unused component or keep it for passing theme
-class CoinDetailsScreen extends PureComponent<void, Props, State> {
+class CoinDetailsScreen extends PureComponent<Props, State> {
   state = {
     timeSelect: '1d',
   };

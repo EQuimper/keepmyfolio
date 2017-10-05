@@ -16,7 +16,7 @@ type State = {
 
 const ANIMATION_DURATION = 300;
 
-class AnimShape extends Component<void, Props, State> {
+class AnimShape extends Component<Props, State> {
   state = {
     path: '',
   };

@@ -48,7 +48,7 @@ type State = {
   width: number,
 };
 
-class WalletGraph extends Component<void, Props, State> {
+class WalletGraph extends Component<Props, State> {
   state = {
     width: this.props.width,
   };

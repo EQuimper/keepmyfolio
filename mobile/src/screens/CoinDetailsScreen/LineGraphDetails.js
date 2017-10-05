@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 /**
@@ -44,7 +44,7 @@ type State = {
   timeSelect: TimeSelect,
 };
 
-class LineGraphDetails extends Component<void, Props, State> {
+class LineGraphDetails extends PureComponent<Props, State> {
   state = {
     timeSelect: '1d',
   };

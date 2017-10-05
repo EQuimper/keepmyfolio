@@ -56,7 +56,7 @@ type State = {
   refreshing: boolean,
 };
 
-class HomeScreen extends PureComponent<void, Props, State> {
+class HomeScreen extends PureComponent<Props, State> {
   state = {
     refreshing: false,
   };
@@ -81,7 +81,12 @@ class HomeScreen extends PureComponent<void, Props, State> {
     this.setState({ refreshing: false });
   };
 
-  _separator = () => <View style={styles.separator} />
+  _renderSeparator = () => <View style={styles.separator} />
+
+  _keyExtractor = (item) => {
+    invariant(item, 'Item is needed');
+    return item.id;
+  }
 
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
@@ -92,10 +97,10 @@ class HomeScreen extends PureComponent<void, Props, State> {
       >
         <SearchBar theme={this.props.theme} />
         <FlatList
-          ItemSeparatorComponent={this._separator}
+          ItemSeparatorComponent={this._renderSeparator}
           contentContainerStyle={styles.contentContainerList}
           data={edges.map(e => idx(e, _ => _.node))}
-          keyExtractor={item => item.id}
+          keyExtractor={this._keyExtractor}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0.5}
           refreshControl={

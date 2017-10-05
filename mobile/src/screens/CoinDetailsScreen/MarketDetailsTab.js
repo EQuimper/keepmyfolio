@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, ScrollView, View, RefreshControl } from 'react-native';
 import idx from 'idx';
 import { graphql, createRefetchContainer } from 'react-relay';
@@ -52,7 +52,7 @@ type State = {
 };
 
 // TODO: Refactor code
-class MarketDetailsTab extends Component<void, Props, State> {
+class MarketDetailsTab extends PureComponent<Props, State> {
   state = {
     refreshing: false,
   };

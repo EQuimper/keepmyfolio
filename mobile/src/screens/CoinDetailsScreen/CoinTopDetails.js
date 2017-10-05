@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 /**
@@ -42,7 +42,7 @@ type Props = {
   selectTime: (timeSelect: TimeSelect) => void,
 };
 
-class CoinTopDetails extends Component<void, Props, void> {
+class CoinTopDetails extends PureComponent<Props, void> {
   _renderTimeButtons = (title: string) => {
     let isActive: boolean = false;
 

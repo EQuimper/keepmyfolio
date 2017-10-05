@@ -54,7 +54,7 @@ type State = {
   text: string,
 };
 
-class SearchBar extends Component<void, Props, State> {
+class SearchBar extends Component<Props, State> {
   state = {
     isFocused: this.props.isShow,
     isShow: this.props.isShow,

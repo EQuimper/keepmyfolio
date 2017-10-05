@@ -55,7 +55,7 @@ type Props = {
 };
 
 // TODO: FIX SWITCH
-class SettingScreen extends PureComponent<void, Props, void> {
+class SettingScreen extends PureComponent<Props, void> {
   _handleValueChange = () => {
     this.props.toggleTheme();
   };

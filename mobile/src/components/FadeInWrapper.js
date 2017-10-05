@@ -17,7 +17,7 @@ type State = {
   anim: Animated.Value,
 };
 
-class FadeInWrapper extends PureComponent<void, Props, State> {
+class FadeInWrapper extends PureComponent<Props, State> {
   state = {
     anim: new Animated.Value(this.props.enabled ? 0 : 1),
   };

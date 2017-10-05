@@ -80,7 +80,7 @@ type Props = {
 };
 
 // TODO: Add this to react-navigation not just modal
-class ModalCryptocurencie extends PureComponent<void, Props, void> {
+class ModalCryptocurencie extends PureComponent<Props, void> {
   _onCloseButtonPress = () => this.props.onCloseButtonPress();
 
   _onEndReached = () => {
@@ -99,6 +99,13 @@ class ModalCryptocurencie extends PureComponent<void, Props, void> {
       />
     );
   };
+
+  _renderSeparator = () => <View style={styles.separator} />;
+
+  _keyExtractor = (item) => {
+    invariant(item, 'Item is needed');
+    return item.id;
+  }
 
   render() {
     const edges = idx(this.props, _ => _.viewer.cryptos.edges);
@@ -129,10 +136,10 @@ class ModalCryptocurencie extends PureComponent<void, Props, void> {
             </Text>
             <View style={styles.listWrapper}>
               <FlatList
-                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                ItemSeparatorComponent={this._renderSeparator}
                 contentContainerStyle={styles.listContainer}
                 data={edges.map(e => idx(e, _ => _.node))}
-                keyExtractor={item => item.id}
+                keyExtractor={this._keyExtractor}
                 onEndReached={this._onEndReached}
                 renderItem={this._renderItem}
               />
