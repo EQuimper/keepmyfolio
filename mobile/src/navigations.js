@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   addNavigationHelpers,
   StackNavigator,
@@ -291,7 +291,7 @@ type Props = {
   darkTheme: boolean,
 };
 
-class AppNavigator extends Component<Props, void> {
+class AppNavigator extends PureComponent<Props, void> {
   get _getBarStyle(): BarStyleProps {
     if (this.props.darkTheme) {
       return 'light-content';

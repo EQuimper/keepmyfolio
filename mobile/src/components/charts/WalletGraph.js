@@ -2,7 +2,7 @@
 
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native'
 import { Surface, Group } from 'react-native/Libraries/ART/ReactNativeART';
 
@@ -48,7 +48,7 @@ type State = {
   width: number,
 };
 
-class WalletGraph extends Component<Props, State> {
+class WalletGraph extends PureComponent<Props, State> {
   state = {
     width: this.props.width,
   };

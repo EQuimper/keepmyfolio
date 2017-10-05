@@ -4,6 +4,7 @@ exports[`App Reducer #toggleSearchBar() should toggle the searchBar to false if 
 Immutable.Record {
   "darkTheme": true,
   "theme": Object {
+    "black": "#000",
     "cardBackground": "#161C36",
     "darkBlue": "#161C36",
     "darkGray": "#31393C",
@@ -14,6 +15,7 @@ Immutable.Record {
     "primary": "#00C0FF",
     "primaryLight": "rgba(0, 192, 255, 0.15)",
     "red": "#F8333C",
+    "selectionColor": "#00C0FF",
     "tabBarColor": "#192543",
     "textColor": "#ffffff",
     "thumbTintColor": "#ffffff",
@@ -28,6 +30,7 @@ exports[`App Reducer #toggleSearchBar() should toggle the searchBar to true if t
 Immutable.Record {
   "darkTheme": true,
   "theme": Object {
+    "black": "#000",
     "cardBackground": "#161C36",
     "darkBlue": "#161C36",
     "darkGray": "#31393C",
@@ -38,6 +41,7 @@ Immutable.Record {
     "primary": "#00C0FF",
     "primaryLight": "rgba(0, 192, 255, 0.15)",
     "red": "#F8333C",
+    "selectionColor": "#00C0FF",
     "tabBarColor": "#192543",
     "textColor": "#ffffff",
     "thumbTintColor": "#ffffff",
@@ -52,6 +56,7 @@ exports[`App Reducer #toggleTheme() should put darkTheme to false if was true be
 Immutable.Record {
   "darkTheme": false,
   "theme": Object {
+    "black": "#000",
     "cardBackground": "#ffffff",
     "darkBlue": "#161C36",
     "darkGray": "#31393C",
@@ -62,6 +67,7 @@ Immutable.Record {
     "primary": "#00C0FF",
     "primaryLight": "rgba(0, 192, 255, 0.15)",
     "red": "#F8333C",
+    "selectionColor": "#00C0FF",
     "tabBarColor": "#F3F3F3",
     "textColor": "#31393C",
     "thumbTintColor": "#31393C",
@@ -76,6 +82,7 @@ exports[`App Reducer #toggleTheme() should put darkTheme to true if was false be
 Immutable.Record {
   "darkTheme": true,
   "theme": Object {
+    "black": "#000",
     "cardBackground": "#161C36",
     "darkBlue": "#161C36",
     "darkGray": "#31393C",
@@ -86,6 +93,7 @@ Immutable.Record {
     "primary": "#00C0FF",
     "primaryLight": "rgba(0, 192, 255, 0.15)",
     "red": "#F8333C",
+    "selectionColor": "#00C0FF",
     "tabBarColor": "#192543",
     "textColor": "#ffffff",
     "thumbTintColor": "#ffffff",
@@ -100,6 +108,7 @@ exports[`App Reducer Initial State should return the initialState on default 1`]
 Immutable.Record {
   "darkTheme": true,
   "theme": Object {
+    "black": "#000",
     "cardBackground": "#161C36",
     "darkBlue": "#161C36",
     "darkGray": "#31393C",
@@ -110,6 +119,7 @@ Immutable.Record {
     "primary": "#00C0FF",
     "primaryLight": "rgba(0, 192, 255, 0.15)",
     "red": "#F8333C",
+    "selectionColor": "#00C0FF",
     "tabBarColor": "#192543",
     "textColor": "#ffffff",
     "thumbTintColor": "#ffffff",

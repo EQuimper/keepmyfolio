@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -54,7 +54,7 @@ type State = {
   text: string,
 };
 
-class SearchBar extends Component<Props, State> {
+class SearchBar extends PureComponent<Props, State> {
   state = {
     isFocused: this.props.isShow,
     isShow: this.props.isShow,
